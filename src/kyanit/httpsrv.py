@@ -1,0 +1,341 @@
+# Kyanit (Core) - httpsrv module
+# Copyright (C) 2020 Zsolt Nagy
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the
+# GNU General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+
+# This is a minimal HTTP server module.
+
+# NOTES ON HEADERS
+# No headers are taken into account, rather they are passed to callbacks and it's the user's
+# responsibility to do something with them.
+# Connection: close is always added to response headers.
+# Content-type: text/plain is the default content type.
+
+# NOTES ON URLS
+# Only the unreserved characters are allowed in the URL, plus the forward slash and the percent
+# character for percent-encoding, but only the reserved characters and the space are un-encoded
+# after parsing by default.
+# Supported percent-encoded symbols can be extended by means of add_symbol(perc_enc, symbol).
+# More info on URLs and percent-encoding here: https://en.wikipedia.org/wiki/Percent-encoding
+# If the request URL is not all-ASCII, you will get an instant closure of connection with no
+# response. (Behavior observed on ESP8266.)
+
+# NOTES ON URL RESOLVING
+# Callbacks are assigned to regex rules. Only one such regex rule should match for any given URL,
+# otherwise unexpected behavior may occur.
+
+# NOTES ON CONTENT TYPES
+# text/plain, text/html and application/json are available as CT_PLAIN, CT_HTML and CT_JSON.
+# Others can be returned via the callbacks. No check is done on the returned content type.
+
+# NOTES ON RESPONSE STATUSES
+# Only statuses 200 and 500 are supported by default.
+# This can be extended, by means of add_status(num, status_str). Ex.: add_status(204, 'No Content')
+# No checks are done on the added statuses, it's the user's responsibility that they conform to
+# HTTP standards.
+
+# NOTES ON METHODS
+# Only GET, POST, PUT, PATCH, DELETE, and OPTIONS is supported, and HEAD is implemented
+# automatically. For HEAD, the respective callback for GET will be called, response will be sent
+# with the body discarded.
+# GET / is implemented by default returning a 200 OK with an 'OK' in the body as JSON.
+# This of course can be overriden by another callback.
+# OPTIONS is not implemented by default.
+
+# NOTES ON CALLBACKS
+# Callbacks can be registered to methods and URLs. URL space is separate per method, which means
+# that a URL needs to be registered for every method that's supported on that URL.
+
+
+import sys
+import uio
+import ure
+import ujson
+import uerrno
+import socket
+import uasyncio
+
+
+sock = None
+_timeout = 0.5  # seconds
+
+_http_ver = 'HTTP/1.0'
+
+_statuses = {
+    200: 'OK',
+    500: 'Internal Server Error',
+}
+
+_percent_encodings = {
+    '%20': ' ', '%21': '!', '%23': '#', '%24': '$', '%25': '%', '%26': '&', '%27': "'", '%28': '(',
+    '%29': ')', '%2A': '*', '%2B': '+', '%2C': ',', '%2F': '/', '%3A': ':', '%3B': ';', '%3D': '=',
+    '%3F': '?', '%40': '@', '%5B': '[', '%5D': ']'
+}
+
+_callbacks = {
+    'GET': {
+        '^/$': lambda method, loc, params, headers, conn, addr: (200, '"OK"', CT_JSON)
+    }
+}
+
+CT_PLAIN = 'text/plain'
+CT_HTML = 'text/html'
+CT_JSON = 'application/json'
+
+
+class NoMethodError(Exception):
+    pass
+
+
+class NoCallbackError(Exception):
+    pass
+
+
+class URLInvalidError(Exception):
+    pass
+
+
+def init(port):
+    global sock
+
+    if sock is None:
+        sock = socket.socket()
+        sock.bind(
+            socket.getaddrinfo('0.0.0.0', port)[0][-1]
+        )
+        sock.setblocking(False)
+        sock.listen(1)
+
+
+def deinit():
+    global sock
+
+    if sock is not None:
+        sock.close()
+        sock = None
+
+
+def add_status(num, status_str):
+    global _statuses
+
+    if num not in _statuses:
+        _statuses[num] = status_str
+
+
+def add_symbol(perc_enc, symbol):
+    global _percent_encodings
+
+    if perc_enc not in _percent_encodings:
+        _percent_encodings[perc_enc] = symbol
+
+
+def unencode(string):
+    if not string:
+        return string
+    
+    new_str = string
+    for perc_enc in _percent_encodings:
+        new_str = new_str.replace(perc_enc, _percent_encodings[perc_enc])
+    return new_str
+
+
+def set_timeout(timeout):
+    global _timeout
+
+    _timeout = timeout
+
+
+def register(method, location_re, callback):
+    global _callbacks
+
+    if method not in ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']:
+        raise ValueError('method invalid')
+
+    if method in _callbacks:
+        _callbacks[method][location_re] = callback
+    else:
+        _callbacks[method] = {location_re: callback}
+
+
+def deregister(method, location_re):
+    global _callbacks
+
+    del(_callbacks[method][location_re])
+
+
+def get_registered():
+    return _callbacks
+
+
+def response(status, body='', content_type=CT_PLAIN, headers={}):
+    return {
+        'status': status,
+        'body': body,
+        'content_type': content_type,
+        'headers': headers
+    }
+
+
+def readall_from(source, into=None, timeout=None, chunk_size=64):
+    if timeout is not None:
+        if isinstance(source, socket.socket):
+            source.settimeout(timeout)
+        if isinstance(into, socket.socket):
+            into.settimeout(timeout)
+    
+    if into is None:
+        into = uio.BytesIO()
+
+    data = b''
+    while True:
+        try:
+            if isinstance(source, socket.socket):
+                data = source.recv(chunk_size)
+            else:
+                data = source.read(chunk_size)
+            if data:
+                into.write(data)
+            else:
+                break
+        except OSError as exc:
+            if exc.args[0] == uerrno.ETIMEDOUT:
+                if not data:
+                    break  # will break on second timeout event
+                data = b''
+            else:
+                raise exc
+    
+    return into
+
+
+def send_response(conn, status, body='', content_type=CT_PLAIN, headers={}):
+    # discard rest of request
+    conn.settimeout(.5)
+    while True:
+        try:
+            if not conn.recv(64):
+                break
+        except OSError:
+            break
+    
+    response = ('{0} {1} {2}\r\nContent-type: {3}\r\nConnection: close\r\n{4}\r\n{5}'
+                .format(_http_ver,
+                        status,
+                        _statuses[status],
+                        content_type,
+                        '\r\n'.join(['{}: {}'.format(key, headers[key]) for key in headers] + ['']),
+                        body))
+
+    conn.write(response.encode())  # noqa
+
+
+async def processor(conn, addr):
+    request_line = conn.readline().decode()
+
+    header_lines = []
+    while True:
+        header_line = conn.readline()
+        if header_line == b'\r\n':
+            break
+        header_lines.append(header_line.decode())
+
+    match = ure.search(
+        '([A-Z]+) ((\/[{0}]*)+)\??([{0}|\=|\&]+)? HTTP'.format('a-z|A-Z|0-9|\.|\%|\-|\_|\~'),
+        request_line)  # noqa
+    
+    if not match:
+        raise URLInvalidError
+
+    method = match.group(1)
+    location = unencode(match.group(2))
+    
+    # extract query parameters
+    params_str = match.group(4)
+
+    if params_str:
+        params = {unencode(key): unencode(value) for (key, value) in
+                  [(param.split('=')[0], param.split('=')[1]) if '=' in param else (param, None)
+                  for param in params_str.split('&')]}
+    else:
+        params = {}
+    
+    # extract headers
+    if header_lines:
+        headers = {key: value for (key, value) in
+                   [(line.split(':')[0].strip(), line.split(':')[1].strip())
+                    for line in header_lines]}
+    else:
+        headers = {}
+    
+    get_head = False
+    if method == 'HEAD':
+        method = 'GET'
+        get_head = True
+    
+    if method in _callbacks:
+        for location_re in _callbacks[method]:
+            if ure.search(location_re, location) is not None:
+                resp = _callbacks[method][location_re](
+                    method, location, params, headers, conn, addr)
+                if get_head:
+                    resp['body'] = ''
+                if resp is not None:
+                    send_response(conn, **resp)
+                return
+        raise NoCallbackError
+    
+    else:
+        raise NoMethodError
+
+
+def error_view(exc):
+    exc_details = uio.StringIO()
+    sys.print_exception(exc, exc_details)
+
+    if isinstance(exc, OSError):
+        exc_msg = uerrno.errorcode[exc.args[0]] \
+                  if len(exc.args) > 0 and exc.args[0] in uerrno.errorcode else ''  # noqa
+    else:
+        exc_msg = exc.args[0] if len(exc.args) > 0 else ''
+    
+    return response(500, ujson.dumps(
+        {
+            'error': '{}: {}'.format(exc.__class__.__name__, exc_msg),
+            'traceback': [line.strip() for line in exc_details.getvalue().split('\n')
+                          if line and 'Traceback' not in line
+                          and exc.__class__.__name__ not in line]  # noqa
+        }), CT_JSON)
+
+
+async def catch_requests():
+    global sock
+
+    while True:
+        try:
+            conn, addr = sock.accept()
+        
+        except OSError:
+            # no incomming connections
+            await uasyncio.sleep(0)
+        
+        else:
+            conn.settimeout(_timeout)
+            try:
+                await processor(conn, addr)
+            
+            except Exception as exc:
+                resp = error_view(exc)
+                if resp is not None:
+                    send_response(conn, **resp)
+                else:
+                    send_response(conn, 500)
+            
+            conn.close()
