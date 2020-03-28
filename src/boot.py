@@ -28,11 +28,14 @@ else:
         print('KYANIT Killed. Start again with kyanit.run()')
     except kyanit.ResetError:
         # land here on reset
+        print('KYANIT: Soft Reset!')
         machine.soft_reset()
     except kyanit.RebootError:
         # land here on reboot
+        print('KYANIT: Reboot!')
         machine.reset()
     except Exception as exc:
         # we should never end up here
+        print('KYANIT: Unhandled Exception!')
         kyanit.runner.stop()
         raise exc
