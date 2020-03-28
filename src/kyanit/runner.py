@@ -75,6 +75,10 @@ def start():
             return
 
 
+async def starter_coro():
+    start()
+
+
 def stop(force=False, exc=None):
     global _state
 
@@ -94,13 +98,15 @@ def stop(force=False, exc=None):
                 _handle_error(exc, False)
 
 
+async def stopper_coro():
+    stop()
+
+
 def create_task(name, coro, *args):
     if str(name) not in _tasks:
-        _tasks[name] = _task_wrapper_coro(coro, *args)
         try:
-            _loop.create_task(_tasks[name])
+            _tasks[name] = _loop.create_task(_task_wrapper_coro(coro, *args))
         except Exception as exc:
-            del(_tasks[name])
             _handle_error(exc, True)
         else:
             return True
@@ -111,9 +117,9 @@ def create_task(name, coro, *args):
 def destroy_task(name):
     if str(name) in _tasks:
         try:
-            cancel(_tasks[name])
-        except ValueError:
-            # generator already executing
+            _tasks[name].cancel()
+        except RuntimeError:
+            # coroutine is executing (cannot cancel self)
             pass
         del(_tasks[name])
         return True
