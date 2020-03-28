@@ -51,8 +51,10 @@ https://learn.sparkfun.com/tutorials/ws2812-breakout-hookup-guide/all
 NOTE: It is possible to use the core module without flashing it into the firmware, but substantially
 less RAM will be available (~5k versus ~20k).
 
-To flash a released version, see the *Flashing a Released version* section further below.
-Alternatively you can build the current development version (see *Building from Source (Linux)*).
+To flash a released version, see the
+[*Flashing a Released version of Kyanit*](#flashing-a-released-version-of-kyanit) section further
+below. Alternatively you can build the current development version, in that case, see
+[*Building from Source (Linux)*](#building-from-source-linux).
 
 The first time you power up the board, it will set up an AP with an SSID starging with `Kyanit` and
 ending with a 4-digit hex number derived from the flash ID. (NOTE: It is not intended to be globally
@@ -250,10 +252,10 @@ There is a `code.py`, that was imported, but there's no `main` function to call.
 
 `code.py` was imported, and `main` was called. This is what can be considred a "running" state.
 
-* **`IDLE`**
+* **`STOPPED`**
 
-The code was stopped either from within the code itself, or by outside means, like with Kyanit CTL's
-`-stop` option. The code can be restarted with Kyanit CTL, using the `-start` option.
+The code was stopped either from within the code itself, or by outside means, ex. with Kyanit CTL's
+`-stop` option. The code may be restarted with Kyanit CTL, using the `-start` option.
 
 * **`ERROR ExceptionName`**
 
