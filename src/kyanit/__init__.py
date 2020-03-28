@@ -14,7 +14,6 @@
 import gc
 import uos
 import ure
-import esp
 import ujson
 import network
 import machine
@@ -83,15 +82,15 @@ def get_color_id():
 
 
 def get_fallback_ap_settings():
-    # generate unique name for AP SSID derived from the flash_id
-    flash_id = ubinascii.hexlify((esp.flash_id() % 65536).to_bytes(4, 'little')).decode()
+    # generate unique name for AP SSID
+    flash_id = ubinascii.hexlify(machine.unique_id()).upper().decode()
     return {
         'ssid': 'Kyanit {}'.format(flash_id[:4]),
         'password': 'myKyanit'
     }
 
 
-def kyanit_controls(active_colors=((0, 250, 200), ) * 3, idle_colors=((250, 50, 0), ) * 3):
+def controls(active_colors=((0, 250, 200), ) * 3, idle_colors=((250, 50, 0), ) * 3):
     from . import neoleds
     from . import button
 
@@ -114,7 +113,7 @@ def kyanit_controls(active_colors=((0, 250, 200), ) * 3, idle_colors=((250, 50, 
                 front_leds.display(active_colors, neoleds.Animations.breathe, anim_speed=10)
             elif args[0] is StoppedError:
                 front_leds.display(idle_colors, neoleds.Animations.breathe, anim_speed=5)
-            elif args[0] is not RebootError or args[0] is not ResetError:
+            elif args[0] is not RebootError and args[0] is not ResetError:
                 front_leds.display(idle_colors, neoleds.Animations.attention, anim_speed=10)
             func(*args)
         return wrapper
@@ -134,7 +133,7 @@ def run():
                              authmode=network.AUTH_WPA_WPA2_PSK)
     
     async def front_leds_blink(neop, color):
-        # used when fallback AP is active
+        # when fallback AP is active
         trigger = True
         while True:
             for i in range(3):
@@ -313,5 +312,5 @@ def run():
     # do not start automatically on fallback
     if not fallback_ap_mode:
         loop.create_task(check_wlan_connection())
-        loop.call_soon(runner.start)
+        loop.create_task(runner.starter_coro())
     loop.run_forever()
