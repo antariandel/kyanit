@@ -482,7 +482,7 @@ LEDS_PIN = 4
 BUTTON_PIN = 14
 
 
-__version__ = '0.1.0'
+__version__ = '1.0.0'
 _color_id = None
 
 
