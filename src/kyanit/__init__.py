@@ -436,10 +436,10 @@ control your board from Python code, check out Kyanit API at https://kyanit.eu/d
 
 # Flashing a Released version of Kyanit Core
 
-Download the latest version from releases, then refer to MicroPython documentation on flashing
-firmware onto an ESP8266 here: https://docs.micropython.org/en/latest/esp8266/tutorial/intro.html
-
-The Kyanit Core releases can be found here: https://github.com/kyanit-project/kyanit/releases
+Download the latest `kyanit-core-<version>.bin` from
+https://github.com/kyanit-project/kyanit/releases/latest, then refer to MicroPython documentation
+on flashing firmware onto an ESP8266 here:
+https://docs.micropython.org/en/latest/esp8266/tutorial/intro.html
 
 # Building Kyanit Core from Source (Linux)
 
