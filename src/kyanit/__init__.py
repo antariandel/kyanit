@@ -88,6 +88,15 @@ def get_fallback_ap_settings():
         'ssid': 'Kyanit {}'.format(flash_id[:4]),
         'password': 'myKyanit'
     }
+_controls_kyanit_leds = None
+_controls_kyanit_button = None
+
+
+def controls(kyanit_leds=None,
+             kyanit_button=None,
+             active_colors=((0, 50, 250), ) * 3,
+             idle_colors=((250, 50, 0), ) * 3,
+             brightness=1):
 
 
 def controls(active_colors=((0, 250, 200), ) * 3, idle_colors=((250, 50, 0), ) * 3):
@@ -97,24 +106,45 @@ def controls(active_colors=((0, 250, 200), ) * 3, idle_colors=((250, 50, 0), ) *
     front_leds = neoleds.NeoLeds(pin_number=LEDS_PIN, num_leds=3)
     front_button = button.Button(pin_number=BUTTON_PIN, invert=True)
 
+    brightness = sorted((0, brightness, 1))[1]
+
+    if kyanit_leds is None:
+        from . import neoleds
+        global _controls_kyanit_leds
+        if _controls_kyanit_leds is None:
+            _controls_kyanit_leds = neoleds.NeoLeds(LEDS_PIN, 3)
+        kyanit_leds = _controls_kyanit_leds
+    if kyanit_button is None:
+        from . import button
+        global _controls_kyanit_button
+        if _controls_kyanit_button is None:
+            _controls_kyanit_button = button.Button(BUTTON_PIN)
+        kyanit_button = _controls_kyanit_button
+
+    brightness = sorted([0, brightness, 1])[1]
+
     async def show_id_on_leds():
         while True:
-            if front_button.check() == 'click':
-                front_leds.display(utils.id_to_colors(get_color_id()), time=10)
+            if kyanit_button.check() == 'click':
+                kyanit_leds.display(colorid.to_colors(get_color_id()), time=10)
             await runner.sleep_ms(100)
     
     def decorator(func):
         # wrapper for code.main and code.cleanup
         def wrapper(*args):
-            runner.create_task('neoleds', front_leds.display_task)
-            runner.create_task('button', front_button.checker_task)
+            from .neoleds import Animations
+            runner.create_task('neoleds', kyanit_leds.refresh_leds)
+            runner.create_task('button', kyanit_button.monitor)
             runner.create_task('show_id', show_id_on_leds)
             if not args:
-                front_leds.display(active_colors, neoleds.Animations.breathe, anim_speed=10)
+                kyanit_leds.display(active_colors, Animations.breathe,
+                                    anim_speed=10, brightness=brightness)
             elif args[0] is StoppedError:
-                front_leds.display(idle_colors, neoleds.Animations.breathe, anim_speed=5)
-            elif args[0] is not RebootError and args[0] is not ResetError:
-                front_leds.display(idle_colors, neoleds.Animations.attention, anim_speed=10)
+                kyanit_leds.display(idle_colors, Animations.breathe,
+                                    anim_speed=5, brightness=brightness)
+            elif args[0] is not RebootError:  # and args[0] is not ResetError:
+                kyanit_leds.display(active_colors, Animations.attention,
+                                    anim_speed=10, brightness=brightness)
             func(*args)
         return wrapper
     return decorator
