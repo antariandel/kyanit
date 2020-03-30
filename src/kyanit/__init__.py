@@ -282,33 +282,33 @@ def run():
             return httpsrv.response(200, ujson.dumps(Netvar.outbound()), 'application/json')
 
     # Set up HTTP server on port 3300
-    httpsrv.init(3300)
+    http_server = httpsrv.HTTPServer(3300)
     httpsrv.add_status(404, 'Not Found')
 
     # File actions
-    httpsrv.register('GET', '^/files$', action_file_list)
-    httpsrv.register('GET', '^/files/$', action_file_list)
-    httpsrv.register('GET', '^/files/.*', action_files)
-    httpsrv.register('PUT', '^/files/.*', action_files)
-    httpsrv.register('DELETE', '^/files/.*', action_files)
+    http_server.register('GET', '^/files$', action_file_list)
+    http_server.register('GET', '^/files/$', action_file_list)
+    http_server.register('GET', '^/files/.*', action_files)
+    http_server.register('PUT', '^/files/.*', action_files)
+    http_server.register('DELETE', '^/files/.*', action_files)
 
     # System actions
-    httpsrv.register('GET', '^/sys/state$', action_state)
-    httpsrv.register('POST', '^/sys/reboot$', action_reboot)
-    httpsrv.register('POST', '^/sys/reboot/soft$', action_reboot)
+    http_server.register('GET', '^/sys/state$', action_state)
+    http_server.register('POST', '^/sys/reboot$', action_reboot)
+    http_server.register('POST', '^/sys/reboot/soft$', action_reboot)
 
     # Runner actions
-    httpsrv.register('POST', '^/sys/start$', action_runner_start)
-    httpsrv.register('POST', '^/sys/stop$', action_runner_stop)
-    httpsrv.register('POST', '^/sys/stop/force$', action_runner_stop)
+    http_server.register('POST', '^/sys/start$', action_runner_start)
+    http_server.register('POST', '^/sys/stop$', action_runner_stop)
+    http_server.register('POST', '^/sys/stop/force$', action_runner_stop)
 
     # Netvar actions
-    httpsrv.register('GET', '^/netvar$', action_netvar)
-    httpsrv.register('POST', '^/netvar$', action_netvar)
+    http_server.register('GET', '^/netvar$', action_netvar)
+    http_server.register('POST', '^/netvar$', action_netvar)
 
     # Run
     loop = runner.get_event_loop()
-    loop.create_task(httpsrv.catch_requests())
+    loop.create_task(http_server.catch_requests())
     # do not start automatically on fallback
     if not fallback_ap_mode:
         loop.create_task(check_wlan_connection())

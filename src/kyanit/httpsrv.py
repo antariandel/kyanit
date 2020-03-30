@@ -64,9 +64,6 @@ import socket
 import uasyncio
 
 
-sock = None
-_timeout = 0.5  # seconds
-
 _http_ver = 'HTTP/1.0'
 
 _statuses = {
@@ -80,47 +77,9 @@ _percent_encodings = {
     '%3F': '?', '%40': '@', '%5B': '[', '%5D': ']'
 }
 
-_callbacks = {
-    'GET': {
-        '^/$': lambda method, loc, params, headers, conn, addr: (200, '"OK"', CT_JSON)
-    }
-}
-
 CT_PLAIN = 'text/plain'
 CT_HTML = 'text/html'
 CT_JSON = 'application/json'
-
-
-class NoMethodError(Exception):
-    pass
-
-
-class NoCallbackError(Exception):
-    pass
-
-
-class URLInvalidError(Exception):
-    pass
-
-
-def init(port):
-    global sock
-
-    if sock is None:
-        sock = socket.socket()
-        sock.bind(
-            socket.getaddrinfo('0.0.0.0', port)[0][-1]
-        )
-        sock.setblocking(False)
-        sock.listen(1)
-
-
-def deinit():
-    global sock
-
-    if sock is not None:
-        sock.close()
-        sock = None
 
 
 def add_status(num, status_str):
@@ -145,34 +104,6 @@ def unencode(string):
     for perc_enc in _percent_encodings:
         new_str = new_str.replace(perc_enc, _percent_encodings[perc_enc])
     return new_str
-
-
-def set_timeout(timeout):
-    global _timeout
-
-    _timeout = timeout
-
-
-def register(method, location_re, callback):
-    global _callbacks
-
-    if method not in ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']:
-        raise ValueError('method invalid')
-
-    if method in _callbacks:
-        _callbacks[method][location_re] = callback
-    else:
-        _callbacks[method] = {location_re: callback}
-
-
-def deregister(method, location_re):
-    global _callbacks
-
-    del(_callbacks[method][location_re])
-
-
-def get_registered():
-    return _callbacks
 
 
 def response(status, body='', content_type=CT_PLAIN, headers={}):
@@ -237,65 +168,6 @@ def send_response(conn, status, body='', content_type=CT_PLAIN, headers={}):
     conn.write(response.encode())  # noqa
 
 
-async def processor(conn, addr):
-    request_line = conn.readline().decode()
-
-    header_lines = []
-    while True:
-        header_line = conn.readline()
-        if header_line == b'\r\n':
-            break
-        header_lines.append(header_line.decode())
-
-    match = ure.search(
-        '([A-Z]+) ((\/[{0}]*)+)\??([{0}|\=|\&]+)? HTTP'.format('a-z|A-Z|0-9|\.|\%|\-|\_|\~'),
-        request_line)  # noqa
-    
-    if not match:
-        raise URLInvalidError
-
-    method = match.group(1)
-    location = unencode(match.group(2))
-    
-    # extract query parameters
-    params_str = match.group(4)
-
-    if params_str:
-        params = {unencode(key): unencode(value) for (key, value) in
-                  [(param.split('=')[0], param.split('=')[1]) if '=' in param else (param, None)
-                  for param in params_str.split('&')]}
-    else:
-        params = {}
-    
-    # extract headers
-    if header_lines:
-        headers = {key: value for (key, value) in
-                   [(line.split(':')[0].strip(), line.split(':')[1].strip())
-                    for line in header_lines]}
-    else:
-        headers = {}
-    
-    get_head = False
-    if method == 'HEAD':
-        method = 'GET'
-        get_head = True
-    
-    if method in _callbacks:
-        for location_re in _callbacks[method]:
-            if ure.search(location_re, location) is not None:
-                resp = _callbacks[method][location_re](
-                    method, location, params, headers, conn, addr)
-                if get_head:
-                    resp['body'] = ''
-                if resp is not None:
-                    send_response(conn, **resp)
-                return
-        raise NoCallbackError
-    
-    else:
-        raise NoMethodError
-
-
 def error_view(exc):
     exc_details = uio.StringIO()
     sys.print_exception(exc, exc_details)
@@ -315,27 +187,124 @@ def error_view(exc):
         }), CT_JSON)
 
 
-async def catch_requests():
-    global sock
+class NoMethodError(Exception):
+    pass
 
-    while True:
-        try:
-            conn, addr = sock.accept()
+
+class NoCallbackError(Exception):
+    pass
+
+
+class URLInvalidError(Exception):
+    pass
+
+
+class HTTPServer:
+    def __init__(self, port):
+        self._sock = socket.socket()
+        self._sock.bind(socket.getaddrinfo('0.0.0.0', port)[0][-1])
+        self._sock.setblocking(False)
+        self._sock.listen(1)
+        self._timeout = 1  # seconds
+        self._callbacks = {
+            'GET': {
+                '^/$': lambda method, loc, params, headers, conn, addr: (200, '"OK"', CT_JSON)
+            }
+        }
+
+    def set_timeout(self, timeout):
+        self._timeout = timeout
+
+    def register(self, method, location_re, callback):
+        if method not in ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']:
+            raise ValueError('method invalid')
+
+        if method in self._callbacks:
+            self._callbacks[method][location_re] = callback
+        else:
+            self._callbacks[method] = {location_re: callback}
+
+    def deregister(self, method, location_re):
+        del(self._callbacks[method][location_re])
+
+    def get_registered(self):
+        return self._callbacks
+
+    async def processor(self, conn, addr):
+        request_line = conn.readline().decode()
+
+        header_lines = []
+        while True:
+            header_line = conn.readline()
+            if header_line == b'\r\n':
+                break
+            header_lines.append(header_line.decode())
+
+        match = ure.search(
+            '([A-Z]+) ((\/[{0}]*)+)\??([{0}|\=|\&]+)? HTTP'.format('a-z|A-Z|0-9|\.|\%|\-|\_|\~'),
+            request_line)  # noqa
         
-        except OSError:
-            # no incomming connections
-            await uasyncio.sleep(0)
+        if not match:
+            raise URLInvalidError
+
+        method = match.group(1)
+        location = unencode(match.group(2))
+        
+        # extract query parameters
+        params_str = match.group(4)
+
+        if params_str:
+            params = {unencode(key): unencode(value) for (key, value) in
+                      [(param.split('=')[0], param.split('=')[1]) if '=' in param else (param, None)
+                      for param in params_str.split('&')]}
+        else:
+            params = {}
+        
+        # extract headers
+        if header_lines:
+            headers = {key: value for (key, value) in
+                       [(line.split(':')[0].strip(), line.split(':')[1].strip())
+                        for line in header_lines]}
+        else:
+            headers = {}
+        
+        get_head = False
+        if method == 'HEAD':
+            method = 'GET'
+            get_head = True
+        
+        if method in self._callbacks:
+            for location_re in self._callbacks[method]:
+                if ure.search(location_re, location) is not None:
+                    resp = self._callbacks[method][location_re](
+                        method, location, params, headers, conn, addr)
+                    if get_head:
+                        resp['body'] = ''
+                    if resp is not None:
+                        send_response(conn, **resp)
+                    return
+            raise NoCallbackError
         
         else:
-            conn.settimeout(_timeout)
+            raise NoMethodError
+
+    async def catch_requests(self):
+        while True:
             try:
-                await processor(conn, addr)
+                conn, addr = self._sock.accept()
             
-            except Exception as exc:
-                resp = error_view(exc)
-                if resp is not None:
-                    send_response(conn, **resp)
-                else:
-                    send_response(conn, 500)
+            except OSError:
+                # no incomming connections
+                await uasyncio.sleep(0)
             
-            conn.close()
+            else:
+                conn.settimeout(self._timeout)
+                try:
+                    await self.processor(conn, addr)
+                except Exception as exc:
+                    resp = error_view(exc)
+                    if resp is not None:
+                        send_response(conn, **resp)
+                    else:
+                        send_response(conn, 500)
+                conn.close()
