@@ -54,6 +54,35 @@
 # Callbacks can be registered to methods and URLs. URL space is separate per method, which means
 # that a URL needs to be registered for every method that's supported on that URL.
 
+"""
+# `kyanit.httpsrv` module
+
+This module is a minimal HTTP server implementation.
+
+Here's a simple example in `code.py`, which renders a page on the URL `<Kyanit IP>/page` (where
+<Kyanit IP> is the IP address of the Kyanit board):
+
+```python
+import kyanit
+from kyanit import runner
+from kyanit import httpsrv
+
+def render_page(method, loc, params, headers, conn, addr):
+    return httpsrv.response(200, 'Hello from Kyanit!')
+
+@kyanit.controls()
+def main():
+    http_server = httpsrv.HTTPServer(80)
+    http_server.register('GET', '^/page$', render_page)
+    runner.create_task('httpsrv', http_server.catch_requests)
+
+@kyanit.controls(brightness=0.1)
+def cleanup(exception):
+    pass
+```
+
+See the `HTTPServer` class and module function documentations for details on usage.
+"""
 
 import sys
 import uio

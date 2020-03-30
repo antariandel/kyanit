@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.5" />
+<title>Kyanit Core Documentation</title>
+<meta name="description" content="`kyanit.httpsrv` module …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<style>
+/* Hide "Module kyanit" title */
+h1.title {
+display: none;
+}
+</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>kyanit.httpsrv</code></h1>
+</header>
+<section id="section-intro">
+<h1 id="kyanithttpsrv-module"><a title="kyanit.httpsrv" href="#kyanit.httpsrv"><code>kyanit.httpsrv</code></a> module</h1>
+<p>This module is a minimal HTTP server implementation.</p>
+<p>Here's a simple example in <code>code.py</code>, which renders a page on the URL <code>&lt;Kyanit IP&gt;/page</code> (where
+<Kyanit IP> is the IP address of the Kyanit board):</p>
+<pre><code class="python">import kyanit
+from kyanit import runner
+from kyanit import httpsrv
+
+def render_page(method, loc, params, headers, conn, addr):
+    return httpsrv.response(200, 'Hello from Kyanit!')
+
+@kyanit.controls()
+def main():
+    http_server = httpsrv.HTTPServer(80)
+    http_server.register('GET', '^/page$', render_page)
+    runner.create_task('httpsrv', http_server.catch_requests)
+
+@kyanit.controls(brightness=0.1)
+def cleanup(exception):
+    pass
+</code></pre>
+<p>See the <a title="kyanit.httpsrv.HTTPServer" href="#kyanit.httpsrv.HTTPServer"><code>HTTPServer</code></a> class and module function documentations for details on usage.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># Kyanit (Core) - httpsrv module
+# Copyright (C) 2020 Zsolt Nagy
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the
+# GNU General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see &lt;https://www.gnu.org/licenses/&gt;.
+
+
+# This is a minimal HTTP server module.
+
+# NOTES ON HEADERS
+# No headers are taken into account, rather they are passed to callbacks and it&#39;s the user&#39;s
+# responsibility to do something with them.
+# Connection: close is always added to response headers.
+# Content-type: text/plain is the default content type.
+
+# NOTES ON URLS
+# Only the unreserved characters are allowed in the URL, plus the forward slash and the percent
+# character for percent-encoding, but only the reserved characters and the space are un-encoded
+# after parsing by default.
+# Supported percent-encoded symbols can be extended by means of add_symbol(perc_enc, symbol).
+# More info on URLs and percent-encoding here: https://en.wikipedia.org/wiki/Percent-encoding
+# If the request URL is not all-ASCII, you will get an instant closure of connection with no
+# response. (Behavior observed on ESP8266.)
+
+# NOTES ON URL RESOLVING
+# Callbacks are assigned to regex rules. Only one such regex rule should match for any given URL,
+# otherwise unexpected behavior may occur.
+
+# NOTES ON CONTENT TYPES
+# text/plain, text/html and application/json are available as CT_PLAIN, CT_HTML and CT_JSON.
+# Others can be returned via the callbacks. No check is done on the returned content type.
+
+# NOTES ON RESPONSE STATUSES
+# Only statuses 200 and 500 are supported by default.
+# This can be extended, by means of add_status(num, status_str). Ex.: add_status(204, &#39;No Content&#39;)
+# No checks are done on the added statuses, it&#39;s the user&#39;s responsibility that they conform to
+# HTTP standards.
+
+# NOTES ON METHODS
+# Only GET, POST, PUT, PATCH, DELETE, and OPTIONS is supported, and HEAD is implemented
+# automatically. For HEAD, the respective callback for GET will be called, response will be sent
+# with the body discarded.
+# GET / is implemented by default returning a 200 OK with an &#39;OK&#39; in the body as JSON.
+# This of course can be overriden by another callback.
+# OPTIONS is not implemented by default.
+
+# NOTES ON CALLBACKS
+# Callbacks can be registered to methods and URLs. URL space is separate per method, which means
+# that a URL needs to be registered for every method that&#39;s supported on that URL.
+
+&#34;&#34;&#34;
+# `kyanit.httpsrv` module
+
+This module is a minimal HTTP server implementation.
+
+Here&#39;s a simple example in `code.py`, which renders a page on the URL `&lt;Kyanit IP&gt;/page` (where
+&lt;Kyanit IP&gt; is the IP address of the Kyanit board):
+
+```python
+import kyanit
+from kyanit import runner
+from kyanit import httpsrv
+
+def render_page(method, loc, params, headers, conn, addr):
+    return httpsrv.response(200, &#39;Hello from Kyanit!&#39;)
+
+@kyanit.controls()
+def main():
+    http_server = httpsrv.HTTPServer(80)
+    http_server.register(&#39;GET&#39;, &#39;^/page$&#39;, render_page)
+    runner.create_task(&#39;httpsrv&#39;, http_server.catch_requests)
+
+@kyanit.controls(brightness=0.1)
+def cleanup(exception):
+    pass
+```
+
+See the `HTTPServer` class and module function documentations for details on usage.
+&#34;&#34;&#34;
+
+import sys
+import uio
+import ure
+import ujson
+import uerrno
+import socket
+import uasyncio
+
+
+_http_ver = &#39;HTTP/1.0&#39;
+
+_statuses = {
+    200: &#39;OK&#39;,
+    500: &#39;Internal Server Error&#39;,
+}
+
+_percent_encodings = {
+    &#39;%20&#39;: &#39; &#39;, &#39;%21&#39;: &#39;!&#39;, &#39;%23&#39;: &#39;#&#39;, &#39;%24&#39;: &#39;$&#39;, &#39;%25&#39;: &#39;%&#39;, &#39;%26&#39;: &#39;&amp;&#39;, &#39;%27&#39;: &#34;&#39;&#34;, &#39;%28&#39;: &#39;(&#39;,
+    &#39;%29&#39;: &#39;)&#39;, &#39;%2A&#39;: &#39;*&#39;, &#39;%2B&#39;: &#39;+&#39;, &#39;%2C&#39;: &#39;,&#39;, &#39;%2F&#39;: &#39;/&#39;, &#39;%3A&#39;: &#39;:&#39;, &#39;%3B&#39;: &#39;;&#39;, &#39;%3D&#39;: &#39;=&#39;,
+    &#39;%3F&#39;: &#39;?&#39;, &#39;%40&#39;: &#39;@&#39;, &#39;%5B&#39;: &#39;[&#39;, &#39;%5D&#39;: &#39;]&#39;
+}
+
+CT_PLAIN = &#39;text/plain&#39;
+CT_HTML = &#39;text/html&#39;
+CT_JSON = &#39;application/json&#39;
+
+
+def add_status(num, status_str):
+    global _statuses
+
+    if num not in _statuses:
+        _statuses[num] = status_str
+
+
+def add_symbol(perc_enc, symbol):
+    global _percent_encodings
+
+    if perc_enc not in _percent_encodings:
+        _percent_encodings[perc_enc] = symbol
+
+
+def unencode(string):
+    if not string:
+        return string
+    
+    new_str = string
+    for perc_enc in _percent_encodings:
+        new_str = new_str.replace(perc_enc, _percent_encodings[perc_enc])
+    return new_str
+
+
+def response(status, body=&#39;&#39;, content_type=CT_PLAIN, headers={}):
+    return {
+        &#39;status&#39;: status,
+        &#39;body&#39;: body,
+        &#39;content_type&#39;: content_type,
+        &#39;headers&#39;: headers
+    }
+
+
+def readall_from(source, into=None, timeout=None, chunk_size=64):
+    if timeout is not None:
+        if isinstance(source, socket.socket):
+            source.settimeout(timeout)
+        if isinstance(into, socket.socket):
+            into.settimeout(timeout)
+    
+    if into is None:
+        into = uio.BytesIO()
+
+    data = b&#39;&#39;
+    while True:
+        try:
+            if isinstance(source, socket.socket):
+                data = source.recv(chunk_size)
+            else:
+                data = source.read(chunk_size)
+            if data:
+                into.write(data)
+            else:
+                break
+        except OSError as exc:
+            if exc.args[0] == uerrno.ETIMEDOUT:
+                if not data:
+                    break  # will break on second timeout event
+                data = b&#39;&#39;
+            else:
+                raise exc
+    
+    return into
+
+
+def send_response(conn, status, body=&#39;&#39;, content_type=CT_PLAIN, headers={}):
+    # discard rest of request
+    conn.settimeout(.5)
+    while True:
+        try:
+            if not conn.recv(64):
+                break
+        except OSError:
+            break
+    
+    response = (&#39;{0} {1} {2}\r\nContent-type: {3}\r\nConnection: close\r\n{4}\r\n{5}&#39;
+                .format(_http_ver,
+                        status,
+                        _statuses[status],
+                        content_type,
+                        &#39;\r\n&#39;.join([&#39;{}: {}&#39;.format(key, headers[key]) for key in headers] + [&#39;&#39;]),
+                        body))
+
+    conn.write(response.encode())  # noqa
+
+
+def error_view(exc):
+    exc_details = uio.StringIO()
+    sys.print_exception(exc, exc_details)
+
+    if isinstance(exc, OSError):
+        exc_msg = uerrno.errorcode[exc.args[0]] \
+                  if len(exc.args) &gt; 0 and exc.args[0] in uerrno.errorcode else &#39;&#39;  # noqa
+    else:
+        exc_msg = exc.args[0] if len(exc.args) &gt; 0 else &#39;&#39;
+    
+    return response(500, ujson.dumps(
+        {
+            &#39;error&#39;: &#39;{}: {}&#39;.format(exc.__class__.__name__, exc_msg),
+            &#39;traceback&#39;: [line.strip() for line in exc_details.getvalue().split(&#39;\n&#39;)
+                          if line and &#39;Traceback&#39; not in line
+                          and exc.__class__.__name__ not in line]  # noqa
+        }), CT_JSON)
+
+
+class NoMethodError(Exception):
+    pass
+
+
+class NoCallbackError(Exception):
+    pass
+
+
+class URLInvalidError(Exception):
+    pass
+
+
+class HTTPServer:
+    def __init__(self, port):
+        self._sock = socket.socket()
+        self._sock.bind(socket.getaddrinfo(&#39;0.0.0.0&#39;, port)[0][-1])
+        self._sock.setblocking(False)
+        self._sock.listen(1)
+        self._timeout = 1  # seconds
+        self._callbacks = {
+            &#39;GET&#39;: {
+                &#39;^/$&#39;: lambda method, loc, params, headers, conn, addr: (200, &#39;&#34;OK&#34;&#39;, CT_JSON)
+            }
+        }
+
+    def set_timeout(self, timeout):
+        self._timeout = timeout
+
+    def register(self, method, location_re, callback):
+        if method not in [&#39;GET&#39;, &#39;POST&#39;, &#39;PUT&#39;, &#39;PATCH&#39;, &#39;DELETE&#39;, &#39;OPTIONS&#39;]:
+            raise ValueError(&#39;method invalid&#39;)
+
+        if method in self._callbacks:
+            self._callbacks[method][location_re] = callback
+        else:
+            self._callbacks[method] = {location_re: callback}
+
+    def deregister(self, method, location_re):
+        del(self._callbacks[method][location_re])
+
+    def get_registered(self):
+        return self._callbacks
+
+    async def processor(self, conn, addr):
+        request_line = conn.readline().decode()
+
+        header_lines = []
+        while True:
+            header_line = conn.readline()
+            if header_line == b&#39;\r\n&#39;:
+                break
+            header_lines.append(header_line.decode())
+
+        match = ure.search(
+            &#39;([A-Z]+) ((\/[{0}]*)+)\??([{0}|\=|\&amp;]+)? HTTP&#39;.format(&#39;a-z|A-Z|0-9|\.|\%|\-|\_|\~&#39;),
+            request_line)  # noqa
+        
+        if not match:
+            raise URLInvalidError
+
+        method = match.group(1)
+        location = unencode(match.group(2))
+        
+        # extract query parameters
+        params_str = match.group(4)
+
+        if params_str:
+            params = {unencode(key): unencode(value) for (key, value) in
+                      [(param.split(&#39;=&#39;)[0], param.split(&#39;=&#39;)[1]) if &#39;=&#39; in param else (param, None)
+                      for param in params_str.split(&#39;&amp;&#39;)]}
+        else:
+            params = {}
+        
+        # extract headers
+        if header_lines:
+            headers = {key: value for (key, value) in
+                       [(line.split(&#39;:&#39;)[0].strip(), line.split(&#39;:&#39;)[1].strip())
+                        for line in header_lines]}
+        else:
+            headers = {}
+        
+        get_head = False
+        if method == &#39;HEAD&#39;:
+            method = &#39;GET&#39;
+            get_head = True
+        
+        if method in self._callbacks:
+            for location_re in self._callbacks[method]:
+                if ure.search(location_re, location) is not None:
+                    resp = self._callbacks[method][location_re](
+                        method, location, params, headers, conn, addr)
+                    if get_head:
+                        resp[&#39;body&#39;] = &#39;&#39;
+                    if resp is not None:
+                        send_response(conn, **resp)
+                    return
+            raise NoCallbackError
+        
+        else:
+            raise NoMethodError
+
+    async def catch_requests(self):
+        while True:
+            try:
+                conn, addr = self._sock.accept()
+            
+            except OSError:
+                # no incomming connections
+                await uasyncio.sleep(0)
+            
+            else:
+                conn.settimeout(self._timeout)
+                try:
+                    await self.processor(conn, addr)
+                except Exception as exc:
+                    resp = error_view(exc)
+                    if resp is not None:
+                        send_response(conn, **resp)
+                    else:
+                        send_response(conn, 500)
+                conn.close()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="kyanit.httpsrv.add_status"><code class="name flex">
+<span>def <span class="ident">add_status</span></span>(<span>num, status_str)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_status(num, status_str):
+    global _statuses
+
+    if num not in _statuses:
+        _statuses[num] = status_str</code></pre>
+</details>
+</dd>
+<dt id="kyanit.httpsrv.add_symbol"><code class="name flex">
+<span>def <span class="ident">add_symbol</span></span>(<span>perc_enc, symbol)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_symbol(perc_enc, symbol):
+    global _percent_encodings
+
+    if perc_enc not in _percent_encodings:
+        _percent_encodings[perc_enc] = symbol</code></pre>
+</details>
+</dd>
+<dt id="kyanit.httpsrv.error_view"><code class="name flex">
+<span>def <span class="ident">error_view</span></span>(<span>exc)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def error_view(exc):
+    exc_details = uio.StringIO()
+    sys.print_exception(exc, exc_details)
+
+    if isinstance(exc, OSError):
+        exc_msg = uerrno.errorcode[exc.args[0]] \
+                  if len(exc.args) &gt; 0 and exc.args[0] in uerrno.errorcode else &#39;&#39;  # noqa
+    else:
+        exc_msg = exc.args[0] if len(exc.args) &gt; 0 else &#39;&#39;
+    
+    return response(500, ujson.dumps(
+        {
+            &#39;error&#39;: &#39;{}: {}&#39;.format(exc.__class__.__name__, exc_msg),
+            &#39;traceback&#39;: [line.strip() for line in exc_details.getvalue().split(&#39;\n&#39;)
+                          if line and &#39;Traceback&#39; not in line
+                          and exc.__class__.__name__ not in line]  # noqa
+        }), CT_JSON)</code></pre>
+</details>
+</dd>
+<dt id="kyanit.httpsrv.readall_from"><code class="name flex">
+<span>def <span class="ident">readall_from</span></span>(<span>source, into=None, timeout=None, chunk_size=64)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def readall_from(source, into=None, timeout=None, chunk_size=64):
+    if timeout is not None:
+        if isinstance(source, socket.socket):
+            source.settimeout(timeout)
+        if isinstance(into, socket.socket):
+            into.settimeout(timeout)
+    
+    if into is None:
+        into = uio.BytesIO()
+
+    data = b&#39;&#39;
+    while True:
+        try:
+            if isinstance(source, socket.socket):
+                data = source.recv(chunk_size)
+            else:
+                data = source.read(chunk_size)
+            if data:
+                into.write(data)
+            else:
+                break
+        except OSError as exc:
+            if exc.args[0] == uerrno.ETIMEDOUT:
+                if not data:
+                    break  # will break on second timeout event
+                data = b&#39;&#39;
+            else:
+                raise exc
+    
+    return into</code></pre>
+</details>
+</dd>
+<dt id="kyanit.httpsrv.response"><code class="name flex">
+<span>def <span class="ident">response</span></span>(<span>status, body='', content_type='text/plain', headers={})</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def response(status, body=&#39;&#39;, content_type=CT_PLAIN, headers={}):
+    return {
+        &#39;status&#39;: status,
+        &#39;body&#39;: body,
+        &#39;content_type&#39;: content_type,
+        &#39;headers&#39;: headers
+    }</code></pre>
+</details>
+</dd>
+<dt id="kyanit.httpsrv.send_response"><code class="name flex">
+<span>def <span class="ident">send_response</span></span>(<span>conn, status, body='', content_type='text/plain', headers={})</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def send_response(conn, status, body=&#39;&#39;, content_type=CT_PLAIN, headers={}):
+    # discard rest of request
+    conn.settimeout(.5)
+    while True:
+        try:
+            if not conn.recv(64):
+                break
+        except OSError:
+            break
+    
+    response = (&#39;{0} {1} {2}\r\nContent-type: {3}\r\nConnection: close\r\n{4}\r\n{5}&#39;
+                .format(_http_ver,
+                        status,
+                        _statuses[status],
+                        content_type,
+                        &#39;\r\n&#39;.join([&#39;{}: {}&#39;.format(key, headers[key]) for key in headers] + [&#39;&#39;]),
+                        body))
+
+    conn.write(response.encode())  # noqa</code></pre>
+</details>
+</dd>
+<dt id="kyanit.httpsrv.unencode"><code class="name flex">
+<span>def <span class="ident">unencode</span></span>(<span>string)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def unencode(string):
+    if not string:
+        return string
+    
+    new_str = string
+    for perc_enc in _percent_encodings:
+        new_str = new_str.replace(perc_enc, _percent_encodings[perc_enc])
+    return new_str</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="kyanit.httpsrv.HTTPServer"><code class="flex name class">
+<span>class <span class="ident">HTTPServer</span></span>
+<span>(</span><span>port)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class HTTPServer:
+    def __init__(self, port):
+        self._sock = socket.socket()
+        self._sock.bind(socket.getaddrinfo(&#39;0.0.0.0&#39;, port)[0][-1])
+        self._sock.setblocking(False)
+        self._sock.listen(1)
+        self._timeout = 1  # seconds
+        self._callbacks = {
+            &#39;GET&#39;: {
+                &#39;^/$&#39;: lambda method, loc, params, headers, conn, addr: (200, &#39;&#34;OK&#34;&#39;, CT_JSON)
+            }
+        }
+
+    def set_timeout(self, timeout):
+        self._timeout = timeout
+
+    def register(self, method, location_re, callback):
+        if method not in [&#39;GET&#39;, &#39;POST&#39;, &#39;PUT&#39;, &#39;PATCH&#39;, &#39;DELETE&#39;, &#39;OPTIONS&#39;]:
+            raise ValueError(&#39;method invalid&#39;)
+
+        if method in self._callbacks:
+            self._callbacks[method][location_re] = callback
+        else:
+            self._callbacks[method] = {location_re: callback}
+
+    def deregister(self, method, location_re):
+        del(self._callbacks[method][location_re])
+
+    def get_registered(self):
+        return self._callbacks
+
+    async def processor(self, conn, addr):
+        request_line = conn.readline().decode()
+
+        header_lines = []
+        while True:
+            header_line = conn.readline()
+            if header_line == b&#39;\r\n&#39;:
+                break
+            header_lines.append(header_line.decode())
+
+        match = ure.search(
+            &#39;([A-Z]+) ((\/[{0}]*)+)\??([{0}|\=|\&amp;]+)? HTTP&#39;.format(&#39;a-z|A-Z|0-9|\.|\%|\-|\_|\~&#39;),
+            request_line)  # noqa
+        
+        if not match:
+            raise URLInvalidError
+
+        method = match.group(1)
+        location = unencode(match.group(2))
+        
+        # extract query parameters
+        params_str = match.group(4)
+
+        if params_str:
+            params = {unencode(key): unencode(value) for (key, value) in
+                      [(param.split(&#39;=&#39;)[0], param.split(&#39;=&#39;)[1]) if &#39;=&#39; in param else (param, None)
+                      for param in params_str.split(&#39;&amp;&#39;)]}
+        else:
+            params = {}
+        
+        # extract headers
+        if header_lines:
+            headers = {key: value for (key, value) in
+                       [(line.split(&#39;:&#39;)[0].strip(), line.split(&#39;:&#39;)[1].strip())
+                        for line in header_lines]}
+        else:
+            headers = {}
+        
+        get_head = False
+        if method == &#39;HEAD&#39;:
+            method = &#39;GET&#39;
+            get_head = True
+        
+        if method in self._callbacks:
+            for location_re in self._callbacks[method]:
+                if ure.search(location_re, location) is not None:
+                    resp = self._callbacks[method][location_re](
+                        method, location, params, headers, conn, addr)
+                    if get_head:
+                        resp[&#39;body&#39;] = &#39;&#39;
+                    if resp is not None:
+                        send_response(conn, **resp)
+                    return
+            raise NoCallbackError
+        
+        else:
+            raise NoMethodError
+
+    async def catch_requests(self):
+        while True:
+            try:
+                conn, addr = self._sock.accept()
+            
+            except OSError:
+                # no incomming connections
+                await uasyncio.sleep(0)
+            
+            else:
+                conn.settimeout(self._timeout)
+                try:
+                    await self.processor(conn, addr)
+                except Exception as exc:
+                    resp = error_view(exc)
+                    if resp is not None:
+                        send_response(conn, **resp)
+                    else:
+                        send_response(conn, 500)
+                conn.close()</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="kyanit.httpsrv.HTTPServer.catch_requests"><code class="name flex">
+<span>async def <span class="ident">catch_requests</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def catch_requests(self):
+    while True:
+        try:
+            conn, addr = self._sock.accept()
+        
+        except OSError:
+            # no incomming connections
+            await uasyncio.sleep(0)
+        
+        else:
+            conn.settimeout(self._timeout)
+            try:
+                await self.processor(conn, addr)
+            except Exception as exc:
+                resp = error_view(exc)
+                if resp is not None:
+                    send_response(conn, **resp)
+                else:
+                    send_response(conn, 500)
+            conn.close()</code></pre>
+</details>
+</dd>
+<dt id="kyanit.httpsrv.HTTPServer.deregister"><code class="name flex">
+<span>def <span class="ident">deregister</span></span>(<span>self, method, location_re)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def deregister(self, method, location_re):
+    del(self._callbacks[method][location_re])</code></pre>
+</details>
+</dd>
+<dt id="kyanit.httpsrv.HTTPServer.get_registered"><code class="name flex">
+<span>def <span class="ident">get_registered</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_registered(self):
+    return self._callbacks</code></pre>
+</details>
+</dd>
+<dt id="kyanit.httpsrv.HTTPServer.processor"><code class="name flex">
+<span>async def <span class="ident">processor</span></span>(<span>self, conn, addr)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def processor(self, conn, addr):
+    request_line = conn.readline().decode()
+
+    header_lines = []
+    while True:
+        header_line = conn.readline()
+        if header_line == b&#39;\r\n&#39;:
+            break
+        header_lines.append(header_line.decode())
+
+    match = ure.search(
+        &#39;([A-Z]+) ((\/[{0}]*)+)\??([{0}|\=|\&amp;]+)? HTTP&#39;.format(&#39;a-z|A-Z|0-9|\.|\%|\-|\_|\~&#39;),
+        request_line)  # noqa
+    
+    if not match:
+        raise URLInvalidError
+
+    method = match.group(1)
+    location = unencode(match.group(2))
+    
+    # extract query parameters
+    params_str = match.group(4)
+
+    if params_str:
+        params = {unencode(key): unencode(value) for (key, value) in
+                  [(param.split(&#39;=&#39;)[0], param.split(&#39;=&#39;)[1]) if &#39;=&#39; in param else (param, None)
+                  for param in params_str.split(&#39;&amp;&#39;)]}
+    else:
+        params = {}
+    
+    # extract headers
+    if header_lines:
+        headers = {key: value for (key, value) in
+                   [(line.split(&#39;:&#39;)[0].strip(), line.split(&#39;:&#39;)[1].strip())
+                    for line in header_lines]}
+    else:
+        headers = {}
+    
+    get_head = False
+    if method == &#39;HEAD&#39;:
+        method = &#39;GET&#39;
+        get_head = True
+    
+    if method in self._callbacks:
+        for location_re in self._callbacks[method]:
+            if ure.search(location_re, location) is not None:
+                resp = self._callbacks[method][location_re](
+                    method, location, params, headers, conn, addr)
+                if get_head:
+                    resp[&#39;body&#39;] = &#39;&#39;
+                if resp is not None:
+                    send_response(conn, **resp)
+                return
+        raise NoCallbackError
+    
+    else:
+        raise NoMethodError</code></pre>
+</details>
+</dd>
+<dt id="kyanit.httpsrv.HTTPServer.register"><code class="name flex">
+<span>def <span class="ident">register</span></span>(<span>self, method, location_re, callback)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def register(self, method, location_re, callback):
+    if method not in [&#39;GET&#39;, &#39;POST&#39;, &#39;PUT&#39;, &#39;PATCH&#39;, &#39;DELETE&#39;, &#39;OPTIONS&#39;]:
+        raise ValueError(&#39;method invalid&#39;)
+
+    if method in self._callbacks:
+        self._callbacks[method][location_re] = callback
+    else:
+        self._callbacks[method] = {location_re: callback}</code></pre>
+</details>
+</dd>
+<dt id="kyanit.httpsrv.HTTPServer.set_timeout"><code class="name flex">
+<span>def <span class="ident">set_timeout</span></span>(<span>self, timeout)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_timeout(self, timeout):
+    self._timeout = timeout</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="kyanit.httpsrv.NoCallbackError"><code class="flex name class">
+<span>class <span class="ident">NoCallbackError</span></span>
+<span>(</span><span>...)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Common base class for all non-exit exceptions.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class NoCallbackError(Exception):
+    pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+<dt id="kyanit.httpsrv.NoMethodError"><code class="flex name class">
+<span>class <span class="ident">NoMethodError</span></span>
+<span>(</span><span>...)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Common base class for all non-exit exceptions.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class NoMethodError(Exception):
+    pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+<dt id="kyanit.httpsrv.URLInvalidError"><code class="flex name class">
+<span>class <span class="ident">URLInvalidError</span></span>
+<span>(</span><span>...)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Common base class for all non-exit exceptions.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class URLInvalidError(Exception):
+    pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<img src="kyanit_core_logo.svg">
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#kyanithttpsrv-module">kyanit.httpsrv module</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="kyanit" href="index.html">kyanit</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="kyanit.httpsrv.add_status" href="#kyanit.httpsrv.add_status">add_status</a></code></li>
+<li><code><a title="kyanit.httpsrv.add_symbol" href="#kyanit.httpsrv.add_symbol">add_symbol</a></code></li>
+<li><code><a title="kyanit.httpsrv.error_view" href="#kyanit.httpsrv.error_view">error_view</a></code></li>
+<li><code><a title="kyanit.httpsrv.readall_from" href="#kyanit.httpsrv.readall_from">readall_from</a></code></li>
+<li><code><a title="kyanit.httpsrv.response" href="#kyanit.httpsrv.response">response</a></code></li>
+<li><code><a title="kyanit.httpsrv.send_response" href="#kyanit.httpsrv.send_response">send_response</a></code></li>
+<li><code><a title="kyanit.httpsrv.unencode" href="#kyanit.httpsrv.unencode">unencode</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="kyanit.httpsrv.HTTPServer" href="#kyanit.httpsrv.HTTPServer">HTTPServer</a></code></h4>
+<ul class="two-column">
+<li><code><a title="kyanit.httpsrv.HTTPServer.catch_requests" href="#kyanit.httpsrv.HTTPServer.catch_requests">catch_requests</a></code></li>
+<li><code><a title="kyanit.httpsrv.HTTPServer.deregister" href="#kyanit.httpsrv.HTTPServer.deregister">deregister</a></code></li>
+<li><code><a title="kyanit.httpsrv.HTTPServer.get_registered" href="#kyanit.httpsrv.HTTPServer.get_registered">get_registered</a></code></li>
+<li><code><a title="kyanit.httpsrv.HTTPServer.processor" href="#kyanit.httpsrv.HTTPServer.processor">processor</a></code></li>
+<li><code><a title="kyanit.httpsrv.HTTPServer.register" href="#kyanit.httpsrv.HTTPServer.register">register</a></code></li>
+<li><code><a title="kyanit.httpsrv.HTTPServer.set_timeout" href="#kyanit.httpsrv.HTTPServer.set_timeout">set_timeout</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="kyanit.httpsrv.NoCallbackError" href="#kyanit.httpsrv.NoCallbackError">NoCallbackError</a></code></h4>
+</li>
+<li>
+<h4><code><a title="kyanit.httpsrv.NoMethodError" href="#kyanit.httpsrv.NoMethodError">NoMethodError</a></code></h4>
+</li>
+<li>
+<h4><code><a title="kyanit.httpsrv.URLInvalidError" href="#kyanit.httpsrv.URLInvalidError">URLInvalidError</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

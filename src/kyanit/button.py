@@ -10,6 +10,40 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
+"""
+# `kyanit.button` module
+
+This module publishes the `Button` class, which can be used to monitor a button and catch button
+press events.
+
+Here"s a simple example in `code.py`, that will do something on button press on Pin(5):
+
+```python
+import kyanit
+from kyanit import runner
+from kyanit.button import Button
+
+async def do_something_on_click(button):
+    while True:
+        if button.check() == 'click':
+            # do something on button press here
+            ...
+        await runner.sleep_ms(100)
+
+@kyanit.controls()
+def main():
+    my_button = Button(5, True)  # active-low button on Pin(5)
+    runner.create_task('my_button_monitor', my_button.monitor)  # start monitoring task
+    runner.create_task('on_click', do_something_on_click, my_button)
+
+@kyanit.controls(brightness=0.1)
+def cleanup(exception):
+    pass
+```
+
+See the `Button` class documentation for details on usage.
+"""
+
 
 import utime
 import uasyncio
@@ -17,6 +51,20 @@ import machine
 
 
 class Button:
+    """
+    Instantiate this class with a pin number to catch button-press events on the pin. The pin number
+    is the GPIO number on the controller.
+
+    If the button is active-high (ie. it's logical high on press, and logical low by default), set
+    `invert` to `False`.
+
+    Once instantiated, the `monitor` task must be started for button monitorization. After that,
+    check the last button press event with the `check` function.
+
+    NOTE: You should check button events frequently, because if more than 1 event occurs between
+    checks, only the last event will be returned. Frequent checks will also make the button more
+    responsive. A 100ms wait between checks should be a good choice.
+    """
 
     def __init__(self, pin_number, invert=True):
         self._button_signal = machine.Signal(machine.Pin(pin_number, machine.Pin.IN),
@@ -26,6 +74,9 @@ class Button:
         self._last_known_button_press = (None, None)
 
     async def monitor(self):
+        """
+        This task continuously monitors the button. It must be started for `check` to work.
+        """
         # TODO: Make more sophisticated (pattern based)
 
         while True:
@@ -47,6 +98,16 @@ class Button:
             await uasyncio.sleep(0)
 
     def check(self):
+        """
+        Return the last new event on the button.
+
+        Supported events:
+
+        * `'click'` (the button was pressed for shorter than 250ms)
+        * `'long3s'` (the button was pressed for at least 3 seconds)
+
+        Return value will be one of the supported event names.
+        """
         if self._last_known_button_press != self._last_button_press:
             self._last_known_button_press = self._last_button_press
             return self._last_button_press[0]
