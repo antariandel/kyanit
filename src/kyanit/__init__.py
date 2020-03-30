@@ -20,7 +20,7 @@ import machine
 import neopixel
 import ubinascii
 
-from . import utils
+from . import colorid
 from . import runner
 from . import httpsrv
 from . import interfaces
@@ -153,7 +153,7 @@ def run():
             if not interfaces.wlan.isconnected():
                 _color_id = 'BBB'
             elif _color_id == 'BBB':
-                _color_id = utils.id_from_number(
+                _color_id = colorid.from_number(
                     int(ure.search('\d+$', interfaces.wlan.ifconfig()[0]).group(0))  # noqa
                 )
     
@@ -185,7 +185,7 @@ def run():
         loop.create_task(front_leds_blink(neop, (0, 0, 255)))
 
     # set Color ID based on last octet of IP address
-    _color_id = utils.id_from_number(
+    _color_id = colorid.from_number(
         int(ure.search('\d+$', interfaces.wlan.ifconfig()[0]).group(0))  # noqa
     )
 
