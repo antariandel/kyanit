@@ -144,7 +144,7 @@ def controls(active_colors=((0, 250, 200), ) * 3, idle_colors=((250, 50, 0), ) *
 def run():
     global _color_id
 
-    PROTECTED_FILES = ['main.py', 'boot.py', '_boot.py']
+    PROTECTED_FILES = ['/main.py', '/boot.py', '/_boot.py']
 
     class FileServerError(Exception):
         pass
