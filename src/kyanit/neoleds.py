@@ -57,7 +57,7 @@ class NeoLeds:
                 disp = 0  # indefinite display
             
             if self._colors[disp] is not None:
-                self._write_colors(self._colors[disp] if self._anim[disp] is None else \
+                self._write_colors(self._colors[disp] if self._anim[disp] is None else
                                    # call anim with the phase and colors
                                    self._anim[disp](self._anim_phase,
                                                     self._colors[disp]))
