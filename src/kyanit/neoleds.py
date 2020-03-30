@@ -42,7 +42,7 @@ class NeoLeds:
         self._temp_until = None if time is None else \
                            utime.ticks_add(utime.ticks_ms(), time * 1000)  # noqa
 
-    async def display_task(self):
+    async def refresh_leds(self):
         disp = 0
 
         while True:
