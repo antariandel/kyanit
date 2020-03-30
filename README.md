@@ -5,7 +5,9 @@
 Kyanit is a user code supervisor built for MicroPython. Development is currently focused on the
 ESP8266 port of MicroPython. Together with an ESP8266 board, Kyanit is indended to be a foundation
 for home automation systems. An official board design for Kyanit can be found at
-`https://github.com/kyanit-project/kyanit-board`
+https://kyanit.eu/kyanit-board
+
+For information about MicroPython head to https://github.com/micropython/micropython
 
 Being a supervisor, Kyanit is responsible for starting and stopping user code, as well as handling
 any uncaught exceptions in the user code.
@@ -186,7 +188,7 @@ With a fresh install, you should see `wlan.json` with your WiFi credentials and 
 `code.py`, which is the user code.
 
 Download `code.py` from the board with `-get code.py`. (Be aware, that this will overwrite any
-existing `code.py` that you may have in the current directory.)
+existing `code.py` that you may have in the local directory.)
 
 The `code.py` initially contains the following:
 
@@ -194,22 +196,22 @@ The `code.py` initially contains the following:
 # This code is imported on startup, then main is called, if it exists. Neither main, nor cleanup
 # should block for too long. Use coroutines through kyanit.runner.create_task('name', coro) for
 # continuous or longer tasks. Any errors (including from coroutines) will be passed to cleanup.
-# The @kyanit_controls() decorator adds functionality to the LEDs and button. It can be removed if
+# The @kyanit.controls() decorator adds functionality to the LEDs and button. It can be removed if
 # this is not required, to save ~1k of RAM.
 
 # To get started, read more at https://kyanit.eu
 
 
-from kyanit import kyanit_controls
+import kyanit
 
 
-@kyanit_controls()
+@kyanit.controls()
 def main():
     # Put startup code here.
     pass
 
 
-@kyanit_controls()
+@kyanit.controls()
 def cleanup(exception):
     # Put error-handling code here, as well as code that needs to be run when stopped, or
     # before reboot.
@@ -229,20 +231,14 @@ kyanitctl BBY -put code.py -reboot
 
 For a full list of what Kyanit CTL can do, refer to the command-line help with `kyanitctl -h`.
 
-Kyanit CTL is using the Kyanit API, which is available here:
-https://github.com/kyanit-project/kyanitapi
-
-(Kyanit API is a Python module with which all functionality that Kyanit CTL does can be done from
-within a Python script.)
-
 ### Run States
 
-There are 5 different run states: `CODE.PY MISSING`, `CODE.PY IMPORTED`, `CODE.PY MAIN`, `IDLE` and
-`ERROR`.
+There are 5 different run states: `CODE.PY MISSING`, `CODE.PY IMPORTED`, `CODE.PY MAIN`, `STOPPED`
+and `ERROR`.
 
 * **`CODE.PY MISSING`**
 
-There's no `code.py` file to run.
+There's no `code.py` file to import and run.
 
 * **`CODE.PY IMPORTED`**
 
@@ -260,14 +256,14 @@ The code was stopped either from within the code itself, or by outside means, ex
 * **`ERROR ExceptionName`**
 
 There was an uncaught exception within `code.py`. An exception detail, with traceback will also be
-available through Kyanit CTL's `-status` option. At this point, the could may be restarted.
+available through Kyanit CTL's `-status` option. At this point, the code may be restarted.
 (Although debugging is probably required.)
 
 ## Coding on Kyanit (Using Coroutines)
 
 Kyanit is built around MicroPython's uasyncio. (CPython's asyncio implementation for MicroPython.)
 This means Kyanit is all about coroutines. Albeit it's advisable to learn about coroutines before
-coding on Kyanit, it's not entirely required, except for a few basic steps.
+coding on Kyanit, it's not entirely required, if you abide by some basic rules.
 
 A coroutine is just a function defined with `async`:
 
@@ -288,18 +284,18 @@ running its internal tasks, rendering it unresponsive.
 In short, this means no continuous loops (with `while True`) within any non-async functions, which
 includes `main` and `cleanup`.
 
-`main` is intended to set up your own code and potentially start other coroutines to run alongside
-Kyanit's internal tasks.
+`main` is intended to set up your own code and potentially start coroutines, which will run
+alongside Kyanit's internal tasks.
 
-Likewise, `cleanup` is intended to run quickly after some exception, potentially clearing them.
+Likewise, `cleanup` is intended to run quickly after some exception, potentially acting on them.
 
 `cleanup` is also called when code is stopped or rebooted, with `kyanit.StoppedError` and
 `kyanit.RebootError` passed respectively. This lets you do stuff on these two events, if desired.
 
-Here's a simple example for a continuosly running task in `code.py`:
+Here's a simple example of a continuosly running task in `code.py`:
 
 ```python
-from kyanit import kyanit_controls, runner
+from kyanit import controls, runner
 
 
 async def my_task():
@@ -308,47 +304,58 @@ async def my_task():
         await runner.sleep(1)
 
 
-@kyanit_controls()
+@controls()
 def main():
     runner.create_taks('my_task_name', my_task)
 
 
-@kyanit_controls()
+@controls()
 def cleanup(exception):
     pass
 ```
 
-The above code will immediately start `my_task`. Note the `await` statement, which will return in
-the background and give CPU time for other coroutines to run. In this case, the uasyncio scheduler
-will return to `my_task` after 1 second. You must have an `await` statement inside your coroutines
-to yield CPU time to other tasks. You may also `await` other coroutines that you defined, but at
-some point in the call chain, one of them will have to await a sleep (or sleep_ms).
+The above code will immediately start `my_task`. Note the `await` statement, which will give CPU
+time for other coroutines to run. In this case, the uasyncio scheduler will return to `my_task`
+after 1 second. You must have an `await` statement inside your coroutines to yield CPU time to other
+tasks. You may also `await` other coroutines that you defined.
 
 **You may await a sleep time of 0**, which basically means "return to this function as soon as
 possible." The scheduler will give time to other tasks that are not awaiting a sleep, and will
-return to the function as soon as those tasks arrive to an await statement. All of this is done in
-the background, but it's a good thing to understand the basics.
+return to the function as soon as those tasks arrive to an `await` statement.
 
-HINT: Everything from uasyncio is available in `runner` (because it has `from uasyncio import *`).
+HINT: Everything from uasyncio is available in `runner` (it has `from uasyncio import *`).
 
 ### About `runner.create_task()`
 
 Always create tasks with `runner.create_task()` and not `uasyncio.get_event_loop().create_task()`,
 because Kyanit can not catch errors in tasks created on the event loop directly. Uncaught errors
-on the event loop will stop Kyanit and all of its internal tasks, rendering it unresponsive.
+will cause the coroutine that's raising them to stop silently, which may result in unexpected
+behavior.
 
-On the other hand, errors in tasks on runner will be handled, and stopped in a controlled fashion in
-case of errors (and also when stopped by command).
+On the other hand, errors in tasks created on runner will be handled. In case of errors, tasks will
+be stopped in a controlled fashion.
+
+The same applies when running is stopped with `kyanit.runner.stop()` or by ex. Kyanit CTL, using
+`-stop`. Kyanit will stop all tasks created on runner, but it will not stop tasks directly created
+on the event loop.
 
 Stop tasks from running with `runner.destroy_task('task_name')`.
 
 ### The things to keep in mind:
 * If you want a long-running loop, implement it in an `async` function
-* Never use `time.sleep()`, use `await runner.sleep()` instead
+* Never use `time.sleep()` for long delays, use `await runner.sleep()` instead
+* If timing is critical (ex. for bit-banging), you may use `time.sleep()`, but keep in mind that
+this prevents other coroutines to run in the meantime, so keep it short.
 * Always create tasks with `runner.create_task()`
 
-An in-depth guide on coroutines and uasyncio can be found here:
+More on coroutines in MicroPython:
 https://github.com/peterhinch/micropython-async/blob/master/TUTORIAL.md
+
+NOTE: `micropython/extmod/uasyncio` (the one available in Kyanit) is a different implementation,
+than what the above tutorial is based on, but it's still a good place to start. See source
+`uasyncio` code at https://github.com/micropython/micropython/tree/master/extmod/uasyncio to find
+
+out differences.
 
 ## Flashing a Released version of Kyanit
 
@@ -363,7 +370,7 @@ https://github.com/pfalcon/esp-open-sdk
 Clone the repository and build the SDK per instructions in the repo.
 
 After building the SDK, clone the MicroPython repository from
-https://github.com/micropython/micropython, then  go into `micropython/mpy-cross` and build
+https://github.com/micropython/micropython, then go into `micropython/mpy-cross` and build
 `mpy-cross` with `make`.
 
 WebREPL is not included in Kyanit, because it's intended to be always running, and never exiting
@@ -383,8 +390,7 @@ Make a custom board configuration by copying `micropython/ports/esp8266/boards/G
 `[...]/boards/KYANIT`.
 
 Copy the `micropython/ports/esp8266/modules` directory to
-`KYANIT/modules`, then copy the contents of `kyanit/src` (this repo) into the newly created
-`modules` directory.
+`KYANIT/modules`, then copy the contents of `kyanit/src` into the newly created `modules` directory.
 
 Copy `kyanit/mpbuild/manifest.py` to the `KYANIT` directory, overwriting the existing file.
 
@@ -435,14 +441,10 @@ make deploy BOARD=KYANIT PORT=<your serial port>
 (You can play with baudrates for faster flashing, ex. appending `BAUD=230400` to the deploy
 command.)
 
-## Credits
+## Thank-yous
 
-Special thanks to MicroPython and Damien George for making MicroPython a reality, and therefore
-making this project a reality. (And thanks for being so responsive on any issues.)
-
-For more about MicroPython, see the repository here: https://github.com/micropython/micropython
-
-And MicroPython documentation here: https://docs.micropython.org/en/latest/
+Special thanks to the MicroPython community and Damien George. And thanks for being so responsive
+on issues.
 
 ## License Notice
 

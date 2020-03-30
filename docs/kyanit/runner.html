@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.5" />
+<title>Kyanit Core Documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<style>
+/* Hide "Module kyanit" title */
+h1.title {
+display: none;
+}
+</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>kyanit.runner</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># Kyanit (Core) - runner module
+# Copyright (C) 2020 Zsolt Nagy
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the
+# GNU General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see &lt;https://www.gnu.org/licenses/&gt;.
+
+
+import sys
+import uos
+import uio
+
+# import everything from uasyncio, this way we don&#39;t need to wherever runner is used
+from uasyncio import *  # noqa
+
+
+_loop = get_event_loop()
+_tasks = {}
+
+_error_name = &#39;&#39;
+_traceback = &#39;&#39;
+
+
+ERROR = 0
+STOPPED = 1
+CODE_MISSING = 2
+CODE_IMPORTED = 3
+CODE_MAIN = 4
+
+
+_state = STOPPED
+
+
+def get_state():
+    return _state
+
+
+def get_error():
+    return (_error_name, _traceback) if _state == ERROR else None
+
+
+def get_tasks():
+    return _tasks
+
+
+def start():
+    global _state
+
+    if _state &lt;= STOPPED:
+        try:
+            uos.stat(&#39;/code.py&#39;)
+        
+        except Exception:
+            _state = CODE_MISSING
+            return
+        
+        try:
+            import code
+            _state = CODE_IMPORTED
+            if hasattr(code, &#39;main&#39;):
+                if callable(code.main):
+                    code.main()
+                    _state = CODE_MAIN
+        
+        except ImportError as exc:
+            _handle_error(exc, False)
+        
+        except Exception as exc:
+            _handle_error(exc, True)
+            return
+
+
+async def starter_coro():
+    start()
+
+
+def stop(force=False, exc=None):
+    global _state
+
+    if _state &gt; STOPPED or force:
+        for task_name in _tasks:
+            destroy_task(task_name)
+        _state = STOPPED
+
+        if not force:
+            try:
+                import code
+                if hasattr(code, &#39;cleanup&#39;):
+                    # pass exc to cleanup
+                    code.cleanup(exc)
+            
+            except Exception as exc:
+                _handle_error(exc, False)
+
+
+async def stopper_coro():
+    stop()
+
+
+def create_task(name, coro, *args):
+    if str(name) not in _tasks:
+        try:
+            _tasks[name] = _loop.create_task(_task_wrapper_coro(coro, *args))
+        except Exception as exc:
+            _handle_error(exc, True)
+        else:
+            return True
+    
+    return False
+
+
+def destroy_task(name):
+    if str(name) in _tasks:
+        try:
+            _tasks[name].cancel()
+        except RuntimeError:
+            # coroutine is executing (cannot cancel self)
+            pass
+        del(_tasks[name])
+        return True
+    
+    return False
+
+
+async def _task_wrapper_coro(coro, *args):
+    try:
+        await coro(*args)
+    
+    except CancelledError:
+        pass  # allow cancellation silently (ie. when deactivating)
+
+    except Exception as exc:
+        _handle_error(exc, True)
+
+
+def _handle_error(exc, cleanup):
+    global _state, _error_name, _traceback
+
+    stop(force=True)
+    _state = ERROR
+    _error_name = exc.__class__.__name__
+
+    exc_details = uio.StringIO()
+    sys.print_exception(exc, exc_details)
+    _traceback = exc_details.getvalue()
+
+    if cleanup:
+        try:
+            import code
+            if hasattr(code, &#39;cleanup&#39;):
+                code.cleanup(exc)
+
+        except Exception as exc:
+            exc_details = uio.StringIO()
+            sys.print_exception(exc, exc_details)
+            _traceback = (&#39;{0}\nCODE.CLEANUP ERROR\n{1}&#39;
+                          .format(_traceback, exc_details.getvalue()))</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="kyanit.runner.create_task"><code class="name flex">
+<span>def <span class="ident">create_task</span></span>(<span>name, coro, *args)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_task(name, coro, *args):
+    if str(name) not in _tasks:
+        try:
+            _tasks[name] = _loop.create_task(_task_wrapper_coro(coro, *args))
+        except Exception as exc:
+            _handle_error(exc, True)
+        else:
+            return True
+    
+    return False</code></pre>
+</details>
+</dd>
+<dt id="kyanit.runner.destroy_task"><code class="name flex">
+<span>def <span class="ident">destroy_task</span></span>(<span>name)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def destroy_task(name):
+    if str(name) in _tasks:
+        try:
+            _tasks[name].cancel()
+        except RuntimeError:
+            # coroutine is executing (cannot cancel self)
+            pass
+        del(_tasks[name])
+        return True
+    
+    return False</code></pre>
+</details>
+</dd>
+<dt id="kyanit.runner.get_error"><code class="name flex">
+<span>def <span class="ident">get_error</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_error():
+    return (_error_name, _traceback) if _state == ERROR else None</code></pre>
+</details>
+</dd>
+<dt id="kyanit.runner.get_state"><code class="name flex">
+<span>def <span class="ident">get_state</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_state():
+    return _state</code></pre>
+</details>
+</dd>
+<dt id="kyanit.runner.get_tasks"><code class="name flex">
+<span>def <span class="ident">get_tasks</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_tasks():
+    return _tasks</code></pre>
+</details>
+</dd>
+<dt id="kyanit.runner.start"><code class="name flex">
+<span>def <span class="ident">start</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start():
+    global _state
+
+    if _state &lt;= STOPPED:
+        try:
+            uos.stat(&#39;/code.py&#39;)
+        
+        except Exception:
+            _state = CODE_MISSING
+            return
+        
+        try:
+            import code
+            _state = CODE_IMPORTED
+            if hasattr(code, &#39;main&#39;):
+                if callable(code.main):
+                    code.main()
+                    _state = CODE_MAIN
+        
+        except ImportError as exc:
+            _handle_error(exc, False)
+        
+        except Exception as exc:
+            _handle_error(exc, True)
+            return</code></pre>
+</details>
+</dd>
+<dt id="kyanit.runner.starter_coro"><code class="name flex">
+<span>async def <span class="ident">starter_coro</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def starter_coro():
+    start()</code></pre>
+</details>
+</dd>
+<dt id="kyanit.runner.stop"><code class="name flex">
+<span>def <span class="ident">stop</span></span>(<span>force=False, exc=None)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stop(force=False, exc=None):
+    global _state
+
+    if _state &gt; STOPPED or force:
+        for task_name in _tasks:
+            destroy_task(task_name)
+        _state = STOPPED
+
+        if not force:
+            try:
+                import code
+                if hasattr(code, &#39;cleanup&#39;):
+                    # pass exc to cleanup
+                    code.cleanup(exc)
+            
+            except Exception as exc:
+                _handle_error(exc, False)</code></pre>
+</details>
+</dd>
+<dt id="kyanit.runner.stopper_coro"><code class="name flex">
+<span>async def <span class="ident">stopper_coro</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def stopper_coro():
+    stop()</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<img src="kyanit_core_logo.svg">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="kyanit" href="index.html">kyanit</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="kyanit.runner.create_task" href="#kyanit.runner.create_task">create_task</a></code></li>
+<li><code><a title="kyanit.runner.destroy_task" href="#kyanit.runner.destroy_task">destroy_task</a></code></li>
+<li><code><a title="kyanit.runner.get_error" href="#kyanit.runner.get_error">get_error</a></code></li>
+<li><code><a title="kyanit.runner.get_state" href="#kyanit.runner.get_state">get_state</a></code></li>
+<li><code><a title="kyanit.runner.get_tasks" href="#kyanit.runner.get_tasks">get_tasks</a></code></li>
+<li><code><a title="kyanit.runner.start" href="#kyanit.runner.start">start</a></code></li>
+<li><code><a title="kyanit.runner.starter_coro" href="#kyanit.runner.starter_coro">starter_coro</a></code></li>
+<li><code><a title="kyanit.runner.stop" href="#kyanit.runner.stop">stop</a></code></li>
+<li><code><a title="kyanit.runner.stopper_coro" href="#kyanit.runner.stopper_coro">stopper_coro</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
