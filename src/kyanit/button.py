@@ -18,14 +18,14 @@ import machine
 
 class Button:
 
-    def __init__(self, pin_number, invert=False):
+    def __init__(self, pin_number, invert=True):
         self._button_signal = machine.Signal(machine.Pin(pin_number, machine.Pin.IN),
                                              invert=invert)
 
         self._last_button_press = (None, None)
         self._last_known_button_press = (None, None)
 
-    async def checker_task(self):
+    async def monitor(self):
         # TODO: Make more sophisticated (pattern based)
 
         while True:
