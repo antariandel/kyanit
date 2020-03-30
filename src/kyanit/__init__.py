@@ -46,8 +46,6 @@ class ResetError(Exception):
     pass
 
 
-class FileServerError(Exception):
-    pass
 
 
 class Netvar:
@@ -147,6 +145,9 @@ def run():
     global _color_id
 
     PROTECTED_FILES = ['main.py', 'boot.py', '_boot.py']
+
+    class FileServerError(Exception):
+        pass
 
     def setup_fallback_ap():
         unique_id = ubinascii.hexlify(machine.unique_id()).upper().decode()
