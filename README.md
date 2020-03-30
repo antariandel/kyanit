@@ -31,11 +31,11 @@ This repo. The core Kyanit module, flashed into an ESP8266 board.
 A stylish, triangle-shaped ESP8266-base board built around an ESP-12F module, the official Kyanit
 controller board.
 
-* [**Kyanit CTL**](https://github.com/kyanit-project/kyanitctl)
+* [**Kyanit CTL**](https://github.com/kyanit-project/kyanit-ctl)
 
 Command-line utility for interacting with Kyanit.
 
-* [**Kyanit API**](https://github.com/kyanit-project/kyanitapi)
+* [**Kyanit API**](https://github.com/kyanit-project/kyanit-api)
 
 Python API for interaction with Kyanit from Python code. (It is used by Kyanit CTL.)
 
