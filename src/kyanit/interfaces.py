@@ -25,8 +25,7 @@ ap.active(False)
 
 def wlan_connect(ssid, password, wait=True, timeout=10, ifconfig='dhcp'):
     wlan.active(True)
-    if ifconfig != 'dhcp':
-        wlan.ifconfig(ifconfig)
+    wlan.ifconfig(ifconfig)
     wlan.connect(ssid, password)
 
     if wait:
