@@ -32,5 +32,4 @@ if bdev:
 
 gc.collect()
 
-# Let's Whooosh!
 machine.freq(160000000)
