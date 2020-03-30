@@ -141,7 +141,7 @@ def controls(active_colors=((0, 250, 200), ) * 3, idle_colors=((250, 50, 0), ) *
     return decorator
 
 
-def run():
+def _run():
     global _color_id
 
     PROTECTED_FILES = ['/main.py', '/boot.py', '/_boot.py']
