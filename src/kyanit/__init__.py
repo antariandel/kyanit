@@ -443,8 +443,8 @@ https://docs.micropython.org/en/latest/esp8266/tutorial/intro.html
 
 # Building Kyanit Core from Source (Linux)
 
-To build from source, head to Kyanit Core's repository on GitHub, and follow the instructions there.
-Kyanit Core's repository: https://github.com/kyanit-project/kyanit
+To find out how to build from source, head to
+https://github.com/kyanit-project/kyanit#building-from-source-linux
 
 # License Notice
 
