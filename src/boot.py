@@ -11,8 +11,6 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 
-import machine
-
 try:
     import kyanit
     if hasattr(kyanit, '__version__'):
@@ -21,21 +19,13 @@ except ImportError:
     print('KYANIT Error: Importing Kyanit FAIL!')
 else:
     try:
-        kyanit.run()
+        kyanit._run()
     except KeyboardInterrupt:
         print('KYANIT Stopping... Please wait.')
         kyanit.runner.stop()
-        print('KYANIT Killed. Start again with kyanit.run()')
-    except kyanit.ResetError:
-        # land here on reset
-        print('KYANIT: Soft Reset!')
-        machine.soft_reset()
-    except kyanit.RebootError:
-        # land here on reboot
-        print('KYANIT: Reboot!')
-        machine.reset()
+        print('KYANIT Killed. Start again with kyanit._run()')
     except Exception as exc:
         # we should never end up here
-        print('KYANIT: Unhandled Exception!')
+        print('KYANIT Error: Unhandled Exception!')
         kyanit.runner.stop()
         raise exc

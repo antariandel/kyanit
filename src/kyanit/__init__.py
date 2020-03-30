@@ -236,19 +236,14 @@ def run():
                 httpsrv.readall_from(conn, into=file)
             return httpsrv.response(200, '"OK"', httpsrv.CT_JSON)
     
-    async def reboot(hard=True, delay=1):
-        await runner.sleep(delay)
-        if hard:
-            raise RebootError
-        else:
-            raise ResetError
+    async def reboot():
+        await runner.sleep(1)
+        print('KYANIT Hard Reset!')
+        machine.reset()
 
     def action_reboot(method, loc, params, headers, conn, addr):
-        # TODO: Remove this if statement once working.
-        if 'soft' in loc:
-            raise ValueError('soft reset not yet supported')
-        runner.stop(exc=ResetError if 'soft' in loc else RebootError)
-        runner.get_event_loop().create_task(reboot(False if 'soft' in loc else True))
+        runner.stop(exc=RebootError)
+        runner.get_event_loop().create_task(reboot())
         return httpsrv.response(200, '"OK"', 'application/json')
 
     def action_state(method, loc, params, headers, conn, addr):
