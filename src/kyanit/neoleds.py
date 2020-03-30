@@ -33,8 +33,10 @@ class NeoLeds:
         self._anim_phase = 0
         self._temp_until = None
 
-    def display(self, colors, anim=None, anim_speed=None, time=None):
+    def display(self, colors, anim=None, anim_speed=None, time=None, brightness=None):
         self._anim_phase = 0
+        if brightness is not None and colors is not None:
+            colors = [[comp * brightness for comp in color] for color in colors]
         self._anim_speed[0 if time is None else 1] = sorted((1, anim_speed, 10))[1] \
                                                      if anim_speed is not None else None  # noqa
         self._colors[0 if time is None else 1] = colors
