@@ -81,13 +81,6 @@ def get_color_id():
     return _color_id
 
 
-def get_fallback_ap_settings():
-    # generate unique name for AP SSID
-    flash_id = ubinascii.hexlify(machine.unique_id()).upper().decode()
-    return {
-        'ssid': 'Kyanit {}'.format(flash_id[:4]),
-        'password': 'myKyanit'
-    }
 _controls_kyanit_leds = None
 _controls_kyanit_button = None
 
@@ -156,10 +149,10 @@ def run():
     PROTECTED_FILES = ['main.py', 'boot.py', '_boot.py']
 
     def setup_fallback_ap():
-        ap_settings = get_fallback_ap_settings()
+        unique_id = ubinascii.hexlify(machine.unique_id()).upper().decode()
         interfaces.ap.active(True)
-        interfaces.ap.config(essid=ap_settings['ssid'],
-                             password=ap_settings['password'],
+        interfaces.ap.config(essid='Kyanit {}'.format(unique_id),
+                             password='myKyanit',
                              authmode=network.AUTH_WPA_WPA2_PSK)
     
     async def front_leds_blink(neop, color):
