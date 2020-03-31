@@ -86,9 +86,9 @@ To start interacting with the board, install it from PyPI with:</p>
 </code></pre>
 <p>Make sure you don't have a 192.168.4.0/24 network currently active in your system, as this is the
 network address Kyanit will use while setting up. If you have an existing network with this address,
-disconnect first.</p>
-<p>Connect to Kyanit's SSID, then start setting up Kyanit to connect to your home wireless LAN, with
-DHCP enabled by executing:</p>
+disconnect it first.</p>
+<p>Connect to Kyanit's SSID, with the password <code>myKyanit</code>. Then start setting up Kyanit to connect to
+your home wireless LAN, with DHCP enabled by executing:</p>
 <pre><code>kyanitctl -setup
 </code></pre>
 <p>Follow the instructions and enter your home network SSID and password. You can review your settings
@@ -360,8 +360,8 @@ control your board from Python code, check out Kyanit API at <a href="https://ky
 on flashing firmware onto an ESP8266 here:
 <a href="https://docs.micropython.org/en/latest/esp8266/tutorial/intro.html">https://docs.micropython.org/en/latest/esp8266/tutorial/intro.html</a></p>
 <h1 id="building-kyanit-core-from-source-linux">Building Kyanit Core from Source (Linux)</h1>
-<p>To build from source, head to Kyanit Core's repository on GitHub, and follow the instructions there.
-Kyanit Core's repository: <a href="https://github.com/kyanit-project/kyanit">https://github.com/kyanit-project/kyanit</a></p>
+<p>To find out how to build from source, head to
+<a href="https://github.com/kyanit-project/kyanit#building-from-source-linux">https://github.com/kyanit-project/kyanit#building-from-source-linux</a></p>
 <h1 id="license-notice">License Notice</h1>
 <p>Copyright (C) 2020 Zsolt Nagy</p>
 <p>This program is free software: you can redistribute it and/or modify it under the terms of the
@@ -467,10 +467,10 @@ pip install kyanitctl
 
 Make sure you don&#39;t have a 192.168.4.0/24 network currently active in your system, as this is the
 network address Kyanit will use while setting up. If you have an existing network with this address,
-disconnect first.
+disconnect it first.
 
-Connect to Kyanit&#39;s SSID, then start setting up Kyanit to connect to your home wireless LAN, with
-DHCP enabled by executing:
+Connect to Kyanit&#39;s SSID, with the password `myKyanit`. Then start setting up Kyanit to connect to
+your home wireless LAN, with DHCP enabled by executing:
 
 ```
 kyanitctl -setup
@@ -821,8 +821,8 @@ https://docs.micropython.org/en/latest/esp8266/tutorial/intro.html
 
 # Building Kyanit Core from Source (Linux)
 
-To build from source, head to Kyanit Core&#39;s repository on GitHub, and follow the instructions there.
-Kyanit Core&#39;s repository: https://github.com/kyanit-project/kyanit
+To find out how to build from source, head to
+https://github.com/kyanit-project/kyanit#building-from-source-linux
 
 # License Notice
 
@@ -1027,9 +1027,11 @@ def controls(kyanit_leds=None,
 
     On code error, the `idle_colors` will be shown, with an &#34;attention&#34; animation.
 
-    `kyanit_leds` may be instance of `kyanit.neoleds.NeoLeds` to override default LEDs pin.
+    `kyanit_leds` may be instance of `kyanit.neoleds.NeoLeds` to override default LEDs pin, and to
+    provide additional custom functionality to the LEDs.
 
     `kyanit_button` may be instance of `kyanit.button.Button` to override default button pin.
+    As of now, the button can not be used for any other functionality, if this decorator is used.
 
     The brightness of the LEDs can be controlled with the `brightness` parameter, which must be a
     float between 0 (completely dark) and 1 (full brightness).
@@ -1320,8 +1322,10 @@ well as showing the Color ID on the LEDs, when the button is pressed.</p>
 <p>Default colors may be changed by passing a list of 3 colors to <code>active_colors</code> and
 <code>idle_colors</code>. Each color must be an RGB tuple.</p>
 <p>On code error, the <code>idle_colors</code> will be shown, with an "attention" animation.</p>
-<p><code>kyanit_leds</code> may be instance of <a title="kyanit.neoleds.NeoLeds" href="neoleds.html#kyanit.neoleds.NeoLeds"><code>NeoLeds</code></a> to override default LEDs pin.</p>
-<p><code>kyanit_button</code> may be instance of <a title="kyanit.button.Button" href="button.html#kyanit.button.Button"><code>Button</code></a> to override default button pin.</p>
+<p><code>kyanit_leds</code> may be instance of <a title="kyanit.neoleds.NeoLeds" href="neoleds.html#kyanit.neoleds.NeoLeds"><code>NeoLeds</code></a> to override default LEDs pin, and to
+provide additional custom functionality to the LEDs.</p>
+<p><code>kyanit_button</code> may be instance of <a title="kyanit.button.Button" href="button.html#kyanit.button.Button"><code>Button</code></a> to override default button pin.
+As of now, the button can not be used for any other functionality, if this decorator is used.</p>
 <p>The brightness of the LEDs can be controlled with the <code>brightness</code> parameter, which must be a
 float between 0 (completely dark) and 1 (full brightness).</p></section>
 <details class="source">
@@ -1348,9 +1352,11 @@ float between 0 (completely dark) and 1 (full brightness).</p></section>
 
     On code error, the `idle_colors` will be shown, with an &#34;attention&#34; animation.
 
-    `kyanit_leds` may be instance of `kyanit.neoleds.NeoLeds` to override default LEDs pin.
+    `kyanit_leds` may be instance of `kyanit.neoleds.NeoLeds` to override default LEDs pin, and to
+    provide additional custom functionality to the LEDs.
 
     `kyanit_button` may be instance of `kyanit.button.Button` to override default button pin.
+    As of now, the button can not be used for any other functionality, if this decorator is used.
 
     The brightness of the LEDs can be controlled with the `brightness` parameter, which must be a
     float between 0 (completely dark) and 1 (full brightness).

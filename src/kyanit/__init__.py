@@ -89,10 +89,10 @@ pip install kyanitctl
 
 Make sure you don't have a 192.168.4.0/24 network currently active in your system, as this is the
 network address Kyanit will use while setting up. If you have an existing network with this address,
-disconnect first.
+disconnect it first.
 
-Connect to Kyanit's SSID, then start setting up Kyanit to connect to your home wireless LAN, with
-DHCP enabled by executing:
+Connect to Kyanit's SSID, with the password `myKyanit`. Then start setting up Kyanit to connect to
+your home wireless LAN, with DHCP enabled by executing:
 
 ```
 kyanitctl -setup
@@ -649,9 +649,11 @@ def controls(kyanit_leds=None,
 
     On code error, the `idle_colors` will be shown, with an "attention" animation.
 
-    `kyanit_leds` may be instance of `kyanit.neoleds.NeoLeds` to override default LEDs pin.
+    `kyanit_leds` may be instance of `kyanit.neoleds.NeoLeds` to override default LEDs pin, and to
+    provide additional custom functionality to the LEDs.
 
     `kyanit_button` may be instance of `kyanit.button.Button` to override default button pin.
+    As of now, the button can not be used for any other functionality, if this decorator is used.
 
     The brightness of the LEDs can be controlled with the `brightness` parameter, which must be a
     float between 0 (completely dark) and 1 (full brightness).
