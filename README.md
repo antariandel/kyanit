@@ -77,6 +77,16 @@ included in the board's manifest. You need to add them there, if you want WebREP
 Make a custom board configuration by copying `micropython/ports/esp8266/boards/GENERIC` to
 `[...]/boards/KYANIT`.
 
+**This is optional: Until a more automated build process is made, create a `_version.py` file inside
+`kyanit/src/kyanit` with this content:**
+
+```python
+__version__ = '<latest_version>'
+```
+
+Where `<latest_version>` should be the output of `python genversion.py` with `-dev` appended, for
+example: `1.0.0-dev` (to differentiate it form released versions). Again, this is optional.
+
 Copy the `micropython/ports/esp8266/modules` directory to
 `KYANIT/modules`, then copy the contents of `kyanit/src` into the newly created `modules` directory.
 
