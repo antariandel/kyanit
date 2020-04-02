@@ -477,12 +477,12 @@ from . import runner
 from . import httpsrv
 from . import interfaces
 
+from ._version import __version__
 
 LEDS_PIN = 4
 BUTTON_PIN = 14
 
 
-__version__ = '1.0.0'
 _color_id = None
 
 
