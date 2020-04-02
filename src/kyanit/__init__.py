@@ -477,7 +477,11 @@ from . import runner
 from . import httpsrv
 from . import interfaces
 
-from ._version import __version__
+try:
+    from ._version import __version__
+except ImportError:
+    pass
+
 
 LEDS_PIN = 4
 BUTTON_PIN = 14
