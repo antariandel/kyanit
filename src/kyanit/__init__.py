@@ -466,9 +466,11 @@ The above license notice applies to all parts of this package.
 import gc
 import uos
 import ure
+import esp
 import ujson
 import network
 import machine
+import uhashlib
 import neopixel
 import ubinascii
 
@@ -477,10 +479,16 @@ from . import runner
 from . import httpsrv
 from . import interfaces
 
+hasher = uhashlib.sha256()
+for i in range(esp.flash_user_start() / 1024):
+    hasher.update(esp.flash_read(i * 1024, 1024))
+fw_digest = ubinascii.hexlify(hasher.digest()).decode()[:8]
+
 try:
     from ._version import __version__
+    __version = '{}+{}'.format(__version__, fw_digest)
 except ImportError:
-    pass
+    __version__ = 'build+{}'.format(fw_digest)
 
 
 LEDS_PIN = 4
