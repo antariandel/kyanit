@@ -754,38 +754,6 @@ def _run():
                 _color_id = colorid.from_number(
                     int(ure.search('\d+$', interfaces.wlan.ifconfig()[0]).group(0))  # noqa
                 )
-    
-    fallback_ap_mode = False
-    button = machine.Signal(machine.Pin(BUTTON_PIN, machine.Pin.IN), invert=True)
-    if button.value():
-        fallback_ap_mode = True
-    # try connecting wlan
-    try:
-        if fallback_ap_mode:
-            raise Exception  # skip to setting up AP
-        wlan_info = ujson.load(open('/wlan.json'))
-        ssid = wlan_info['ssid']
-        password = wlan_info['password']
-        ifconfig = wlan_info['ifconfig'] if 'ifconfig' in wlan_info else 'dhcp'
-    except Exception:
-        # set up AP, if can't get JSON, or malformed
-        fallback_ap_mode = True
-        setup_fallback_ap()
-    else:
-        if not interfaces.wlan_connect(ssid, password, ifconfig=ifconfig, timeout=20):
-            # set up AP, if can't connect
-            interfaces.wlan.active(False)
-            fallback_ap_mode = True
-            setup_fallback_ap()
-    if fallback_ap_mode:
-        neop = neopixel.NeoPixel(machine.Pin(LEDS_PIN), 3)
-        loop = runner.get_event_loop()
-        loop.create_task(front_leds_blink(neop, (0, 0, 255)))
-
-    # set Color ID based on last octet of IP address
-    _color_id = colorid.from_number(
-        int(ure.search('\d+$', interfaces.wlan.ifconfig()[0]).group(0))  # noqa
-    )
 
     def action_file_list(*args):
         return httpsrv.response(
@@ -873,7 +841,44 @@ def _run():
             return httpsrv.response(200, '"OK"', 'application/json')
         if method == 'GET':
             return httpsrv.response(200, ujson.dumps(Netvar.outbound()), 'application/json')
+    
+    # Start in fallback AP mode if the button is pressed
+    fallback_ap_mode = False
+    button = machine.Signal(machine.Pin(BUTTON_PIN, machine.Pin.IN), invert=True)
+    if button.value():
+        fallback_ap_mode = True
+    
+    # Try connecting to WLAN if not in fallback AP, else activate AP
+    if not fallback_ap_mode:
+        try:
+            wlan_info = ujson.load(open('/wlan.json'))
+            ssid = wlan_info['ssid']
+            password = wlan_info['password']
+            ifconfig = wlan_info['ifconfig'] if 'ifconfig' in wlan_info else 'dhcp'
+        except Exception:
+            # fall back to AP, if can't get JSON, or malformed
+            fallback_ap_mode = True
+            setup_fallback_ap()
+        else:
+            if not interfaces.wlan_connect(ssid, password, ifconfig=ifconfig, timeout=20):
+                # fall back to AP, if can't connect
+                interfaces.wlan.active(False)
+                fallback_ap_mode = True
+                setup_fallback_ap()
+    else:
+        fallback_ap_mode = True
+        setup_fallback_ap()
+    
+    # Blink LEDS in blue if in fallback AP mode
+    if fallback_ap_mode:
+        neop = neopixel.NeoPixel(machine.Pin(LEDS_PIN), 3)
+        loop = runner.get_event_loop()
+        loop.create_task(front_leds_blink(neop, (0, 0, 255)))
 
+    # Set Color ID
+    _color_id = colorid.from_number(
+        int(ure.search('\d+$', interfaces.wlan.ifconfig()[0]).group(0))  # noqa
+    )
 
     # Set up HTTP server
     http_server = httpsrv.HTTPServer(port=3300)
@@ -902,8 +907,9 @@ def _run():
     # RUN
     loop = runner.get_event_loop()
     loop.create_task(http_server.catch_requests())
-    # do not start automatically on fallback
+
     if not fallback_ap_mode:
+        # start code.py if not in fallback AP mode
         loop.create_task(check_wlan_connection())
         loop.create_task(runner.starter_coro())
     
