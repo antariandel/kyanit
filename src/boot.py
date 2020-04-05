@@ -13,12 +13,14 @@
 
 try:
     import kyanit
-    if hasattr(kyanit, '__version__'):
-        print('KYANIT {}'.format(kyanit.__version__))
+    print('KYANIT Version: {}'.format(kyanit.__version__))
+    print('KYANIT ID: {}'
+          .format(kyanit.ubinascii.hexlify(kyanit.machine.unique_id()).decode().upper()))
 except ImportError:
     print('KYANIT Error: Importing Kyanit FAIL!')
 else:
     try:
+        print('KYANIT Run.')
         kyanit._run()
     except KeyboardInterrupt:
         print('KYANIT Stopping... Please wait.')
