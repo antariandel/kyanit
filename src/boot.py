@@ -23,8 +23,9 @@ else:
         print('KYANIT Run.')
         kyanit._run()
     except KeyboardInterrupt:
-        print('KYANIT Stopping... Please wait.')
-        kyanit.runner.stop()
+        # flush uasyncio
+        kyanit.runner.core._task_queue = kyanit.runner.core.TaskQueue()
+        kyanit.runner.core._io_queue = kyanit.runner.core.IOQueue()
         print('KYANIT Killed. Start again with kyanit._run()')
     except Exception as exc:
         # we should never end up here
