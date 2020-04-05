@@ -874,9 +874,9 @@ def _run():
         if method == 'GET':
             return httpsrv.response(200, ujson.dumps(Netvar.outbound()), 'application/json')
 
-    # Set up HTTP server on port 3300
-    http_server = httpsrv.HTTPServer(3300)
-    httpsrv.add_status(404, 'Not Found')
+
+    # Set up HTTP server
+    http_server = httpsrv.HTTPServer(port=3300)
 
     # File actions
     http_server.register('GET', '^/files$', action_file_list)
@@ -899,11 +899,17 @@ def _run():
     http_server.register('GET', '^/netvar$', action_netvar)
     http_server.register('POST', '^/netvar$', action_netvar)
 
-    # Run
+    # RUN
     loop = runner.get_event_loop()
     loop.create_task(http_server.catch_requests())
     # do not start automatically on fallback
     if not fallback_ap_mode:
         loop.create_task(check_wlan_connection())
         loop.create_task(runner.starter_coro())
-    loop.run_forever()
+    
+    try:
+        loop.run_forever()
+    except Exception:
+        # close socket, so we can restart
+        http_server.close()
+        raise
