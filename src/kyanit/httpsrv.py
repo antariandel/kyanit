@@ -97,6 +97,7 @@ _http_ver = 'HTTP/1.0'
 
 _statuses = {
     200: 'OK',
+    404: 'Not Found',
     500: 'Internal Server Error',
 }
 
@@ -240,6 +241,9 @@ class HTTPServer:
                 '^/$': lambda method, loc, params, headers, conn, addr: (200, '"OK"', CT_JSON)
             }
         }
+    
+    def close(self):
+        self._sock.close()
 
     def set_timeout(self, timeout):
         self._timeout = timeout
