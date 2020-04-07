@@ -738,7 +738,7 @@ def controls(kyanit_leds=None,
             if not args:
                 kyanit_leds.display(active_colors, Animations.breathe,
                                     anim_speed=10, brightness=brightness)
-            elif args[0] is StoppedError:
+            elif args[0] is StoppedError or args[0] is None:
                 kyanit_leds.display(idle_colors, Animations.breathe,
                                     anim_speed=5, brightness=brightness)
             elif args[0] is not RebootError:  # and args[0] is not ResetError:
