@@ -115,10 +115,10 @@ def add_status(num, status_str):
     By default only `200 OK`, `404 Not Found` and `500 Internal Server Error` HTTP status codes are
     available in `kyanit.httpsrv`.
 
-    You may extend this by adding statuses with this function, where `code` is the status code (int)
-    and `status_str` is the string. You are responsible for making the added statuses HTTP-
-    compliant.
-
+    You may extend this by adding statuses with this function, where `num` is the status code number
+    (int) and `status_str` is the string. Example: `add_status(204, 'No Content')`
+    
+    You are responsible for making the added statuses compliant to HTTP spec.
     For a list of compliant status codes, see:
     https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
     """
