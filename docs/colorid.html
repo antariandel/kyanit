@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.5" />
 <title>Kyanit Core Documentation</title>
-<meta name="description" content="`kyanit.colorid` module …" />
+<meta name="description" content="`kyanit.colorid` module " />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -29,93 +29,6 @@ display: none;
 <h1 id="kyanitcolorid-module"><a title="kyanit.colorid" href="#kyanit.colorid"><code>kyanit.colorid</code></a> module</h1>
 <p>This module publishes two helper functions to work with Color IDs.</p>
 <p>See the function documentations for details on usage.</p>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python"># Kyanit (Core) - colorid module
-# Copyright (C) 2020 Zsolt Nagy
-#
-# This program is free software: you can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, version 3 of the License.
-#
-# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
-# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the GNU General Public License for more details.
-# You should have received a copy of the GNU General Public License along with this program.
-# If not, see &lt;https://www.gnu.org/licenses/&gt;.
-
-&#34;&#34;&#34;
-# `kyanit.colorid` module
-
-This module publishes two helper functions to work with Color IDs.
-
-See the function documentations for details on usage.
-&#34;&#34;&#34;
-
-
-_valid_id_colors = {
-    &#39;B&#39;: (0, 0, 255),
-    &#39;C&#39;: (0, 128, 128),
-    &#39;G&#39;: (0, 128, 0),  # brightness compensated
-    &#39;M&#39;: (128, 0, 128),
-    &#39;R&#39;: (128, 0, 0),  # brightness compensated
-    &#39;W&#39;: (85, 85, 85),
-    &#39;Y&#39;: (128, 128, 0)
-}
-
-
-def to_colors(color_id):
-    &#34;&#34;&#34;
-    Return a list with 3 RGB color tuples corresponding to the `color_id`. The `color_id` must be a
-    string with 3 upper-case characters, which can be any of &#39;R&#39;, &#39;G&#39;, &#39;B&#39;, &#39;C&#39;, &#39;M&#39;, &#39;Y&#39;, or &#39;W&#39;
-    (white).
-
-    If the `color_id` is a longer string, subsequent characters are disregarded. If the first 3
-    characters are not one of the above list, `IndexError` will be raised.
-
-    `color_id` may also be any other indexable type, but if `color_id` is not indexable,
-    `TypeError` will be raised.
-    &#34;&#34;&#34;
-
-    return [
-        _valid_id_colors[color_id[0]],
-        _valid_id_colors[color_id[1]],
-        _valid_id_colors[color_id[2]],
-    ]
-
-
-def from_number(num):
-    &#34;&#34;&#34;
-    Calculate a Color ID string from a number passed to `num`. If `num` is negative or larger than
-    342, `ValueError` will be raised. The Color ID is used for representing the last octet of an IP
-    address, so any value above 245 is probably also not valid, but 342 is the maximum number that
-    can be represented with the 7 available color symbols.
-
-    If `num` is not `int`, `TypeError` will be raised.
-    &#34;&#34;&#34;
-
-    max_addr = len(_valid_id_colors) ** 3 - 1
-
-    if num &lt; 0 or num &gt; max_addr:
-        raise ValueError
-
-    base = len(_valid_id_colors)
-    symbols = [key for key in _valid_id_colors]
-    symbols.sort()
-
-    digits = []
-
-    while num:
-        digits.append(symbols[int(num % base)])
-        num = int(num / base)
-
-    digits.reverse()
-
-    result = &#39;&#39;.join(digits)
-
-    return (symbols[0] * (3 - len(result))) + result  # pad</code></pre>
-</details>
 </section>
 <section>
 </section>
@@ -133,41 +46,6 @@ def from_number(num):
 address, so any value above 245 is probably also not valid, but 342 is the maximum number that
 can be represented with the 7 available color symbols.</p>
 <p>If <code>num</code> is not <code>int</code>, <code>TypeError</code> will be raised.</p></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def from_number(num):
-    &#34;&#34;&#34;
-    Calculate a Color ID string from a number passed to `num`. If `num` is negative or larger than
-    342, `ValueError` will be raised. The Color ID is used for representing the last octet of an IP
-    address, so any value above 245 is probably also not valid, but 342 is the maximum number that
-    can be represented with the 7 available color symbols.
-
-    If `num` is not `int`, `TypeError` will be raised.
-    &#34;&#34;&#34;
-
-    max_addr = len(_valid_id_colors) ** 3 - 1
-
-    if num &lt; 0 or num &gt; max_addr:
-        raise ValueError
-
-    base = len(_valid_id_colors)
-    symbols = [key for key in _valid_id_colors]
-    symbols.sort()
-
-    digits = []
-
-    while num:
-        digits.append(symbols[int(num % base)])
-        num = int(num / base)
-
-    digits.reverse()
-
-    result = &#39;&#39;.join(digits)
-
-    return (symbols[0] * (3 - len(result))) + result  # pad</code></pre>
-</details>
 </dd>
 <dt id="kyanit.colorid.to_colors"><code class="name flex">
 <span>def <span class="ident">to_colors</span></span>(<span>color_id)</span>
@@ -180,29 +58,6 @@ string with 3 upper-case characters, which can be any of 'R', 'G', 'B', 'C', 'M'
 characters are not one of the above list, <code>IndexError</code> will be raised.</p>
 <p><code>color_id</code> may also be any other indexable type, but if <code>color_id</code> is not indexable,
 <code>TypeError</code> will be raised.</p></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def to_colors(color_id):
-    &#34;&#34;&#34;
-    Return a list with 3 RGB color tuples corresponding to the `color_id`. The `color_id` must be a
-    string with 3 upper-case characters, which can be any of &#39;R&#39;, &#39;G&#39;, &#39;B&#39;, &#39;C&#39;, &#39;M&#39;, &#39;Y&#39;, or &#39;W&#39;
-    (white).
-
-    If the `color_id` is a longer string, subsequent characters are disregarded. If the first 3
-    characters are not one of the above list, `IndexError` will be raised.
-
-    `color_id` may also be any other indexable type, but if `color_id` is not indexable,
-    `TypeError` will be raised.
-    &#34;&#34;&#34;
-
-    return [
-        _valid_id_colors[color_id[0]],
-        _valid_id_colors[color_id[1]],
-        _valid_id_colors[color_id[2]],
-    ]</code></pre>
-</details>
 </dd>
 </dl>
 </section>

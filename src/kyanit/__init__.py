@@ -28,9 +28,8 @@ handling any uncaught exceptions in the user code.
 
 Kyanit Core provides an HTTP API through which the user code can be changed and controlled.
 Additionally it provides an addressing mechanism called the "Color ID," which maps to the IP
-address of the board. The Color ID consists of 3 colors from the **R**ed, **G**reen, **B**lue,
-**C**yan, **M**agenta, **Y**ellow and **W**hite pallette, and is displayed using 3 WS2812B
-(Neopixel) LEDs.
+address of the board. The Color ID consists of 3 colors, each either red, gree, blue, cyan, magenta,
+yellow or white, and they are displayed using 3 WS2812B (Neopixel) LEDs.
 
 The official board design already has these LEDs built in, as well as a button, which when pressed,
 will make the Color ID be displayed on the LEDs.
@@ -113,31 +112,53 @@ instead.
 Kyanit will then reboot and try to connect to your wireless router. If this doesn't work, it will
 fall back to AP, and start flashing the LEDs again. You can retry the above steps, if this happens.
 
-On successful connection, the LEDs will light up in a greenish-blue color, with a slow "breathing"
+On successful connection, the LEDs will light up in a blueish color, with a slow "breathing"
 animation. If you were originally connected to your home network through wireless on your computer,
 you can now reconnect.
 
-Pressing the button will cause the Color ID to be shown on the LEDs for 10 seconds.
+### The Color ID
+
+Addressing a Kyanit board can be done in two ways. Either by knowing its IP address, or by means of
+the Color ID. The Color ID is a sequence of 3 colors, each color being one of red, green, blue,
+cyan, magenta, yellow or white:
+
+<center>
+<img width="100%" src="color_id_colors.svg" alt="All Color ID Colors" style="max-width: 800px">
+</center>
+
+If you know the Color ID of the Kyanit, you don't need to know its IP address. To find out the Color
+ID, press the button on the Kyanit. This will cause the Color ID to be shown on the LEDs for 10
+seconds.
 
 On a Kyanit Board, the Color ID must be read starting from the bottom (where the USB connector is),
 and going counter-clockwise, as the notches on the enclosure suggest. Here are some Color ID
 examples:
 
-![Color ID Examples](color_id_examples.svg "Color ID Examples on a Kyanit Board")
+<center>
+<img width="100%" src="color_id_examples.svg" alt="Color ID Examples" style="max-width: 800px">
+</center>
 
-Addressing using the Color ID works on home networks with a subnet mask of 255.255.255.0, which is
-what most home and small business routers create. Kyanit CTL will discover the networks available
-on your computer the first time you run it with a Color ID. If one such network is present on your
-system, it will be used by default, otherwise you will be presented with a list of networks, and
-you'll need to select the same network, Kyanit is connected to. The selection will be saved and
-used for all further connection attempts. The network selection can be re-run with
-`kyanitctl -reset_network` if desired later.
+The last octet of the IP address maps to the Color ID under the hood. For this reason only networks
+with a subnet mask of 255.255.255.0 are supported. Most home and small business routers create such
+a network, so you should be fine.
+
+In the unlikely scenario where your home wireless network is configured with a netmask different
+from 255.255.255.0, you'll need to provide the IP address of the Kyanit when running `kyanitctl`.
+In that case it's easier if Kyanit is set up with a static IP.
+
+Kyanit CTL will discover the networks available on your computer the first time you run it with a
+Color ID. If one supported network is present on your system, it will be used by default, otherwise
+you will be presented with a list of networks, and you'll need to select the network, the Kyanit is
+connected to. The selection will be saved and used for all further connection attempts. The network
+selection can be re-run with `kyanitctl -reset_network` if desired later.
+
+### Checking the status of the Kyanit
 
 Try running `kyanitctl <Color ID> -status` (or `-stat` for short) to see the current status of the
-board. Pass in the Color ID of your board to `<Color ID>`.
+board. Pass in the Color ID of your board to `<Color ID>` after checking it by pressing the button.
 
 Here's an example output for a Kyanit Board with a Color ID of BCG (Blue-Cyan-Green) on a system
-where two networks with a netmask of 255.255.255.0 are present:
+where two supported networks are present:
 
 ```
 > kyanitctl BCG -stat
@@ -177,11 +198,7 @@ Retrieving system status...
            Run state: CODE.PY MAIN
 ```
 
-In the unlikely scenario where your home wireless network is configured with a netmask different
-from 255.255.255.0, you'll need to provide the IP address of the Kyanit when running `kyanitctl`.
-In this case it's easier if Kyanit is configured with a static IP.
-
-The same as above with IP address instead of Color ID would be:
+The same as above with IP address instead of the Color ID would be:
 
 ```
 kyanitctl -ip 192.168.1.9 -stat
@@ -198,7 +215,8 @@ List the files currently on the board with the `-files` option:
 
 === Kyanit BCG (192.168.1.9 through 'Wi-Fi') ===
 
-Retrieving file list done. Files:
+Retrieving file list done.
+Files on Kyanit:
 
 wlan.json
 code.py
@@ -211,7 +229,7 @@ This is the user code entry point. On startup, Kyanit Core will try to import it
 `main` function inside. The code currently only controls the LEDs and monitors the button.
 
 Download `code.py` from the board using `kyanitctl` with the option `-get code.py`.
-(Be aware, that this will overwrite any existing `code.py` that you may have in your local
+(Be aware, that this will overwrite any existing `code.py` file that you may have in your local
 directory.)
 
 The `code.py` initially contains the following:
@@ -242,6 +260,11 @@ def cleanup(exception):
     pass
 ```
 
+The `kyanit.controls()` decorator on the `main` and `cleanup` functions should be left there, unless
+you don't need feedback on run state (discussed in the next section) and the Color ID. This means,
+that if you remove those, the Kyanit will be unresponsive to button press, and the LEDs will not be
+controlled automatically. 
+
 Uploading a new `code.py` can be done with `-put code.py`. Other files can also be uploaded, but
 keep in mind, that directories are not supported on Kyanit.
 If you pass a directory to `-put`, every file from that directory will be uploaded (and it will not
@@ -251,7 +274,7 @@ NOTE: The board will need to be rebooted with `-reboot` for the new code to beco
 be done with a single command, for example:
 
 ```
-kyanitctl BBY -put code.py -reboot
+kyanitctl BCG -put code.py -reboot
 ```
 
 For a full list of what Kyanit CTL can do, refer to the command-line help with `kyanitctl -h`.
@@ -273,16 +296,28 @@ There is a `code.py`, that was imported, but there's no `main` function in it to
 
 `code.py` was imported, and `main` was called. This is what can be considred a "running" state.
 
+Having the `kyanit.controls()` decorator on `main` will make the LEDs "breathe" in a bluish color,
+indicating that `main` was called, and that Kyanit is running the user code.
+
 * **`STOPPED`**
 
 The code was stopped either from within the code itself, or by outside means, ex. with Kyanit CTL's
 `-stop` option. The code may be restarted with Kyanit CTL, using the `-start` option.
+
+Before enterint this state, the runner will call the `cleanup` function. Having the
+`kyanit.controls()` decorator on `cleanup` will change the LED colors to a deep orange, and the
+animation will slow down, indicating that it entered the `STOPPED` state.
 
 * **`ERROR ExceptionName`**
 
 There was an uncaught exception within `code.py`. An exception detail, with traceback will also be
 available through Kyanit CTL's `-status` option. At this point, the code may be restarted.
 (Although debugging is probably required.)
+
+Before enterint this state, the runner will call the `cleanup` function and it will pass it the
+exception, so handling it is possible in `cleanup`. Having the `kyanit.controls()` decorator on
+`cleanup` will change the LED colors to a deep orange, and the animation will be a blinking
+"attention" animation, indicating that an uncaught error occurred.
 
 ## Coding on Kyanit (Using Coroutines)
 
@@ -355,13 +390,14 @@ HINT: Everything from uasyncio is available in `runner` (it has everything impor
 
 The `kyanit.runner` module is responsible for running the code and keeping tabs on the tasks.
 
-Always create tasks with `runner.create_task()` and not `uasyncio.get_event_loop().create_task()`,
-because Kyanit can not catch errors in tasks created on the event loop directly. Uncaught errors
-will cause the coroutine that's raising them to stop silently, which may result in unexpected
-behavior.
+Always create tasks with `runner.create_task()` from `runner` and not
+`uasyncio.get_event_loop().create_task()`, because Kyanit can not catch errors in tasks created on
+the event loop directly. Uncaught errors will cause the coroutine that's raising them to stop
+silently, which may result in unexpected behavior.
 
-On the other hand, errors in tasks created on runner will be handled. In case of an error, all tasks
-will be stopped in a controlled fashion, and Kyanit will go into ERROR state.
+On the other hand, errors in tasks created on the runner will be handled. In case of an error, all
+tasks will be stopped in a controlled fashion, and Kyanit will go into ERROR state.
+(See [*Run States*](#run-states) above.)
 
 The same applies when running is stopped with `kyanit.runner.stop()` or by ex. Kyanit CTL, using
 `-stop`. Kyanit will stop all tasks created on runner, but it cannot stop tasks directly created
@@ -373,18 +409,13 @@ Stop a single task from running with `runner.destroy_task('task_name')`.
 
 * If you want a long-running code or continuous loop, implement it in an `async` function and use
 `await runner.sleep()` where pauses can be accepted.
-* Never use `time.sleep()` for long delays, use `await runner.sleep()` instead
+* Never use `time.sleep()` for long delays, use `await runner.sleep()` instead.
 * If timing is critical (ex. for bit-banging), you may use `time.sleep()`, but keep in mind that
 this prevents other coroutines to run in the meantime, so keep it short.
-* Always create tasks with `runner.create_task()`
+* Always create tasks with `runner.create_task()` from `runner`.
 
 More on coroutines in MicroPython:
 https://github.com/peterhinch/micropython-async/blob/master/TUTORIAL.md
-
-NOTE: `micropython/extmod/uasyncio` (the one available in Kyanit) is a different implementation,
-than what the above tutorial is based on, but it's still a good place to start. See `uasyncio`
-source code at https://github.com/micropython/micropython/tree/master/extmod/uasyncio to find out
-differences.
 
 Read documentation of `kyanit.runner` to find out more about tasks and how to control the runner.
 
@@ -402,7 +433,7 @@ A minimal HTTP server module.
 
 * **`kyanit.interfaces`**
 
-Module to control the wireless network interface of the ESP8266.
+Module to control the wireless network interfaces of the ESP8266.
 
 * **`kyanit.neoleds`**
 
@@ -479,10 +510,13 @@ from . import runner
 from . import httpsrv
 from . import interfaces
 
-hasher = uhashlib.sha256()
-for i in range(esp.flash_user_start() / 1024):
-    hasher.update(esp.flash_read(i * 1024, 1024))
-fw_digest = ubinascii.hexlify(hasher.digest()).decode()[:8]
+if esp.flash_user_start() is not None:
+    hasher = uhashlib.sha256()
+    for i in range(esp.flash_user_start() / 1024):
+        hasher.update(esp.flash_read(i * 1024, 1024))
+    fw_digest = ubinascii.hexlify(hasher.digest()).decode()[:8]
+else:
+    fw_digest = '0'
 
 try:
     from ._version import __version__
@@ -529,7 +563,7 @@ class Netvar:
     the network connection. Netvar is a static class, therefore it's not intended to be
     instantiated.
 
-    There are 2 variables within Netvar, which can be seen as "channels".
+    There are 2 variables within Netvar, which can be understood as "channels".
 
     `Netvar.inbound()` accesses the variable that is written from "outside", such as by Kyanit CTL
     or Kyanit API.
@@ -667,7 +701,7 @@ def controls(kyanit_leds=None,
     `kyanit_button` may be instance of `kyanit.button.Button` to override default button pin.
     As of now, the button can not be used for any other functionality, if this decorator is used.
 
-    The brightness of the LEDs can be controlled with the `brightness` parameter, which must be a
+    The brightness of the LEDs can be adjusted with the `brightness` parameter, which must be a
     float between 0 (completely dark) and 1 (full brightness).
     """
 

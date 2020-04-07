@@ -21,7 +21,7 @@ docs_dir_htmls = [file for file in os.listdir(DOCS_DIR)
 
 
 def recursive_htmls(mod):
-    yield mod.name, mod.html()
+    yield mod.name, mod.html(show_source_code=False)
     for submod in mod.submodules():
         yield from recursive_htmls(submod)
 
@@ -32,7 +32,7 @@ for module_name, html in recursive_htmls(package):
     else:
         filename = '{}.html'.format(module_name.rpartition('.')[2])
     with open(os.path.join(DOCS_DIR, filename), 'w') as file:
-        file.write(html)
+        file.write(html.replace('…', ''))
     if filename in docs_dir_htmls:
         docs_dir_htmls.remove(filename)
 

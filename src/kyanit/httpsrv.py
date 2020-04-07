@@ -59,24 +59,22 @@
 
 This module is a minimal HTTP server implementation.
 
-Here's a simple example in `code.py`, which renders a page on the URL `<Kyanit IP>/page` (where
-<Kyanit IP> is the IP address of the Kyanit board):
+Here's a simple example in `code.py`, which renders the text `Hello from Kyanit!` on the URL
+`<Kyanit IP>/page` (where `<Kyanit IP>` is the IP address of the Kyanit board):
 
 ```python
-import kyanit
-from kyanit import runner
-from kyanit import httpsrv
+from kyanit import controls, runner, httpsrv
 
 def render_page(method, loc, params, headers, conn, addr):
     return httpsrv.response(200, 'Hello from Kyanit!')
 
-@kyanit.controls()
+@controls()
 def main():
     http_server = httpsrv.HTTPServer(80)
     http_server.register('GET', '^/page$', render_page)
     runner.create_task('httpsrv', http_server.catch_requests)
 
-@kyanit.controls(brightness=0.1)
+@controls()
 def cleanup(exception):
     pass
 ```
@@ -113,6 +111,18 @@ CT_JSON = 'application/json'
 
 
 def add_status(num, status_str):
+    """
+    By default only `200 OK`, `404 Not Found` and `500 Internal Server Error` HTTP status codes are
+    available in `kyanit.httpsrv`.
+
+    You may extend this by adding statuses with this function, where `code` is the status code (int)
+    and `status_str` is the string. You are responsible for making the added statuses HTTP-
+    compliant.
+
+    For a list of compliant status codes, see:
+    https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+    """
+
     global _statuses
 
     if num not in _statuses:

@@ -26,57 +26,6 @@ display: none;
 <h1 class="title">Module <code>kyanit.interfaces</code></h1>
 </header>
 <section id="section-intro">
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python"># Kyanit (Core) - interfaces module
-# Copyright (C) 2020 Zsolt Nagy
-#
-# This program is free software: you can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, version 3 of the License.
-#
-# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
-# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the GNU General Public License for more details.
-# You should have received a copy of the GNU General Public License along with this program.
-# If not, see &lt;https://www.gnu.org/licenses/&gt;.
-
-
-import utime
-
-from network import WLAN, STA_IF, AP_IF
-
-
-wlan = WLAN(STA_IF)
-ap = WLAN(AP_IF)
-
-wlan.active(False)
-ap.active(False)
-
-
-def wlan_connect(ssid, password, wait=True, timeout=10, ifconfig=&#39;dhcp&#39;):
-    wlan.active(True)
-    wlan.ifconfig(ifconfig)
-    wlan.connect(ssid, password)
-
-    if wait:
-        return wlan_wait_connected(timeout)
-    
-    return None
-
-
-def wlan_wait_connected(timeout=10):
-    if wlan.isconnected():
-        return True
-
-    timeout_future = utime.ticks_add(utime.ticks_ms(), timeout * 1000)
-    while utime.ticks_diff(timeout_future, utime.ticks_ms()) &gt; 0:
-        if wlan.isconnected():
-            return True
-
-    return False</code></pre>
-</details>
 </section>
 <section>
 </section>
@@ -90,41 +39,12 @@ def wlan_wait_connected(timeout=10):
 </code></dt>
 <dd>
 <section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def wlan_connect(ssid, password, wait=True, timeout=10, ifconfig=&#39;dhcp&#39;):
-    wlan.active(True)
-    wlan.ifconfig(ifconfig)
-    wlan.connect(ssid, password)
-
-    if wait:
-        return wlan_wait_connected(timeout)
-    
-    return None</code></pre>
-</details>
 </dd>
 <dt id="kyanit.interfaces.wlan_wait_connected"><code class="name flex">
 <span>def <span class="ident">wlan_wait_connected</span></span>(<span>timeout=10)</span>
 </code></dt>
 <dd>
 <section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def wlan_wait_connected(timeout=10):
-    if wlan.isconnected():
-        return True
-
-    timeout_future = utime.ticks_add(utime.ticks_ms(), timeout * 1000)
-    while utime.ticks_diff(timeout_future, utime.ticks_ms()) &gt; 0:
-        if wlan.isconnected():
-            return True
-
-    return False</code></pre>
-</details>
 </dd>
 </dl>
 </section>

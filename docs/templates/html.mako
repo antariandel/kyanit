@@ -128,13 +128,20 @@
   ${show_source(module)}
   </section>
 
+  % if module.name == 'kyanit':
+  <section style="margin-top: 5em">
+  <h1>Kyanit Core Package Documentation</h1>
+  </section>
+  % endif
+
   <section>
     % if submodules:
     <h2 class="section-title" id="header-submodules">Sub-modules</h2>
     <dl>
     % for m in submodules:
       <dt><code class="name">${link(m)}</code></dt>
-      <dd>${show_desc(m, short=True)}</dd>
+      <p></p>
+      ## <dd>${show_desc(m, short=True)}</dd>
     % endfor
     </dl>
     % endif
