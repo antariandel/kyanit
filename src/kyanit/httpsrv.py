@@ -91,7 +91,7 @@ import socket
 import uasyncio
 
 
-_http_ver = 'HTTP/1.0'
+_http_ver = 'HTTP/1.1'
 
 _statuses = {
     200: 'OK',
