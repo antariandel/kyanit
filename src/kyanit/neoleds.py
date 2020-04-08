@@ -28,28 +28,26 @@ class NeoLeds:
         self._write_colors([(0, 0, 0)] * self._num_leds)
         
         self._colors = [None, None]  # [0] is indef. [1] is temp.
-        self._anim = [None, None]  # same as above
-        self._anim_speed = [None, None]  # same as above
+        self._anim = [None, None]    # same as above
+        self._anim_speed = [10, 10]  # same as above
         self._anim_phase = 0
         self._temp_until = None
 
-    def display(self, colors, anim=None, anim_speed=None, time=None, brightness=None):
+    def display(self, colors, anim=None, anim_speed=10, time=None, brightness=1):
         self._anim_phase = 0
-        if brightness is not None and colors is not None:
-            colors = [[comp * brightness for comp in color] for color in colors]
-        self._anim_speed[0 if time is None else 1] = sorted((1, anim_speed, 10))[1] \
-                                                     if anim_speed is not None else None  # noqa
-        self._colors[0 if time is None else 1] = colors
+        self._anim_speed[0 if time is None else 1] = sorted((1, anim_speed, 10))[1]
+        self._colors[0 if time is None else 1] = colors if brightness == 1 else \
+            [[int(comp * brightness) for comp in color] for color in colors]
         self._anim[0 if time is None else 1] = anim
         self._temp_until = None if time is None else \
-                           utime.ticks_add(utime.ticks_ms(), time * 1000)  # noqa
+            utime.ticks_add(utime.ticks_ms(), time * 1000)
 
     async def refresh_leds(self):
         disp = 0
 
         while True:
             self._anim_phase += 1
-            if self._anim_phase > 1000:
+            if self._anim_phase > 999:
                 self._anim_phase = 0
             if self._temp_until is not None:
                 disp = 1  # temporary display
@@ -65,12 +63,11 @@ class NeoLeds:
                                                     self._colors[disp]))
 
             # sleep between 0 and 9 ms based on _anim_speed
-            await uasyncio.sleep_ms(10 - self._anim_speed[disp]
-                                    if self._anim_speed[disp] is not None else 10)
+            await uasyncio.sleep_ms(10 - self._anim_speed[disp])
 
     def _write_colors(self, colors=None):
-        for color in enumerate(colors):
-            self._neopixel[color[0]] = color[1]
+        for idx, color in enumerate(colors):
+            self._neopixel[idx] = color
         self._neopixel.write()
 
 
@@ -79,11 +76,8 @@ class Animations:
     @staticmethod
     def breathe(phase, colors):
         phase = phase % 500  # double the period
-        return [tuple(
-                    int(abs(
-                        color_element / (2 + math.sin(math.pi * 2 * phase / 500))
-                    )) for color_element in color
-                ) for color in colors]  # noqa
+        return [[int(abs(component / (2 + math.sin(math.pi * 2 * phase / 500))))
+                 for component in color] for color in colors]
     
     @staticmethod
     def attention(phase, colors):
@@ -105,8 +99,5 @@ class Animations:
             else:
                 return 11
 
-        return [tuple(
-                    int(abs(
-                        color_element / anim(phase)
-                    )) for color_element in color
-                ) for color in colors]  # noqa
+        return [[int(abs(component / anim(phase)))
+                 for component in color] for color in colors]
