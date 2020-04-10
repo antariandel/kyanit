@@ -55,15 +55,15 @@ def cleanup(exception):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="kyanit.httpsrv.add_status"><code class="name flex">
-<span>def <span class="ident">add_status</span></span>(<span>code, status_str)</span>
+<span>def <span class="ident">add_status</span></span>(<span>num, status_str)</span>
 </code></dt>
 <dd>
 <section class="desc"><p>By default only <code>200 OK</code>, <code>404 Not Found</code> and <code>500 Internal Server Error</code> HTTP status codes are
 available in <a title="kyanit.httpsrv" href="#kyanit.httpsrv"><code>kyanit.httpsrv</code></a>.</p>
-<p>You may extend this by adding statuses with this function, where <code>code</code> is the status code (int)
-and <code>status_str</code> is the string. You are responsible for making the added statuses HTTP-
-compliant.</p>
-<p>For a list of compliant status codes, see:
+<p>You may extend this by adding statuses with this function, where <code>num</code> is the status code number
+(int) and <code>status_str</code> is the string. Example: <code>add_status(204, 'No Content')</code></p>
+<p>You are responsible for making the added statuses compliant to HTTP spec.
+For a list of compliant status codes, see:
 <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html</a></p></section>
 </dd>
 <dt id="kyanit.httpsrv.add_symbol"><code class="name flex">
