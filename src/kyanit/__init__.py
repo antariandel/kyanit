@@ -263,7 +263,7 @@ def cleanup(exception):
 The `kyanit.controls()` decorator on the `main` and `cleanup` functions should be left there, unless
 you don't need feedback on run state (discussed in the next section) and the Color ID. This means,
 that if you remove those, the Kyanit will be unresponsive to button press, and the LEDs will not be
-controlled automatically. 
+controlled automatically.
 
 Uploading a new `code.py` can be done with `-put code.py`. Other files can also be uploaded, but
 keep in mind, that directories are not supported on Kyanit.
@@ -722,7 +722,7 @@ def controls(kyanit_leds=None,
 
     brightness = sorted([0, brightness, 1])[1]
 
-    async def show_id_on_leds():
+    async def show_cid_on_leds():
         while True:
             if kyanit_button.check() == 'click':
                 kyanit_leds.display(colorid.to_colors(get_color_id()), time=10)
@@ -732,9 +732,9 @@ def controls(kyanit_leds=None,
         # wrapper for code.main and code.cleanup
         def wrapper(*args):
             from .neoleds import Animations
-            runner.create_task('neoleds', kyanit_leds.refresh_leds)
-            runner.create_task('button', kyanit_button.monitor)
-            runner.create_task('show_id', show_id_on_leds)
+            runner.create_task('kyanit_leds', kyanit_leds.refresh_leds)
+            runner.create_task('kyanit_button', kyanit_button.monitor)
+            runner.create_task('kyanit_show_cid', show_cid_on_leds)
             if not args:
                 kyanit_leds.display(active_colors, Animations.breathe,
                                     anim_speed=10, brightness=brightness)
