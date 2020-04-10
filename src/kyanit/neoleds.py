@@ -47,7 +47,7 @@ class NeoLeds:
 
         while True:
             self._anim_phase += 1
-            if self._anim_phase > 999:
+            if self._anim_phase > 65535:
                 self._anim_phase = 0
             if self._temp_until is not None:
                 disp = 1  # temporary display
