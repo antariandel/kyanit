@@ -1,4 +1,5 @@
-if False: from typing import *  # noqa
+if False:
+    from typing import *  # noqa
 
 STA_IF = 0  # type: int
 AP_IF = 0  # type: int

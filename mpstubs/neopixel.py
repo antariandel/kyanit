@@ -1,6 +1,7 @@
 import machine
 
-if False: from typing import *  # noqa
+if False:
+    from typing import *  # noqa
 
 
 class NeoPixel:

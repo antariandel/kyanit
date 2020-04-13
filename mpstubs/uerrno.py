@@ -1,4 +1,5 @@
-if False: from typing import *  # noqa
+if False:
+    from typing import *  # noqa
 
 EPERM = 0  # type: int
 ENOENT = 0  # type: int

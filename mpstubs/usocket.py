@@ -1,4 +1,5 @@
-if False: from typing import *  # noqa
+if False:
+    from typing import *  # noqa
 
 
 AF_INET = 0  # type: int
@@ -11,13 +12,19 @@ IPPROTO_UDP = 0  # type: int
 IPPROTO_TCP = 0  # type: int
 
 
-def getaddrinfo(host, port, af=0, type=0, proto=0, flags=0):
-    # type: (str, int, int, int, int, int) -> List[Tuple[int, int, int, str, Tuple[str, int]]]
+def getaddrinfo(
+    host,  # type: str
+    port,  # type: int
+    af=0,  # type: int
+    type=0,  # type: int
+    proto=0,  # type: int
+    flags=0,  # type: int
+):
+    # type: (...) -> List[Tuple[int, int, int, str, Tuple[str, int]]]
     ...
 
 
 class socket:
-
     def __init__(self, af=AF_INET, type=SOCK_STREAM, proto=IPPROTO_TCP):
         # type: (int, int, int) -> None
         ...

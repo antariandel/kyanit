@@ -1,4 +1,5 @@
-if False: from typing import *  # noqa
+if False:
+    from typing import *  # noqa
 
 
 def flash_user_start() -> int:

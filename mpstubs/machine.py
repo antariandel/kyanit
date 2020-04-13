@@ -1,4 +1,5 @@
-if False: from typing import *  # noqa
+if False:
+    from typing import *  # noqa
 
 
 class Pin:
@@ -19,8 +20,14 @@ class Pin:
         # type: (int, int) ->None
         ...
 
-    def irq(self, handler=None, trigger=(IRQ_FALLING | IRQ_RISING),
-            priority=1, wake=None, hard=False):
+    def irq(
+        self,
+        handler=None,
+        trigger=(IRQ_FALLING | IRQ_RISING),
+        priority=1,
+        wake=None,
+        hard=False,
+    ):
         # type: (Optional[Callable[[Pin], Any]], int, int, Optional[int], bool) -> None
         ...
 

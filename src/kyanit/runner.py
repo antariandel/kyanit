@@ -1,29 +1,29 @@
 # Kyanit (Core) - runner module
 # Copyright (C) 2020 Zsolt Nagy
 #
-# This program is free software: you can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, version 3 of the License.
+# This program is free software: you can redistribute it and/or modify it under the
+# terms of the GNU General Public License as published by the Free Software Foundation,
+# version 3 of the License.
 #
-# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
-# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
-# You should have received a copy of the GNU General Public License along with this program.
-# If not, see <https://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License along with this
+# program. If not, see <https://www.gnu.org/licenses/>.
 
 
 import sys
-import uos
+
 import uio
-
-# import everything from uasyncio, this way we don't need to wherever runner is used
+import uos
 from uasyncio import *  # noqa
-
 
 _loop = get_event_loop()
 _tasks = {}
 
-_error_name = ''
-_traceback = ''
+_error_name = ""
+_traceback = ""
 
 
 ERROR = 0
@@ -53,23 +53,24 @@ def start():
 
     if _state <= STOPPED:
         try:
-            uos.stat('/code.py')
-        
+            uos.stat("/code.py")
+
         except Exception:
             _state = CODE_MISSING
             return
-        
+
         try:
             import code
+
             _state = CODE_IMPORTED
-            if hasattr(code, 'main'):
+            if hasattr(code, "main"):
                 if callable(code.main):
                     code.main()
                     _state = CODE_MAIN
-        
+
         except ImportError as exc:
             _handle_error(exc, False)
-        
+
         except Exception as exc:
             _handle_error(exc, True)
             return
@@ -90,10 +91,11 @@ def stop(force=False, exc=None):
         if not force:
             try:
                 import code
-                if hasattr(code, 'cleanup'):
+
+                if hasattr(code, "cleanup"):
                     # pass exc to cleanup
                     code.cleanup(exc)
-            
+
             except Exception as exc:
                 _handle_error(exc, False)
 
@@ -110,7 +112,7 @@ def create_task(name, coro, *args):
             _handle_error(exc, True)
         else:
             return True
-    
+
     return False
 
 
@@ -121,16 +123,16 @@ def destroy_task(name):
         except RuntimeError:
             # coroutine is executing (cannot cancel self)
             pass
-        del(_tasks[name])
+        del _tasks[name]
         return True
-    
+
     return False
 
 
 async def _task_wrapper_coro(coro, *args):
     try:
         await coro(*args)
-    
+
     except CancelledError:
         pass  # allow cancellation silently (ie. when deactivating)
 
@@ -152,11 +154,13 @@ def _handle_error(exc, cleanup):
     if cleanup:
         try:
             import code
-            if hasattr(code, 'cleanup'):
+
+            if hasattr(code, "cleanup"):
                 code.cleanup(exc)
 
         except Exception as exc:
             exc_details = uio.StringIO()
             sys.print_exception(exc, exc_details)
-            _traceback = ('{0}\nCODE.CLEANUP ERROR\n{1}'
-                          .format(_traceback, exc_details.getvalue()))
+            _traceback = "{0}\nCODE.CLEANUP ERROR\n{1}".format(
+                _traceback, exc_details.getvalue()
+            )

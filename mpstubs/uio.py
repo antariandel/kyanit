@@ -1,8 +1,8 @@
-if False: from typing import *  # noqa
+if False:
+    from typing import *  # noqa
 
 
 class StringIO:
-
     def __init__(self, alloc_size=0):
         # type: (int) -> None
         ...
@@ -13,7 +13,6 @@ class StringIO:
 
 
 class BytesIO:
-
     def __init__(self, alloc_size=0):
         # type: (int) -> None
         ...
