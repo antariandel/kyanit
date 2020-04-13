@@ -12,36 +12,30 @@
 <style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
 <style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<style>
-/* Hide "Module kyanit" title */
-h1.title {
-display: none;
-}
-</style>
 </head>
 <body>
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>kyanit</code></h1>
 </header>
 <section id="section-intro">
-<h1 id="kyanit-core">Kyanit Core</h1>
+<h1 id="kyanit-core">Kyanit Core.</h1>
 <p>The <a title="kyanit" href="#kyanit"><code>kyanit</code></a> package is referred to as Kyanit Core.</p>
-<p>Kyanit Core is a user code supervisor built for MicroPython. Development is currently focused on the
-ESP8266 port of MicroPython. Together with an ESP8266-based board, Kyanit Core is indended to be a
-foundation for home automation systems. A board with Kyanit Core installed is referred to simply as
-Kyanit or Kyanit board. An official board design for Kyanit can be found at
-<a href="https://kyanit.eu/kyanit-board.">https://kyanit.eu/kyanit-board.</a></p>
+<p>Kyanit Core is a user code supervisor built for MicroPython. Development is currently
+focused on the ESP8266 port of MicroPython. Together with an ESP8266-based board, Kyanit
+Core is indended to be a foundation for home automation systems. A board with Kyanit
+Core installed is referred to simply as Kyanit or Kyanit board. An official board design
+for Kyanit can be found at <a href="https://kyanit.eu/kyanit-board.">https://kyanit.eu/kyanit-board.</a></p>
 <p>For information about MicroPython head to <a href="https://micropython.org/">https://micropython.org/</a></p>
-<p>Being a supervisor, Kyanit Core is responsible for starting and stopping user code, as well as
-handling any uncaught exceptions in the user code.</p>
-<p>Kyanit Core provides an HTTP API through which the user code can be changed and controlled.
-Additionally it provides an addressing mechanism called the "Color ID," which maps to the IP
-address of the board. The Color ID consists of 3 colors, each either red, gree, blue, cyan, magenta,
-yellow or white, and they are displayed using 3 WS2812B (Neopixel) LEDs.</p>
-<p>The official board design already has these LEDs built in, as well as a button, which when pressed,
-will make the Color ID be displayed on the LEDs.</p>
+<p>Being a supervisor, Kyanit Core is responsible for starting and stopping user code, as
+well as handling any uncaught exceptions in the user code.</p>
+<p>Kyanit Core provides an HTTP API through which the user code can be changed and
+controlled. Additionally it provides an addressing mechanism called the "Color ID,"
+which maps to the IP address of the board. The Color ID consists of 3 colors, each
+either red, gree, blue, cyan, magenta, yellow or white, and they are displayed using 3
+WS2812B (Neopixel) LEDs.</p>
+<p>The official board design already has these LEDs built in, as well as a button, which
+when pressed, will make the Color ID be displayed on the LEDs.</p>
 <h2 id="the-kyanit-ecosystem">The Kyanit Ecosystem</h2>
 <ul>
 <li><a href="https://kyanit.eu/docs/kyanit"><strong>Kyanit Core</strong></a></li>
@@ -50,8 +44,8 @@ will make the Color ID be displayed on the LEDs.</p>
 <ul>
 <li><a href="https://kyanit.eu/kyanit-board"><strong>Kyanit Board</strong></a></li>
 </ul>
-<p>A stylish, triangle-shaped ESP8266-based board built around an ESP-12F module, the official Kyanit
-board.</p>
+<p>A stylish, triangle-shaped ESP8266-based board built around an ESP-12F module, the
+official Kyanit board.</p>
 <ul>
 <li><a href="https://kyanit.eu/docs/kyanit-ctl"><strong>Kyanit CTL</strong></a></li>
 </ul>
@@ -63,83 +57,91 @@ board.</p>
 (Kyanit CTL is an application of this API.)</p>
 <h2 id="getting-started-with-kyanit-core">Getting Started with Kyanit Core</h2>
 <h3 id="setting-up">Setting Up</h3>
-<p>The Kyanit Core package is intended to be compiled into the MicroPython firmware, and flashed into
-an ESP8266. A board with at least 1 MB of flash is recommended, leaving approximately 380 kB free
-for user code. The Kyanit Board, or any other board with an ESP-12E/F is a good candidate. If you
-will not be working with the Kyanit Board, wire 3 WS2812B LEDs to Pin(4), and an active-low button
-to Pin(14) on your board of choice. Other pin numbers are possible, in that case, some configuration
-is required, for changing the pin numbers, see <a title="kyanit.controls" href="#kyanit.controls"><code>controls()</code></a>.</p>
+<p>The Kyanit Core package is intended to be compiled into the MicroPython firmware, and
+flashed into an ESP8266. A board with at least 1 MB of flash is recommended, leaving
+approximately 380 kB free for user code. The Kyanit Board, or any other board with an
+ESP-12E/F is a good candidate. If you will not be working with the Kyanit Board, wire 3
+WS2812B LEDs to Pin(4), and an active-low button to Pin(14) on your board of choice.
+Other pin numbers are possible, in that case, some configuration is required, for
+changing the pin numbers, see <a title="kyanit.controls" href="#kyanit.controls"><code>controls()</code></a>.</p>
 <p>If you're new to the WS2812B LEDs, you can refer to this extensive tutorial on SparkFun:
 <a href="https://learn.sparkfun.com/tutorials/ws2812-breakout-hookup-guide/all">https://learn.sparkfun.com/tutorials/ws2812-breakout-hookup-guide/all</a></p>
 <p>NOTE: It is possible to use the core package without flashing it into the firmware, but
 substantially less RAM will be available (~5k versus ~20k).</p>
-<p>To flash a released version into an ESP8266, see the
-<a href="#flashing-a-released-version-of-kyanit-core"><em>Flashing a Released version of Kyanit Core</em></a> section
-further below. Alternatively you can build the current development version, in that case, see
+<p>To flash a released version into an ESP8266, see the <a href="#flashing-a-released-version-of-kyanit-core"><em>Flashing a Released version of
+Kyanit Core</em></a> section further below.
+Alternatively you can build the current development version, in that case, see
 <a href="#building-kyanit-core-from-source-linux"><em>Building Kyanit Core from Source (Linux)</em></a>.</p>
-<p>The first time you power up the board, it will set up an AP with an SSID starting with <code>Kyanit</code> and
-ending with a unique hexadecimal number. When the AP is active, the LEDs will flash blue.</p>
+<p>The first time you power up the board, it will set up an AP with an SSID starting with
+<code>Kyanit</code> and ending with a unique hexadecimal number. When the AP is active, the LEDs
+will flash blue.</p>
 <p>A command-line utility called <code>kyanitctl</code> is provided for managing a Kyanit board.
 To start interacting with the board, install it from PyPI with:</p>
 <pre><code>pip install kyanitctl
 </code></pre>
-<p>Make sure you don't have a 192.168.4.0/24 network currently active in your system, as this is the
-network address Kyanit will use while setting up. If you have an existing network with this address,
-disconnect it first.</p>
-<p>Connect to Kyanit's SSID, with the password <code>myKyanit</code>. Then start setting up Kyanit to connect to
-your home wireless LAN, with DHCP enabled by executing:</p>
+<p>Make sure you don't have a 192.168.4.0/24 network currently active in your system, as
+this is the network address Kyanit will use while setting up. If you have an existing
+network with this address, disconnect it first.</p>
+<p>Connect to Kyanit's SSID, with the password <code>myKyanit</code>. Then start setting up Kyanit to
+connect to your home wireless LAN, with DHCP enabled by executing:</p>
 <pre><code>kyanitctl -setup
 </code></pre>
-<p>Follow the instructions and enter your home network SSID and password. You can review your settings
-before it gets uploaded to the board.</p>
+<p>Follow the instructions and enter your home network SSID and password. You can review
+your settings before it gets uploaded to the board.</p>
 <p>Alternatively you can set up a static IP configuration by running the setup with:</p>
 <pre><code>kyanitctl -setupstatic
 </code></pre>
-<p>Choose an IP address that's outside of the DHCP pool of your router. If you're unsure, use <code>-setup</code>
-instead.</p>
-<p>Kyanit will then reboot and try to connect to your wireless router. If this doesn't work, it will
-fall back to AP, and start flashing the LEDs again. You can retry the above steps, if this happens.</p>
-<p>On successful connection, the LEDs will light up in a blueish color, with a slow "breathing"
-animation. If you were originally connected to your home network through wireless on your computer,
-you can now reconnect.</p>
+<p>Choose an IP address that's outside of the DHCP pool of your router. If you're unsure,
+use <code>-setup</code> instead.</p>
+<p>Kyanit will then reboot and try to connect to your wireless router. If this doesn't
+work, it will fall back to AP, and start flashing the LEDs again. You can retry the
+above steps, if this happens.</p>
+<p>On successful connection, the LEDs will light up in a blueish color, with a slow
+"breathing" animation. If you were originally connected to your home network through
+wireless on your computer, you can now reconnect.</p>
 <h3 id="the-color-id">The Color ID</h3>
-<p>Addressing a Kyanit board can be done in two ways. Either by knowing its IP address, or by means of
-the Color ID. The Color ID is a sequence of 3 colors, each color being one of red, green, blue,
-cyan, magenta, yellow or white:</p>
+<p>Addressing a Kyanit board can be done in two ways. Either by knowing its IP address, or
+by means of the Color ID. The Color ID is a sequence of 3 colors, each color being one
+of red, green, blue, cyan, magenta, yellow or white:</p>
 <p><center>
-<img width="100%" src="color_id_colors.svg" alt="All Color ID Colors" style="max-width: 800px">
+<img width="100%" src="color_id_colors.svg" alt="All Color ID Colors"
+style="max-width: 800px">
 </center></p>
-<p>If you know the Color ID of the Kyanit, you don't need to know its IP address. To find out the Color
-ID, press the button on the Kyanit. This will cause the Color ID to be shown on the LEDs for 10
-seconds.</p>
-<p>On a Kyanit Board, the Color ID must be read starting from the bottom (where the USB connector is),
-and going counter-clockwise, as the notches on the enclosure suggest. Here are some Color ID
-examples:</p>
+<p>If you know the Color ID of the Kyanit, you don't need to know its IP address. To find
+out the Color ID, press the button on the Kyanit. This will cause the Color ID to be
+shown on the LEDs for 10 seconds.</p>
+<p>On a Kyanit Board, the Color ID must be read starting from the bottom (where the USB
+connector is), and going counter-clockwise, as the notches on the enclosure suggest.
+Here are some Color ID examples:</p>
 <p><center>
-<img width="100%" src="color_id_examples.svg" alt="Color ID Examples" style="max-width: 800px">
+<img width="100%" src="color_id_examples.svg" alt="Color ID Examples"
+style="max-width: 800px">
 </center></p>
-<p>The last octet of the IP address maps to the Color ID under the hood. For this reason only networks
-with a subnet mask of 255.255.255.0 are supported. Most home and small business routers create such
-a network, so you should be fine.</p>
-<p>In the unlikely scenario where your home wireless network is configured with a netmask different
-from 255.255.255.0, you'll need to provide the IP address of the Kyanit when running <code>kyanitctl</code>.
-In that case it's easier if Kyanit is set up with a static IP.</p>
-<p>Kyanit CTL will discover the networks available on your computer the first time you run it with a
-Color ID. If one supported network is present on your system, it will be used by default, otherwise
-you will be presented with a list of networks, and you'll need to select the network, the Kyanit is
-connected to. The selection will be saved and used for all further connection attempts. The network
-selection can be re-run with <code>kyanitctl -reset_network</code> if desired later.</p>
+<p>The last octet of the IP address maps to the Color ID under the hood. For this reason
+only networks with a subnet mask of 255.255.255.0 are supported. Most home and small
+business routers create such a network, so you should be fine.</p>
+<p>In the unlikely scenario where your home wireless network is configured with a netmask
+different from 255.255.255.0, you'll need to provide the IP address of the Kyanit when
+running <code>kyanitctl</code>. In that case it's easier if Kyanit is set up with a static IP.</p>
+<p>Kyanit CTL will discover the networks available on your computer the first time you run
+it with a Color ID. If one supported network is present on your system, it will be used
+by default, otherwise you will be presented with a list of networks, and you'll need to
+select the network, the Kyanit is connected to. The selection will be saved and used for
+all further connection attempts. The network selection can be re-run with
+<code>kyanitctl -reset_network</code> if desired later.</p>
 <h3 id="checking-the-status-of-the-kyanit">Checking the status of the Kyanit</h3>
-<p>Try running <code>kyanitctl &lt;Color ID&gt; -status</code> (or <code>-stat</code> for short) to see the current status of the
-board. Pass in the Color ID of your board to <code>&lt;Color ID&gt;</code> after checking it by pressing the button.</p>
-<p>Here's an example output for a Kyanit Board with a Color ID of BCG (Blue-Cyan-Green) on a system
-where two supported networks are present:</p>
+<p>Try running <code>kyanitctl &lt;Color ID&gt; -status</code> (or <code>-stat</code> for short) to see the current
+status of the board. Pass in the Color ID of your board to <code>&lt;Color ID&gt;</code> after checking
+it by pressing the button.</p>
+<p>Here's an example output for a Kyanit Board with a Color ID of BCG (Blue-Cyan-Green) on
+a system where two supported networks are present:</p>
 <pre><code>&gt; kyanitctl BCG -stat
 
 === Network Setup ===
 
-Connecting to Kyanit with the Color ID works on networks with a netmask of 255.255.255.0 (most home
-wireless networks). Multiple such networks detected. Select the one Kyanit is connected to:
+Connecting to Kyanit with the Color ID works on networks with a netmask of 255.255.255.0
+(most home wireless networks). Multiple such networks detected. Select the one Kyanit is
+connected to:
 
 0: 192.168.137.0   Ethernet
 1: 192.168.1.0     Wi-Fi
@@ -185,19 +187,21 @@ wlan.json
 code.py
 
 </code></pre>
-<p>With a fresh install, you should see <code>wlan.json</code>, which includes your wireless credentials and IP
-settings, and <code>code.py</code>, which is the user code that was uploaded as part of the initial setup.
-This is the user code entry point. On startup, Kyanit Core will try to import it and call the
-<code>main</code> function inside. The code currently only controls the LEDs and monitors the button.</p>
+<p>With a fresh install, you should see <code>wlan.json</code>, which includes your wireless
+credentials and IP settings, and <code>code.py</code>, which is the user code that was uploaded as
+part of the initial setup. This is the user code entry point. On startup, Kyanit Core
+will try to import it and call the <code>main</code> function inside. The code currently only
+controls the LEDs and monitors the button.</p>
 <p>Download <code>code.py</code> from the board using <code>kyanitctl</code> with the option <code>-get code.py</code>.
-(Be aware, that this will overwrite any existing <code>code.py</code> file that you may have in your local
-directory.)</p>
+(Be aware, that this will overwrite any existing <code>code.py</code> file that you may have in
+your local directory.)</p>
 <p>The <code>code.py</code> initially contains the following:</p>
-<pre><code class="python"># This code is imported on startup, then main is called, if it exists. Neither main, nor cleanup
-# should block for too long. Use coroutines through kyanit.runner.create_task('name', coro) for
-# continuous or longer tasks. Any errors (including from coroutines) will be passed to cleanup.
-# The @kyanit.controls() decorator adds functionality to the LEDs and button. It can be removed if
-# this is not required, to save ~1k of RAM.
+<pre><code class="python"># This code is imported on startup, then main is called, if it exists. Neither main, nor
+# cleanup should block for too long. Use coroutines through
+# kyanit.runner.create_task('name', coro) for continuous or longer tasks. Any errors
+# (including from coroutines) will be passed to cleanup.
+# The @kyanit.controls() decorator adds functionality to the LEDs and button. It can be
+# removed if this is not required, to save ~1k of RAM.
 
 # To get started, read more at &lt;https://kyanit.eu&gt;
 
@@ -213,26 +217,27 @@ def main():
 
 @kyanit.controls()
 def cleanup(exception):
-    # Put error-handling code here, as well as code that needs to be run when stopped, or
-    # before reboot.
+    # Put error-handling code here, as well as code that needs to be run when stopped,
+    # or before reboot.
     pass
 </code></pre>
-<p>The <a title="kyanit.controls" href="#kyanit.controls"><code>controls()</code></a> decorator on the <code>main</code> and <code>cleanup</code> functions should be left there, unless
-you don't need feedback on run state (discussed in the next section) and the Color ID. This means,
-that if you remove those, the Kyanit will be unresponsive to button press, and the LEDs will not be
-controlled automatically.</p>
-<p>Uploading a new <code>code.py</code> can be done with <code>-put code.py</code>. Other files can also be uploaded, but
-keep in mind, that directories are not supported on Kyanit.
-If you pass a directory to <code>-put</code>, every file from that directory will be uploaded (and it will not
-recurse to further directories inside).</p>
-<p>NOTE: The board will need to be rebooted with <code>-reboot</code> for the new code to become active. This can
-be done with a single command, for example:</p>
+<p>The <a title="kyanit.controls" href="#kyanit.controls"><code>controls()</code></a> decorator on the <code>main</code> and <code>cleanup</code> functions should be left
+there, unless you don't need feedback on run state (discussed in the next section) and
+the Color ID. This means, that if you remove those, the Kyanit will be unresponsive to
+button press, and the LEDs will not be controlled automatically.</p>
+<p>Uploading a new <code>code.py</code> can be done with <code>-put code.py</code>. Other files can also be
+uploaded, but keep in mind, that directories are not supported on Kyanit.
+If you pass a directory to <code>-put</code>, every file from that directory will be uploaded
+(and it will not recurse to further directories inside).</p>
+<p>NOTE: The board will need to be rebooted with <code>-reboot</code> for the new code to become
+active. This can be done with a single command, for example:</p>
 <pre><code>kyanitctl BCG -put code.py -reboot
 </code></pre>
-<p>For a full list of what Kyanit CTL can do, refer to the command-line help with <code>kyanitctl -h</code>.</p>
+<p>For a full list of what Kyanit CTL can do, refer to the command-line help with
+<code>kyanitctl -h</code>.</p>
 <h3 id="run-states">Run States</h3>
-<p>There are 5 different run states: <code>CODE.PY MISSING</code>, <code>CODE.PY IMPORTED</code>, <code>CODE.PY MAIN</code>, <code>STOPPED</code>
-and <code>ERROR</code>.</p>
+<p>There are 5 different run states: <code>CODE.PY MISSING</code>, <code>CODE.PY IMPORTED</code>, <code>CODE.PY MAIN</code>,
+<code>STOPPED</code> and <code>ERROR</code>.</p>
 <ul>
 <li><strong><code>CODE.PY MISSING</code></strong></li>
 </ul>
@@ -244,49 +249,56 @@ and <code>ERROR</code>.</p>
 <ul>
 <li><strong><code>CODE.PY MAIN</code></strong></li>
 </ul>
-<p><code>code.py</code> was imported, and <code>main</code> was called. This is what can be considred a "running" state.</p>
-<p>Having the <a title="kyanit.controls" href="#kyanit.controls"><code>controls()</code></a> decorator on <code>main</code> will make the LEDs "breathe" in a bluish color,
-indicating that <code>main</code> was called, and that Kyanit is running the user code.</p>
+<p><code>code.py</code> was imported, and <code>main</code> was called. This is what can be considred a "running"
+state.</p>
+<p>Having the <a title="kyanit.controls" href="#kyanit.controls"><code>controls()</code></a> decorator on <code>main</code> will make the LEDs "breathe" in a
+bluish color, indicating that <code>main</code> was called, and that Kyanit is running the user
+code.</p>
 <ul>
 <li><strong><code>STOPPED</code></strong></li>
 </ul>
-<p>The code was stopped either from within the code itself, or by outside means, ex. with Kyanit CTL's
-<code>-stop</code> option. The code may be restarted with Kyanit CTL, using the <code>-start</code> option.</p>
+<p>The code was stopped either from within the code itself, or by outside means, ex. with
+Kyanit CTL's <code>-stop</code> option. The code may be restarted with Kyanit CTL, using the
+<code>-start</code> option.</p>
 <p>Before enterint this state, the runner will call the <code>cleanup</code> function. Having the
-<a title="kyanit.controls" href="#kyanit.controls"><code>controls()</code></a> decorator on <code>cleanup</code> will change the LED colors to a deep orange, and the
-animation will slow down, indicating that it entered the <code>STOPPED</code> state.</p>
+<a title="kyanit.controls" href="#kyanit.controls"><code>controls()</code></a> decorator on <code>cleanup</code> will change the LED colors to a deep orange,
+and the animation will slow down, indicating that it entered the <code>STOPPED</code> state.</p>
 <ul>
 <li><strong><code>ERROR ExceptionName</code></strong></li>
 </ul>
-<p>There was an uncaught exception within <code>code.py</code>. An exception detail, with traceback will also be
-available through Kyanit CTL's <code>-status</code> option. At this point, the code may be restarted.
-(Although debugging is probably required.)</p>
-<p>Before enterint this state, the runner will call the <code>cleanup</code> function and it will pass it the
-exception, so handling it is possible in <code>cleanup</code>. Having the <a title="kyanit.controls" href="#kyanit.controls"><code>controls()</code></a> decorator on
-<code>cleanup</code> will change the LED colors to a deep orange, and the animation will be a blinking
-"attention" animation, indicating that an uncaught error occurred.</p>
+<p>There was an uncaught exception within <code>code.py</code>. An exception detail, with traceback
+will also be available through Kyanit CTL's <code>-status</code> option. At this point, the code
+may be restarted. (Although debugging is probably required.)</p>
+<p>Before enterint this state, the runner will call the <code>cleanup</code> function and it will pass
+it the exception, so handling it is possible in <code>cleanup</code>. Having the
+<a title="kyanit.controls" href="#kyanit.controls"><code>controls()</code></a> decorator on <code>cleanup</code> will change the LED colors to a deep orange,
+and the animation will be a blinking "attention" animation, indicating that an uncaught
+error occurred.</p>
 <h2 id="coding-on-kyanit-using-coroutines">Coding on Kyanit (Using Coroutines)</h2>
-<p>Kyanit Core is built around MicroPython's uasyncio. (CPython's asyncio implementation for
-MicroPython.) This means Kyanit is all about coroutines. Albeit it's advisable to learn about
-coroutines before coding on Kyanit, it's not entirely required, if you abide by some basic rules.</p>
+<p>Kyanit Core is built around MicroPython's uasyncio. (CPython's asyncio implementation
+for MicroPython.) This means Kyanit is all about coroutines. Albeit it's advisable to
+learn about coroutines before coding on Kyanit, it's not entirely required, if you abide
+by some basic rules.</p>
 <p>A coroutine is just a function defined with <code>async</code>:</p>
 <pre><code class="python">async def my_func():
     # This is a coroutine
     pass
 </code></pre>
-<p>Coroutines are not multithreaded, but they can be understood as if they were running alongside each
-other in parallel.</p>
-<p>Every internal functionality of Kyanit is built using coroutines. This means, that your code in
-<code>code.py</code> must also use coroutines to achieve continuous functionality. Nothing within <code>code.py</code>
-should block for too long, because this essentially freezes the whole system, preventing Kyanit from
-running its internal tasks, rendering it unresponsive.</p>
-<p>In short, this means no continuous loops (with <code>while True</code>) within any non-async functions, which
-includes <code>main</code> and <code>cleanup</code>.</p>
-<p><code>main</code> is intended to set up your own code and potentially start coroutines, which will run
-alongside Kyanit's internal tasks.</p>
-<p>Likewise, <code>cleanup</code> is intended to run quickly after some exception, potentially acting on them.</p>
-<p><code>cleanup</code> is also called when code is stopped or rebooted, with <a title="kyanit.StoppedError" href="#kyanit.StoppedError"><code>StoppedError</code></a> and
-<a title="kyanit.RebootError" href="#kyanit.RebootError"><code>RebootError</code></a> passed respectively. This lets you do stuff on these two events, if desired.</p>
+<p>Coroutines are not multithreaded, but they can be understood as if they were running
+alongside each other in parallel.</p>
+<p>Every internal functionality of Kyanit is built using coroutines. This means, that your
+code in <code>code.py</code> must also use coroutines to achieve continuous functionality. Nothing
+within <code>code.py</code> should block for too long, because this essentially freezes the whole
+system, preventing Kyanit from running its internal tasks, rendering it unresponsive.</p>
+<p>In short, this means no continuous loops (with <code>while True</code>) within any non-async
+functions, which includes <code>main</code> and <code>cleanup</code>.</p>
+<p><code>main</code> is intended to set up your own code and potentially start coroutines, which will
+run alongside Kyanit's internal tasks.</p>
+<p>Likewise, <code>cleanup</code> is intended to run quickly after some exception, potentially acting
+on them.</p>
+<p><code>cleanup</code> is also called when code is stopped or rebooted, with <a title="kyanit.StoppedError" href="#kyanit.StoppedError"><code>StoppedError</code></a>
+and <a title="kyanit.RebootError" href="#kyanit.RebootError"><code>RebootError</code></a> passed respectively. This lets you do stuff on these two
+events, if desired.</p>
 <p>Here's a simple example of a continuosly running task in <code>code.py</code>:</p>
 <pre><code class="python">from kyanit import controls, runner
 
@@ -306,40 +318,43 @@ def main():
 def cleanup(exception):
     pass
 </code></pre>
-<p>The above code will immediately start <code>my_task</code>. Note the <code>await</code> statement, which will give CPU
-time for other coroutines to run. In this case, the uasyncio scheduler will return to <code>my_task</code>
-after 1 second. You must have an <code>await</code> statement inside your coroutines to yield CPU time to other
-tasks. You may also <code>await</code> other coroutines that you defined.</p>
-<p><strong>You may await a sleep time of 0</strong>, which basically means "return to this function as soon as
-possible." The scheduler will give time to other tasks that are not awaiting a sleep in a
-round-robin fashion, and will return to the function as soon as possible.</p>
+<p>The above code will immediately start <code>my_task</code>. Note the <code>await</code> statement, which will
+give CPU time for other coroutines to run. In this case, the uasyncio scheduler will
+return to <code>my_task</code> after 1 second. You must have an <code>await</code> statement inside your
+coroutines to yield CPU time to other tasks. You may also <code>await</code> other coroutines that
+you defined.</p>
+<p><strong>You may await a sleep time of 0</strong>, which basically means "return to this function as
+soon as possible." The scheduler will give time to other tasks that are not awaiting a
+sleep in a round-robin fashion, and will return to the function as soon as possible.</p>
 <p>HINT: Everything from uasyncio is available in <a title="kyanit.runner" href="runner.html"><code>kyanit.runner</code></a> (it has everything imported from
 <code>uasyncio</code>).</p>
 <h3 id="about-create_task">About <a title="kyanit.runner.create_task" href="runner.html#kyanit.runner.create_task"><code>create_task()</code></a></h3>
-<p>The <a title="kyanit.runner" href="runner.html"><code>kyanit.runner</code></a> module is responsible for running the code and keeping tabs on the tasks.</p>
+<p>The <a title="kyanit.runner" href="runner.html"><code>kyanit.runner</code></a> module is responsible for running the code and keeping tabs on the
+tasks.</p>
 <p>Always create tasks with <a title="kyanit.runner.create_task" href="runner.html#kyanit.runner.create_task"><code>create_task()</code></a> from <a title="kyanit.runner" href="runner.html"><code>kyanit.runner</code></a> and not
-<code>uasyncio.get_event_loop().create_task()</code>, because Kyanit can not catch errors in tasks created on
-the event loop directly. Uncaught errors will cause the coroutine that's raising them to stop
-silently, which may result in unexpected behavior.</p>
-<p>On the other hand, errors in tasks created on the runner will be handled. In case of an error, all
-tasks will be stopped in a controlled fashion, and Kyanit will go into ERROR state.
-(See <a href="#run-states"><em>Run States</em></a> above.)</p>
-<p>The same applies when running is stopped with <a title="kyanit.runner.stop" href="runner.html#kyanit.runner.stop"><code>stop()</code></a> or by ex. Kyanit CTL, using
-<code>-stop</code>. Kyanit will stop all tasks created on runner, but it cannot stop tasks directly created
-on the event loop.</p>
+<code>uasyncio.get_event_loop().create_task()</code>, because Kyanit can not catch errors in tasks
+created on the event loop directly. Uncaught errors will cause the coroutine that's
+raising them to stop silently, which may result in unexpected behavior.</p>
+<p>On the other hand, errors in tasks created on the runner will be handled. In case of an
+error, all tasks will be stopped in a controlled fashion, and Kyanit will go into ERROR
+state. (See <a href="#run-states"><em>Run States</em></a> above.)</p>
+<p>The same applies when running is stopped with <a title="kyanit.runner.stop" href="runner.html#kyanit.runner.stop"><code>stop()</code></a> or by ex. Kyanit
+CTL, using <code>-stop</code>. Kyanit will stop all tasks created on runner, but it cannot stop
+tasks directly created on the event loop.</p>
 <p>Stop a single task from running with <code>runner.destroy_task('task_name')</code>.</p>
 <h3 id="the-things-to-keep-in-mind">The things to keep in mind:</h3>
 <ul>
-<li>If you want a long-running code or continuous loop, implement it in an <code>async</code> function and use
-<code>await runner.sleep()</code> where pauses can be accepted.</li>
+<li>If you want a long-running code or continuous loop, implement it in an <code>async</code>
+function and use <code>await runner.sleep()</code> where pauses can be accepted.</li>
 <li>Never use <code>time.sleep()</code> for long delays, use <code>await runner.sleep()</code> instead.</li>
-<li>If timing is critical (ex. for bit-banging), you may use <code>time.sleep()</code>, but keep in mind that
-this prevents other coroutines to run in the meantime, so keep it short.</li>
+<li>If timing is critical (ex. for bit-banging), you may use <code>time.sleep()</code>, but keep in
+mind that this prevents other coroutines to run in the meantime, so keep it short.</li>
 <li>Always create tasks with <a title="kyanit.runner.create_task" href="runner.html#kyanit.runner.create_task"><code>create_task()</code></a> from <a title="kyanit.runner" href="runner.html"><code>kyanit.runner</code></a>.</li>
 </ul>
 <p>More on coroutines in MicroPython:
 <a href="https://github.com/peterhinch/micropython-async/blob/master/TUTORIAL.md">https://github.com/peterhinch/micropython-async/blob/master/TUTORIAL.md</a></p>
-<p>Read documentation of <a title="kyanit.runner" href="runner.html"><code>kyanit.runner</code></a> to find out more about tasks and how to control the runner.</p>
+<p>Read documentation of <a title="kyanit.runner" href="runner.html"><code>kyanit.runner</code></a> to find out more about tasks and how to control
+the runner.</p>
 <h2 id="additional-sub-modules">Additional sub-modules</h2>
 <p>Kyanit Core has the following sub-modules available:</p>
 <ul>
@@ -357,7 +372,8 @@ this prevents other coroutines to run in the meantime, so keep it short.</li>
 <ul>
 <li><strong><a title="kyanit.neoleds" href="neoleds.html"><code>kyanit.neoleds</code></a></strong></li>
 </ul>
-<p>Module to control WS2812B LEDs (NeoPixels) with animations and different color display options.</p>
+<p>Module to control WS2812B LEDs (NeoPixels) with animations and different color display
+options.</p>
 <ul>
 <li><strong><a title="kyanit.runner" href="runner.html"><code>kyanit.runner</code></a></strong></li>
 </ul>
@@ -366,34 +382,37 @@ this prevents other coroutines to run in the meantime, so keep it short.</li>
 <li><strong><a title="kyanit.colorid" href="colorid.html"><code>kyanit.colorid</code></a></strong></li>
 </ul>
 <p>Color ID helper functions.</p>
-<p>All of these modules are available for the user code. Check out their documentation page to see what
-they can do.</p>
+<p>All of these modules are available for the user code. Check out their documentation page
+to see what they can do.</p>
 <h2 id="kyanit-netvar">Kyanit Netvar</h2>
-<p>Kyanit Core has a notion of a "network variable"which is available to read and write through the
-network connection by Kyanit CTL or Kyanit API.</p>
-<p>The Netvar can be used to issue custom commands to your board, such as switching or reading some
-data from your board (like sensor data).</p>
+<p>Kyanit Core has a notion of a "network variable"which is available to read and write
+through the network connection by Kyanit CTL or Kyanit API.</p>
+<p>The Netvar can be used to issue custom commands to your board, such as switching or
+reading some data from your board (like sensor data).</p>
 <p>Check out the <a title="kyanit.Netvar" href="#kyanit.Netvar"><code>Netvar</code></a> class for details.</p>
 <h1 id="kyanit-api">Kyanit API</h1>
-<p>So far it was demonstrated how Kyanit CTL can be used to control a Kyanit board. If you want to
-control your board from Python code, check out Kyanit API at <a href="https://kyanit.eu/docs/kyanit-api.">https://kyanit.eu/docs/kyanit-api.</a></p>
+<p>So far it was demonstrated how Kyanit CTL can be used to control a Kyanit board. If you
+want to control your board from Python code, check out Kyanit API at
+<a href="https://kyanit.eu/docs/kyanit-api.">https://kyanit.eu/docs/kyanit-api.</a></p>
 <h1 id="flashing-a-released-version-of-kyanit-core">Flashing a Released version of Kyanit Core</h1>
 <p>Download the latest <code>kyanit-core-&lt;version&gt;.bin</code> from
-<a href="https://github.com/kyanit-project/kyanit/releases/latest">https://github.com/kyanit-project/kyanit/releases/latest</a> , then refer to MicroPython documentation
-on flashing firmware onto an ESP8266 here:
+<a href="https://github.com/kyanit-project/kyanit/releases/latest">https://github.com/kyanit-project/kyanit/releases/latest</a> , then refer to MicroPython
+documentation on flashing firmware onto an ESP8266 here:
 <a href="https://docs.micropython.org/en/latest/esp8266/tutorial/intro.html">https://docs.micropython.org/en/latest/esp8266/tutorial/intro.html</a></p>
 <h1 id="building-kyanit-core-from-source-linux">Building Kyanit Core from Source (Linux)</h1>
 <p>To find out how to build from source, head to
 <a href="https://github.com/kyanit-project/kyanit#building-from-source-linux">https://github.com/kyanit-project/kyanit#building-from-source-linux</a></p>
 <h1 id="license-notice">License Notice</h1>
 <p>Copyright (C) 2020 Zsolt Nagy</p>
-<p>This program is free software: you can redistribute it and/or modify it under the terms of the
-GNU General Public License as published by the Free Software Foundation, version 3 of the License.</p>
-<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
-even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+<p>This program is free software: you can redistribute it and/or modify it under the terms
+of the GNU General Public License as published by the Free Software Foundation, version
+3 of the License.</p>
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along with this program.
-If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
+You should have received a copy of the GNU General Public License along with this
+program. If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
 <p>The above license notice applies to all parts of this package.</p>
 </section>
 <section style="margin-top: 5em">
@@ -426,28 +445,30 @@ If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses
 </code></dt>
 <dd>
 <section class="desc"><p>Optional decorator for <code>code.main</code> and <code>code.cleanup</code>.</p>
-<p>Having this decorator on <code>code.main</code> and <code>code.cleanup</code> gives visual feedback on run state, as
-well as showing the Color ID on the LEDs, when the button is pressed.</p>
-<p>When user code is running, the LEDs will continuously show the <code>active_colors</code> with a
-"breathing" animation. When code is stopped, the <code>idle_colors</code> will be shown with a slower
-"breathing" animation.</p>
+<p>Having this decorator on <code>code.main</code> and <code>code.cleanup</code> gives visual feedback on run
+state, as well as showing the Color ID on the LEDs, when the button is pressed.</p>
+<p>When user code is running, the LEDs will continuously show the <code>active_colors</code> with
+a "breathing" animation. When code is stopped, the <code>idle_colors</code> will be shown with
+a slower "breathing" animation.</p>
 <p>Default colors may be changed by passing a list of 3 colors to <code>active_colors</code> and
 <code>idle_colors</code>. Each color must be an RGB tuple.</p>
 <p>On code error, the <code>idle_colors</code> will be shown, with an "attention" animation.</p>
-<p><code>kyanit_leds</code> may be instance of <a title="kyanit.neoleds.NeoLeds" href="neoleds.html#kyanit.neoleds.NeoLeds"><code>NeoLeds</code></a> to override default LEDs pin, and to
-provide additional custom functionality to the LEDs.</p>
-<p><code>kyanit_button</code> may be instance of <a title="kyanit.button.Button" href="button.html#kyanit.button.Button"><code>Button</code></a> to override default button pin.
-As of now, the button can not be used for any other functionality, if this decorator is used.</p>
-<p>The brightness of the LEDs can be adjusted with the <code>brightness</code> parameter, which must be a
-float between 0 (completely dark) and 1 (full brightness).</p></section>
+<p><code>kyanit_leds</code> may be instance of <a title="kyanit.neoleds.NeoLeds" href="neoleds.html#kyanit.neoleds.NeoLeds"><code>NeoLeds</code></a> to override default LEDs
+pin, and to provide additional custom functionality to the LEDs.</p>
+<p><code>kyanit_button</code> may be instance of <a title="kyanit.button.Button" href="button.html#kyanit.button.Button"><code>Button</code></a> to override default button
+pin. As of now, the button can not be used for any other functionality, if this
+decorator is used.</p>
+<p>The brightness of the LEDs can be adjusted with the <code>brightness</code> parameter, which
+must be a float between 0 (completely dark) and 1 (full brightness).</p></section>
 </dd>
 <dt id="kyanit.get_color_id"><code class="name flex">
 <span>def <span class="ident">get_color_id</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Return the Color ID string of the Kyanit, which is derived from the current IP address.</p>
-<p>Returned value will be 'BBB' (address of 0) if Kyanit can not connect to the wireless network,
-or if it loses connection.</p></section>
+<section class="desc"><p>Return the Color ID string of the Kyanit, which is derived from the current IP
+address.</p>
+<p>Returned value will be 'BBB' (address of 0) if Kyanit can not connect to the
+wireless network, or if it loses connection.</p></section>
 </dd>
 </dl>
 </section>
@@ -458,16 +479,16 @@ or if it loses connection.</p></section>
 <span>class <span class="ident">Netvar</span></span>
 </code></dt>
 <dd>
-<section class="desc"><p>The Netvar is a notion of a "network variable", which is available to read and write through
-the network connection. Netvar is a static class, therefore it's not intended to be
-instantiated.</p>
+<section class="desc"><p>The Netvar is a notion of a "network variable", which is available to read and write
+through the network connection. Netvar is a static class, therefore it's not
+intended to be instantiated.</p>
 <p>There are 2 variables within Netvar, which can be understood as "channels".</p>
-<p><a title="kyanit.Netvar.inbound" href="#kyanit.Netvar.inbound"><code>Netvar.inbound()</code></a> accesses the variable that is written from "outside", such as by Kyanit CTL
-or Kyanit API.</p>
-<p><a title="kyanit.Netvar.outbound" href="#kyanit.Netvar.outbound"><code>Netvar.outbound()</code></a> on the other hand is what Kyanit publishes, and is available for reading by
+<p><a title="kyanit.Netvar.inbound" href="#kyanit.Netvar.inbound"><code>Netvar.inbound()</code></a> accesses the variable that is written from "outside", such as by
 Kyanit CTL or Kyanit API.</p>
-<p>Both methods have the same usage. Having no parameters passed gets the actual value of the
-variables:</p>
+<p><a title="kyanit.Netvar.outbound" href="#kyanit.Netvar.outbound"><code>Netvar.outbound()</code></a> on the other hand is what Kyanit publishes, and is available for
+reading by Kyanit CTL or Kyanit API.</p>
+<p>Both methods have the same usage. Having no parameters passed gets the actual value
+of the variables:</p>
 <pre><code class="python">Netvar.inbound()  # gets the value of the inbound variable
 Netvar.outbound()  # gets the value of the outbound variable
 </code></pre>
@@ -478,8 +499,8 @@ Netvar.outbound()  # gets the value of the outbound variable
 <p>The inbound variable may also be written:</p>
 <pre><code class="python">Netvar.inbound('processed')  # the new value is now 'processed'
 </code></pre>
-<p>As suggested by the example, the inbound variable might be overwritten when the data (or part of
-it) has been processed.</p>
+<p>As suggested by the example, the inbound variable might be overwritten when the data
+(or part of it) has been processed.</p>
 <p>It is also possible to clear the variables with:</p>
 <pre><code class="python">Netvar.inbound(clear=True)  # inbound now equals to None
 Netvar.outbound(clear=True)  # outbound now equals to None
@@ -488,14 +509,14 @@ Netvar.outbound(clear=True)  # outbound now equals to None
 <pre><code class="python">from kyanitapi import Kyanit
 
 my_kyanit = Kyanit('BCG', network_addr='192.168.1.0')
-netvar = my_kyanit.netvar()  # netvar will now be equal to the value of Netvar.outbound()
+netvar = my_kyanit.netvar()  # netvar now equals to the value of Netvar.outbound()
 my_kyanit.netvar('some_value')  # 'some_value' will be sent to Kyanit, after which
                                 # Netvar.inbound() will return 'some_value'
 </code></pre>
-<p>Setting and getting the netvar is realized through HTTP, so keep in mind that there's an order
-of a second time lag between every network operation. Netvar is not intended to be accessed
-continuously, because the network overhead would substantially slow down the operation of the
-Kyanit board.</p>
+<p>Setting and getting the netvar is realized through HTTP, so keep in mind that
+there's an order of a second time lag between every network operation. Netvar is not
+intended to be accessed continuously, because the network overhead would
+substantially slow down the operation of the Kyanit board.</p>
 <p>Instead use it for user commands, which depending on the project can be things like
 switching, reading sensor data, changing the LED colors, etc.</p></section>
 <h3>Static methods</h3>
@@ -521,8 +542,8 @@ switching, reading sensor data, changing the LED colors, etc.</p></section>
 <span>(</span><span>...)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>This exception is passed to <code>code.cleanup</code> on a <code>reboot</code> request through Kyanit API or Kyanit
-CTL.</p></section>
+<section class="desc"><p>This exception is passed to <code>code.cleanup</code> on a <code>reboot</code> request through Kyanit API
+or Kyanit CTL.</p></section>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>builtins.Exception</li>
@@ -534,8 +555,10 @@ CTL.</p></section>
 <span>(</span><span>...)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>This exception is passed to <code>code.cleanup</code> on a <code>stop</code> request through Kyanit API or Kyanit CTL.</p>
-<p>NOTE: Calling runner.stop() directly will not cause this exception to be passed to cleanup.</p></section>
+<section class="desc"><p>This exception is passed to <code>code.cleanup</code> on a <code>stop</code> request through Kyanit API or
+Kyanit CTL.</p>
+<p>NOTE: Calling runner.stop() directly will not cause this exception to be passed to
+cleanup.</p></section>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>builtins.Exception</li>
@@ -550,7 +573,7 @@ CTL.</p></section>
 <h1>Index</h1>
 <div class="toc">
 <ul>
-<li><a href="#kyanit-core">Kyanit Core</a><ul>
+<li><a href="#kyanit-core">Kyanit Core.</a><ul>
 <li><a href="#the-kyanit-ecosystem">The Kyanit Ecosystem</a></li>
 <li><a href="#getting-started-with-kyanit-core">Getting Started with Kyanit Core</a><ul>
 <li><a href="#setting-up">Setting Up</a></li>

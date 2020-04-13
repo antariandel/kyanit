@@ -5,125 +5,105 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.5" />
 <title>Kyanit Core Documentation</title>
-<meta name="description" content="`kyanit.button` module " />
+<meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
 <style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
 <style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<style>
-/* Hide "Module kyanit" title */
-h1.title {
-display: none;
-}
-</style>
 </head>
 <body>
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>kyanit.button</code></h1>
 </header>
 <section id="section-intro">
-<h1 id="kyanitbutton-module"><a title="kyanit.button" href="#kyanit.button"><code>kyanit.button</code></a> module</h1>
-<p>This module publishes the <a title="kyanit.button.Button" href="#kyanit.button.Button"><code>Button</code></a> class, which can be used to monitor a button and catch button
-press events.</p>
-<p>Here"s a simple example in <code>code.py</code>, that will do something on button press on Pin(5):</p>
-<pre><code class="python">import kyanit
-from kyanit import runner
-from kyanit.button import Button
-
-async def do_something_on_click(button):
-    while True:
-        if button.check() == 'click':
-            # do something on button press here
-            ...
-        await runner.sleep_ms(100)
-
-@kyanit.controls()
-def main():
-    my_button = Button(5, True)  # active-low button on Pin(5)
-    runner.create_task('my_button_monitor', my_button.monitor)  # start monitoring task
-    runner.create_task('on_click', do_something_on_click, my_button)
-
-@kyanit.controls(brightness=0.1)
-def cleanup(exception):
-    pass
-</code></pre>
-<p>See the <a title="kyanit.button.Button" href="#kyanit.button.Button"><code>Button</code></a> class documentation for details on usage.</p>
 </section>
 <section>
 </section>
 <section>
 </section>
 <section>
-</section>
-<section>
-<h2 class="section-title" id="header-classes">Classes</h2>
+<h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="kyanit.button.Button"><code class="flex name class">
-<span>class <span class="ident">Button</span></span>
-<span>(</span><span>pin_number, invert=True)</span>
+<dt id="kyanit.runner.create_task"><code class="name flex">
+<span>def <span class="ident">create_task</span></span>(<span>name, coro, *args)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Instantiate this class with a pin number to catch button-press events on the pin. The pin number
-is the GPIO number on the controller.</p>
-<p>If the button is active-high (ie. it's logical high on press, and logical low by default), set
-<code>invert</code> to <code>False</code>.</p>
-<p>Once instantiated, the <code>monitor</code> task must be started for button monitorization. After that,
-check the last button press event with the <code>check</code> function.</p>
-<p>NOTE: You should check button events frequently, because if more than 1 event occurs between
-checks, only the last event will be returned. Frequent checks will also make the button more
-responsive. A 100ms wait between checks should be a good choice.</p></section>
-<h3>Methods</h3>
-<dl>
-<dt id="kyanit.button.Button.check"><code class="name flex">
-<span>def <span class="ident">check</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Return the last new event on the button.</p>
-<p>Supported events:</p>
-<ul>
-<li><code>'click'</code> (the button was pressed for shorter than 250ms)</li>
-<li><code>'long3s'</code> (the button was pressed for at least 3 seconds)</li>
-</ul>
-<p>Return value will be one of the supported event names.</p></section>
+<section class="desc"></section>
 </dd>
-<dt id="kyanit.button.Button.monitor"><code class="name flex">
-<span>async def <span class="ident">monitor</span></span>(<span>self)</span>
+<dt id="kyanit.runner.destroy_task"><code class="name flex">
+<span>def <span class="ident">destroy_task</span></span>(<span>name)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>This task continuously monitors the button. It must be started for <code>check</code> to work.</p></section>
+<section class="desc"></section>
+</dd>
+<dt id="kyanit.runner.get_error"><code class="name flex">
+<span>def <span class="ident">get_error</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="kyanit.runner.get_state"><code class="name flex">
+<span>def <span class="ident">get_state</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="kyanit.runner.get_tasks"><code class="name flex">
+<span>def <span class="ident">get_tasks</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="kyanit.runner.start"><code class="name flex">
+<span>def <span class="ident">start</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="kyanit.runner.starter_coro"><code class="name flex">
+<span>async def <span class="ident">starter_coro</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="kyanit.runner.stop"><code class="name flex">
+<span>def <span class="ident">stop</span></span>(<span>force=False, exc=None)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="kyanit.runner.stopper_coro"><code class="name flex">
+<span>async def <span class="ident">stopper_coro</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
 </dd>
 </dl>
-</dd>
-</dl>
+</section>
+<section>
 </section>
 </article>
 <nav id="sidebar">
 <img src="kyanit_core_logo.svg">
 <h1>Index</h1>
 <div class="toc">
-<ul>
-<li><a href="#kyanitbutton-module">kyanit.button module</a></li>
-</ul>
+<ul></ul>
 </div>
 <ul id="index">
-<li><h3>Super-module</h3>
-<ul>
-<li><code><a title="kyanit" href="index.html">kyanit</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-classes">Classes</a></h3>
-<ul>
-<li>
-<h4><code><a title="kyanit.button.Button" href="#kyanit.button.Button">Button</a></code></h4>
-<ul class="">
-<li><code><a title="kyanit.button.Button.check" href="#kyanit.button.Button.check">check</a></code></li>
-<li><code><a title="kyanit.button.Button.monitor" href="#kyanit.button.Button.monitor">monitor</a></code></li>
-</ul>
-</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="kyanit.runner.create_task" href="#kyanit.runner.create_task">create_task</a></code></li>
+<li><code><a title="kyanit.runner.destroy_task" href="#kyanit.runner.destroy_task">destroy_task</a></code></li>
+<li><code><a title="kyanit.runner.get_error" href="#kyanit.runner.get_error">get_error</a></code></li>
+<li><code><a title="kyanit.runner.get_state" href="#kyanit.runner.get_state">get_state</a></code></li>
+<li><code><a title="kyanit.runner.get_tasks" href="#kyanit.runner.get_tasks">get_tasks</a></code></li>
+<li><code><a title="kyanit.runner.start" href="#kyanit.runner.start">start</a></code></li>
+<li><code><a title="kyanit.runner.starter_coro" href="#kyanit.runner.starter_coro">starter_coro</a></code></li>
+<li><code><a title="kyanit.runner.stop" href="#kyanit.runner.stop">stop</a></code></li>
+<li><code><a title="kyanit.runner.stopper_coro" href="#kyanit.runner.stopper_coro">stopper_coro</a></code></li>
 </ul>
 </li>
 </ul>
