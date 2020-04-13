@@ -4,3 +4,4 @@ __pycache__
 _playground
 .env
 _version.py
+venv
