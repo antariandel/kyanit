@@ -69,11 +69,10 @@ def start():
                     _state = CODE_MAIN
 
         except ImportError as exc:
-            _handle_error(exc, False)
+            _handle_error(exc, cleanup=False)
 
         except Exception as exc:
-            _handle_error(exc, True)
-            return
+            _handle_error(exc, cleanup=True)
 
 
 async def starter_coro():
