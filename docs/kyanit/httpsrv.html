@@ -56,7 +56,7 @@ status codes are available in <a title="kyanit.httpsrv" href="#kyanit.httpsrv"><
 <p>You may extend this by adding statuses with this function, where <code>num</code> is the status
 code number (int) and <code>status_str</code> is the string.
 Example: <code>add_status(204, 'No Content')</code></p>
-<p>You are responsible for making the added statuses compliant to HTTP spec.
+<p>You are responsible for making the added statuses compliant to HTTP specifications.
 For a list of compliant status codes, see:
 <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html</a></p></section>
 </dd>
@@ -64,37 +64,50 @@ For a list of compliant status codes, see:
 <span>def <span class="ident">add_symbol</span></span>(<span>perc_enc, symbol)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<section class="desc"><p>This function extends percent-encoded symbols in a URL. By default only the reserved
+characters and space are un-encoded.
+(See <a href="https://en.wikipedia.org/wiki/Percent-encoding">https://en.wikipedia.org/wiki/Percent-encoding</a> )</p>
+<p>Extend the supported characters with this function where <code>perc_enc</code> is the percent-
+encoded representation and <code>symbol</code> is the encoded character. You are responsible
+for making the encoded symbols compliant to HTTP specifications.</p></section>
 </dd>
 <dt id="kyanit.httpsrv.error_view"><code class="name flex">
 <span>def <span class="ident">error_view</span></span>(<span>exc)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<section class="desc"><p>Return an HTTP 500 response with a JSON body of the error detail.</p>
+<p>This function may be monkey-patched to override the default error response. It must
+return a dict assembled by <a title="kyanit.httpsrv.response" href="#kyanit.httpsrv.response"><code>response()</code></a>.</p></section>
 </dd>
 <dt id="kyanit.httpsrv.readall_from"><code class="name flex">
 <span>def <span class="ident">readall_from</span></span>(<span>source, into=None, timeout=None, chunk_size=64)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<section class="desc"><p>This function can be used to read from a socket or file-like object into another
+socket or file-like object. <code>timeout</code> is only relevant for socket objects.</p></section>
 </dd>
 <dt id="kyanit.httpsrv.response"><code class="name flex">
 <span>def <span class="ident">response</span></span>(<span>status, body='', content_type='text/plain', headers={})</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<section class="desc"><p>Return a response dictionary.</p>
+<p>This function should be used from within a callback after assembling the response
+status, body and headers.</p></section>
 </dd>
 <dt id="kyanit.httpsrv.send_response"><code class="name flex">
 <span>def <span class="ident">send_response</span></span>(<span>conn, status, body='', content_type='text/plain', headers={})</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<section class="desc"><p>This function can be used to send an HTTP response to the <code>conn</code> socket.</p>
+<p>It can be useful for only sending status and headers (leaving the body empty), then
+the body can be sent by writing to <code>conn</code> directly.</p></section>
 </dd>
 <dt id="kyanit.httpsrv.unencode"><code class="name flex">
 <span>def <span class="ident">unencode</span></span>(<span>string)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<section class="desc"><p>This function accepts a string with percent-encoded characters and returns the
+unencoded string.</p></section>
 </dd>
 </dl>
 </section>
@@ -158,7 +171,8 @@ For a list of compliant status codes, see:
 <span>(</span><span>...)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Common base class for all non-exit exceptions.</p></section>
+<section class="desc"><p>Raised when no callbacks are registered for the requested method and URL. This error
+is passed to <a title="kyanit.httpsrv.error_view" href="#kyanit.httpsrv.error_view"><code>error_view()</code></a> with no arguments.</p></section>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>builtins.Exception</li>
@@ -170,7 +184,10 @@ For a list of compliant status codes, see:
 <span>(</span><span>...)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Common base class for all non-exit exceptions.</p></section>
+<section class="desc"><p>Raised when the method requested is not registered to any callbacks. This error is
+passed to <a title="kyanit.httpsrv.error_view" href="#kyanit.httpsrv.error_view"><code>error_view()</code></a> with no arguments.</p>
+<p>It may be used by a custom <a title="kyanit.httpsrv.error_view" href="#kyanit.httpsrv.error_view"><code>error_view()</code></a> function to return a Not Implemented
+response.</p></section>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>builtins.Exception</li>
@@ -182,7 +199,8 @@ For a list of compliant status codes, see:
 <span>(</span><span>...)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Common base class for all non-exit exceptions.</p></section>
+<section class="desc"><p>Raised when the URL is not valid.</p>
+<p>NOTE: Only ASCII characters are supported in the URL.</p></section>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>builtins.Exception</li>

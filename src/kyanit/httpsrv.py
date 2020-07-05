@@ -41,7 +41,7 @@
 # content type.
 
 # NOTES ON RESPONSE STATUSES
-# Only statuses 200 and 500 are supported by default.
+# Only statuses 200, 404 and 500 are supported by default.
 # This can be extended, by means of add_status(num, status_str).
 # Ex.: add_status(204, 'No Content')
 # No checks are done on the added statuses, it's the user's responsibility that they
@@ -51,7 +51,7 @@
 # Only GET, POST, PUT, PATCH, DELETE, and OPTIONS is supported, and HEAD is implemented
 # automatically. For HEAD, the respective callback for GET will be called, response will
 # be sent with the body discarded.
-# GET / is implemented by default returning a 200 OK with an 'OK' in the body as JSON.
+# GET / is implemented by default returning a 200 OK with an "OK" in the body as JSON.
 # This of course can be overriden by another callback.
 # OPTIONS is not implemented by default.
 
@@ -142,7 +142,7 @@ def add_status(num, status_str):
     code number (int) and `status_str` is the string.
     Example: `add_status(204, 'No Content')`
 
-    You are responsible for making the added statuses compliant to HTTP spec.
+    You are responsible for making the added statuses compliant to HTTP specifications.
     For a list of compliant status codes, see:
     https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
     """
@@ -154,6 +154,16 @@ def add_status(num, status_str):
 
 
 def add_symbol(perc_enc, symbol):
+    """
+    This function extends percent-encoded symbols in a URL. By default only the reserved
+    characters and space are un-encoded.
+    (See https://en.wikipedia.org/wiki/Percent-encoding )
+
+    Extend the supported characters with this function where `perc_enc` is the percent-
+    encoded representation and `symbol` is the encoded character. You are responsible
+    for making the encoded symbols compliant to HTTP specifications.
+    """
+
     global _percent_encodings
 
     if perc_enc not in _percent_encodings:
@@ -161,6 +171,11 @@ def add_symbol(perc_enc, symbol):
 
 
 def unencode(string):
+    """
+    This function accepts a string with percent-encoded characters and returns the
+    unencoded string.
+    """
+
     if not string:
         return string
 
@@ -171,6 +186,13 @@ def unencode(string):
 
 
 def response(status, body="", content_type=CT_PLAIN, headers={}):
+    """
+    Return a response dictionary.
+
+    This function should be used from within a callback after assembling the response
+    status, body and headers.
+    """
+
     return {
         "status": status,
         "body": body,
@@ -180,6 +202,11 @@ def response(status, body="", content_type=CT_PLAIN, headers={}):
 
 
 def readall_from(source, into=None, timeout=None, chunk_size=64):
+    """
+    This function can be used to read from a socket or file-like object into another
+    socket or file-like object. `timeout` is only relevant for socket objects.
+    """
+
     if timeout is not None:
         if isinstance(source, socket.socket):
             source.settimeout(timeout)
@@ -212,6 +239,13 @@ def readall_from(source, into=None, timeout=None, chunk_size=64):
 
 
 def send_response(conn, status, body="", content_type=CT_PLAIN, headers={}):
+    """
+    This function can be used to send an HTTP response to the `conn` socket.
+
+    It can be useful for only sending status and headers (leaving the body empty), then
+    the body can be sent by writing to `conn` directly.
+    """
+
     # discard rest of request
     conn.settimeout(0.5)
     while True:
@@ -241,6 +275,13 @@ def send_response(conn, status, body="", content_type=CT_PLAIN, headers={}):
 
 
 def error_view(exc):
+    """
+    Return an HTTP 500 response with a JSON body of the error detail.
+
+    This function may be monkey-patched to override the default error response. It must
+    return a dict assembled by `response`.
+    """
+
     exc_details = uio.StringIO()
     sys.print_exception(exc, exc_details)
 
@@ -272,14 +313,33 @@ def error_view(exc):
 
 
 class NoMethodError(Exception):
+    """
+    Raised when the method requested is not registered to any callbacks. This error is
+    passed to `error_view` with no arguments.
+
+    It may be used by a custom `error_view` function to return a Not Implemented
+    response.
+    """
+
     pass
 
 
 class NoCallbackError(Exception):
+    """
+    Raised when no callbacks are registered for the requested method and URL. This error
+    is passed to `error_view` with no arguments.
+    """
+
     pass
 
 
 class URLInvalidError(Exception):
+    """
+    Raised when the URL is not valid.
+
+    NOTE: Only ASCII characters are supported in the URL.
+    """
+
     pass
 
 
@@ -399,7 +459,7 @@ class HTTPServer:
                 conn, addr = self._sock.accept()
 
             except OSError:
-                # no incomming connections
+                # no incoming connections
                 await uasyncio.sleep(0)
 
             else:
