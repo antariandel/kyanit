@@ -39,7 +39,7 @@ when pressed, will make the Color ID be displayed on the LEDs.
 
 ## The Kyanit Ecosystem
 
-* [**Kyanit Core**](https://kyanit.eu/docs/kyanit)
+* [**Kyanit Core**](https://kyanit-project.github.io/kyanit/kyanit/)
 
 The core Kyanit package, flashed into an ESP8266.
 
@@ -48,11 +48,11 @@ The core Kyanit package, flashed into an ESP8266.
 A stylish, triangle-shaped ESP8266-based board built around an ESP-12F module, the
 official Kyanit board.
 
-* [**Kyanit CTL**](https://kyanit.eu/docs/kyanit-ctl)
+* [**Kyanit CTL**](https://kyanit-project.github.io/kyanit-ctl/kyanitctl/)
 
 Command-line utility for interfacing and interacting with a Kyanit board.
 
-* [**Kyanit API**](https://kyanit.eu/docs/kyanit-api)
+* [**Kyanit API**](https://kyanit-project.github.io/kyanit-api/kyanitapi/)
 
 Python API for interfacing and interacting with a Kyanit board from Python code.
 (Kyanit CTL is an application of this API.)
@@ -489,7 +489,7 @@ Check out the `kyanit.Netvar` class for details.
 
 So far it was demonstrated how Kyanit CTL can be used to control a Kyanit board. If you
 want to control your board from Python code, check out Kyanit API at
-https://kyanit.eu/docs/kyanit-api.
+https://kyanit-project.github.io/kyanit-api/kyanitapi/.
 
 # Flashing a Released version of Kyanit Core
 

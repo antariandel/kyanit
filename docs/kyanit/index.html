@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.7.5" />
+<meta name="generator" content="pdoc 0.8.3" />
 <title>Kyanit Core Documentation</title>
 <meta name="description" content="Kyanit Core " />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
-<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
 </head>
 <body>
@@ -20,7 +20,7 @@
 </header>
 <section id="section-intro">
 <h1 id="kyanit-core">Kyanit Core</h1>
-<p>The <a title="kyanit" href="#kyanit"><code>kyanit</code></a> package is referred to as Kyanit Core.</p>
+<p>The <code><a title="kyanit" href="#kyanit">kyanit</a></code> package is referred to as Kyanit Core.</p>
 <p>Kyanit Core is a user code supervisor built for MicroPython. Development is currently
 focused on the ESP8266 port of MicroPython. Together with an ESP8266-based board, Kyanit
 Core is indended to be a foundation for home automation systems. A board with Kyanit
@@ -38,7 +38,7 @@ WS2812B (Neopixel) LEDs.</p>
 when pressed, will make the Color ID be displayed on the LEDs.</p>
 <h2 id="the-kyanit-ecosystem">The Kyanit Ecosystem</h2>
 <ul>
-<li><a href="https://kyanit.eu/docs/kyanit"><strong>Kyanit Core</strong></a></li>
+<li><a href="https://kyanit-project.github.io/kyanit/kyanit/"><strong>Kyanit Core</strong></a></li>
 </ul>
 <p>The core Kyanit package, flashed into an ESP8266.</p>
 <ul>
@@ -47,11 +47,11 @@ when pressed, will make the Color ID be displayed on the LEDs.</p>
 <p>A stylish, triangle-shaped ESP8266-based board built around an ESP-12F module, the
 official Kyanit board.</p>
 <ul>
-<li><a href="https://kyanit.eu/docs/kyanit-ctl"><strong>Kyanit CTL</strong></a></li>
+<li><a href="https://kyanit-project.github.io/kyanit-ctl/kyanitctl/"><strong>Kyanit CTL</strong></a></li>
 </ul>
 <p>Command-line utility for interfacing and interacting with a Kyanit board.</p>
 <ul>
-<li><a href="https://kyanit.eu/docs/kyanit-api"><strong>Kyanit API</strong></a></li>
+<li><a href="https://kyanit-project.github.io/kyanit-api/kyanitapi/"><strong>Kyanit API</strong></a></li>
 </ul>
 <p>Python API for interfacing and interacting with a Kyanit board from Python code.
 (Kyanit CTL is an application of this API.)</p>
@@ -63,7 +63,7 @@ approximately 380 kB free for user code. The Kyanit Board, or any other board wi
 ESP-12E/F is a good candidate. If you will not be working with the Kyanit Board, wire 3
 WS2812B LEDs to Pin(4), and an active-low button to Pin(14) on your board of choice.
 Other pin numbers are possible, in that case, some configuration is required, for
-changing the pin numbers, see <a title="kyanit.controls" href="#kyanit.controls"><code>controls()</code></a>.</p>
+changing the pin numbers, see <code><a title="kyanit.controls" href="#kyanit.controls">controls()</a></code>.</p>
 <p>If you're new to the WS2812B LEDs, you can refer to this extensive tutorial on SparkFun:
 <a href="https://learn.sparkfun.com/tutorials/ws2812-breakout-hookup-guide/all">https://learn.sparkfun.com/tutorials/ws2812-breakout-hookup-guide/all</a></p>
 <p>NOTE: It is possible to use the core package without flashing it into the firmware, but
@@ -203,7 +203,7 @@ your local directory.)</p>
 # The @kyanit.controls() decorator adds functionality to the LEDs and button. It can be
 # removed if this is not required, to save ~1k of RAM.
 
-# To get started, read more at &lt;https://kyanit.eu&gt;
+# To get started, read more at https://kyanit.eu
 
 
 import kyanit
@@ -221,7 +221,7 @@ def cleanup(exception):
     # or before reboot.
     pass
 </code></pre>
-<p>The <a title="kyanit.controls" href="#kyanit.controls"><code>controls()</code></a> decorator on the <code>main</code> and <code>cleanup</code> functions should be left
+<p>The <code><a title="kyanit.controls" href="#kyanit.controls">controls()</a></code> decorator on the <code>main</code> and <code>cleanup</code> functions should be left
 there, unless you don't need feedback on run state (discussed in the next section) and
 the Color ID. This means, that if you remove those, the Kyanit will be unresponsive to
 button press, and the LEDs will not be controlled automatically.</p>
@@ -251,7 +251,7 @@ active. This can be done with a single command, for example:</p>
 </ul>
 <p><code>code.py</code> was imported, and <code>main</code> was called. This is what can be considred a "running"
 state.</p>
-<p>Having the <a title="kyanit.controls" href="#kyanit.controls"><code>controls()</code></a> decorator on <code>main</code> will make the LEDs "breathe" in a
+<p>Having the <code><a title="kyanit.controls" href="#kyanit.controls">controls()</a></code> decorator on <code>main</code> will make the LEDs "breathe" in a
 bluish color, indicating that <code>main</code> was called, and that Kyanit is running the user
 code.</p>
 <ul>
@@ -261,7 +261,7 @@ code.</p>
 Kyanit CTL's <code>-stop</code> option. The code may be restarted with Kyanit CTL, using the
 <code>-start</code> option.</p>
 <p>Before enterint this state, the runner will call the <code>cleanup</code> function. Having the
-<a title="kyanit.controls" href="#kyanit.controls"><code>controls()</code></a> decorator on <code>cleanup</code> will change the LED colors to a deep orange,
+<code><a title="kyanit.controls" href="#kyanit.controls">controls()</a></code> decorator on <code>cleanup</code> will change the LED colors to a deep orange,
 and the animation will slow down, indicating that it entered the <code>STOPPED</code> state.</p>
 <ul>
 <li><strong><code>ERROR ExceptionName</code></strong></li>
@@ -271,7 +271,7 @@ will also be available through Kyanit CTL's <code>-status</code> option. At this
 may be restarted. (Although debugging is probably required.)</p>
 <p>Before enterint this state, the runner will call the <code>cleanup</code> function and it will pass
 it the exception, so handling it is possible in <code>cleanup</code>. Having the
-<a title="kyanit.controls" href="#kyanit.controls"><code>controls()</code></a> decorator on <code>cleanup</code> will change the LED colors to a deep orange,
+<code><a title="kyanit.controls" href="#kyanit.controls">controls()</a></code> decorator on <code>cleanup</code> will change the LED colors to a deep orange,
 and the animation will be a blinking "attention" animation, indicating that an uncaught
 error occurred.</p>
 <h2 id="coding-on-kyanit-using-coroutines">Coding on Kyanit (Using Coroutines)</h2>
@@ -296,8 +296,8 @@ functions, which includes <code>main</code> and <code>cleanup</code>.</p>
 run alongside Kyanit's internal tasks.</p>
 <p>Likewise, <code>cleanup</code> is intended to run quickly after some exception, potentially acting
 on them.</p>
-<p><code>cleanup</code> is also called when code is stopped or rebooted, with <a title="kyanit.StoppedError" href="#kyanit.StoppedError"><code>StoppedError</code></a>
-and <a title="kyanit.RebootError" href="#kyanit.RebootError"><code>RebootError</code></a> passed respectively. This lets you do stuff on these two
+<p><code>cleanup</code> is also called when code is stopped or rebooted, with <code><a title="kyanit.StoppedError" href="#kyanit.StoppedError">StoppedError</a></code>
+and <code><a title="kyanit.RebootError" href="#kyanit.RebootError">RebootError</a></code> passed respectively. This lets you do stuff on these two
 events, if desired.</p>
 <p>Here's a simple example of a continuosly running task in <code>code.py</code>:</p>
 <pre><code class="python">from kyanit import controls, runner
@@ -326,19 +326,19 @@ you defined.</p>
 <p><strong>You may await a sleep time of 0</strong>, which basically means "return to this function as
 soon as possible." The scheduler will give time to other tasks that are not awaiting a
 sleep in a round-robin fashion, and will return to the function as soon as possible.</p>
-<p>HINT: Everything from uasyncio is available in <a title="kyanit.runner" href="runner.html"><code>kyanit.runner</code></a> (it has everything imported from
+<p>HINT: Everything from uasyncio is available in <code><a title="kyanit.runner" href="runner.html">kyanit.runner</a></code> (it has everything imported from
 <code>uasyncio</code>).</p>
-<h3 id="about-create_task">About <a title="kyanit.runner.create_task" href="runner.html#kyanit.runner.create_task"><code>create_task()</code></a></h3>
-<p>The <a title="kyanit.runner" href="runner.html"><code>kyanit.runner</code></a> module is responsible for running the code and keeping tabs on the
+<h3 id="about-create_task">About <code><a title="kyanit.runner.create_task" href="runner.html#kyanit.runner.create_task">create_task()</a></code></h3>
+<p>The <code><a title="kyanit.runner" href="runner.html">kyanit.runner</a></code> module is responsible for running the code and keeping tabs on the
 tasks.</p>
-<p>Always create tasks with <a title="kyanit.runner.create_task" href="runner.html#kyanit.runner.create_task"><code>create_task()</code></a> from <a title="kyanit.runner" href="runner.html"><code>kyanit.runner</code></a> and not
+<p>Always create tasks with <code><a title="kyanit.runner.create_task" href="runner.html#kyanit.runner.create_task">create_task()</a></code> from <code><a title="kyanit.runner" href="runner.html">kyanit.runner</a></code> and not
 <code>uasyncio.get_event_loop().create_task()</code>, because Kyanit can not catch errors in tasks
 created on the event loop directly. Uncaught errors will cause the coroutine that's
 raising them to stop silently, which may result in unexpected behavior.</p>
 <p>On the other hand, errors in tasks created on the runner will be handled. In case of an
 error, all tasks will be stopped in a controlled fashion, and Kyanit will go into ERROR
 state. (See <a href="#run-states"><em>Run States</em></a> above.)</p>
-<p>The same applies when running is stopped with <a title="kyanit.runner.stop" href="runner.html#kyanit.runner.stop"><code>stop()</code></a> or by ex. Kyanit
+<p>The same applies when running is stopped with <code><a title="kyanit.runner.stop" href="runner.html#kyanit.runner.stop">stop()</a></code> or by ex. Kyanit
 CTL, using <code>-stop</code>. Kyanit will stop all tasks created on runner, but it cannot stop
 tasks directly created on the event loop.</p>
 <p>Stop a single task from running with <code>runner.destroy_task('task_name')</code>.</p>
@@ -349,37 +349,37 @@ function and use <code>await runner.sleep()</code> where pauses can be accepted.
 <li>Never use <code>time.sleep()</code> for long delays, use <code>await runner.sleep()</code> instead.</li>
 <li>If timing is critical (ex. for bit-banging), you may use <code>time.sleep()</code>, but keep in
 mind that this prevents other coroutines to run in the meantime, so keep it short.</li>
-<li>Always create tasks with <a title="kyanit.runner.create_task" href="runner.html#kyanit.runner.create_task"><code>create_task()</code></a> from <a title="kyanit.runner" href="runner.html"><code>kyanit.runner</code></a>.</li>
+<li>Always create tasks with <code><a title="kyanit.runner.create_task" href="runner.html#kyanit.runner.create_task">create_task()</a></code> from <code><a title="kyanit.runner" href="runner.html">kyanit.runner</a></code>.</li>
 </ul>
 <p>More on coroutines in MicroPython:
 <a href="https://github.com/peterhinch/micropython-async/blob/master/TUTORIAL.md">https://github.com/peterhinch/micropython-async/blob/master/TUTORIAL.md</a></p>
-<p>Read documentation of <a title="kyanit.runner" href="runner.html"><code>kyanit.runner</code></a> to find out more about tasks and how to control
+<p>Read documentation of <code><a title="kyanit.runner" href="runner.html">kyanit.runner</a></code> to find out more about tasks and how to control
 the runner.</p>
 <h2 id="additional-sub-modules">Additional sub-modules</h2>
 <p>Kyanit Core has the following sub-modules available:</p>
 <ul>
-<li><strong><a title="kyanit.button" href="button.html"><code>kyanit.button</code></a></strong></li>
+<li><strong><code><a title="kyanit.button" href="button.html">kyanit.button</a></code></strong></li>
 </ul>
 <p>Module to monitor a button and catch button events.</p>
 <ul>
-<li><strong><a title="kyanit.httpsrv" href="httpsrv.html"><code>kyanit.httpsrv</code></a></strong></li>
+<li><strong><code><a title="kyanit.httpsrv" href="httpsrv.html">kyanit.httpsrv</a></code></strong></li>
 </ul>
 <p>A minimal HTTP server module.</p>
 <ul>
-<li><strong><a title="kyanit.interfaces" href="interfaces.html"><code>kyanit.interfaces</code></a></strong></li>
+<li><strong><code><a title="kyanit.interfaces" href="interfaces.html">kyanit.interfaces</a></code></strong></li>
 </ul>
 <p>Module to control the wireless network interfaces of the ESP8266.</p>
 <ul>
-<li><strong><a title="kyanit.neoleds" href="neoleds.html"><code>kyanit.neoleds</code></a></strong></li>
+<li><strong><code><a title="kyanit.neoleds" href="neoleds.html">kyanit.neoleds</a></code></strong></li>
 </ul>
 <p>Module to control WS2812B LEDs (NeoPixels) with animations and different color display
 options.</p>
 <ul>
-<li><strong><a title="kyanit.runner" href="runner.html"><code>kyanit.runner</code></a></strong></li>
+<li><strong><code><a title="kyanit.runner" href="runner.html">kyanit.runner</a></code></strong></li>
 </ul>
 <p>The code executor and supervisor module.</p>
 <ul>
-<li><strong><a title="kyanit.colorid" href="colorid.html"><code>kyanit.colorid</code></a></strong></li>
+<li><strong><code><a title="kyanit.colorid" href="colorid.html">kyanit.colorid</a></code></strong></li>
 </ul>
 <p>Color ID helper functions.</p>
 <p>All of these modules are available for the user code. Check out their documentation page
@@ -389,11 +389,11 @@ to see what they can do.</p>
 through the network connection by Kyanit CTL or Kyanit API.</p>
 <p>The Netvar can be used to issue custom commands to your board, such as switching or
 reading some data from your board (like sensor data).</p>
-<p>Check out the <a title="kyanit.Netvar" href="#kyanit.Netvar"><code>Netvar</code></a> class for details.</p>
+<p>Check out the <code><a title="kyanit.Netvar" href="#kyanit.Netvar">Netvar</a></code> class for details.</p>
 <h1 id="kyanit-api">Kyanit API</h1>
 <p>So far it was demonstrated how Kyanit CTL can be used to control a Kyanit board. If you
 want to control your board from Python code, check out Kyanit API at
-<a href="https://kyanit.eu/docs/kyanit-api.">https://kyanit.eu/docs/kyanit-api.</a></p>
+<a href="https://kyanit-project.github.io/kyanit-api/kyanitapi/.">https://kyanit-project.github.io/kyanit-api/kyanitapi/.</a></p>
 <h1 id="flashing-a-released-version-of-kyanit-core">Flashing a Released version of Kyanit Core</h1>
 <p>Download the latest <code>kyanit-core-&lt;version&gt;.bin</code> from
 <a href="https://github.com/kyanit-project/kyanit/releases/latest">https://github.com/kyanit-project/kyanit/releases/latest</a> , then refer to MicroPython
@@ -453,9 +453,9 @@ a slower "breathing" animation.</p>
 <p>Default colors may be changed by passing a list of 3 colors to <code>active_colors</code> and
 <code>idle_colors</code>. Each color must be an RGB tuple.</p>
 <p>On code error, the <code>idle_colors</code> will be shown, with an "attention" animation.</p>
-<p><code>kyanit_leds</code> may be instance of <a title="kyanit.neoleds.NeoLeds" href="neoleds.html#kyanit.neoleds.NeoLeds"><code>NeoLeds</code></a> to override default LEDs
+<p><code>kyanit_leds</code> may be instance of <code><a title="kyanit.neoleds.NeoLeds" href="neoleds.html#kyanit.neoleds.NeoLeds">NeoLeds</a></code> to override default LEDs
 pin, and to provide additional custom functionality to the LEDs.</p>
-<p><code>kyanit_button</code> may be instance of <a title="kyanit.button.Button" href="button.html#kyanit.button.Button"><code>Button</code></a> to override default button
+<p><code>kyanit_button</code> may be instance of <code><a title="kyanit.button.Button" href="button.html#kyanit.button.Button">Button</a></code> to override default button
 pin. As of now, the button can not be used for any other functionality, if this
 decorator is used.</p>
 <p>The brightness of the LEDs can be adjusted with the <code>brightness</code> parameter, which
@@ -489,9 +489,9 @@ wireless network, or if it loses connection.</p></section>
 through the network connection. Netvar is a static class, therefore it's not
 intended to be instantiated.</p>
 <p>There are 2 variables within Netvar, which can be understood as "channels".</p>
-<p><a title="kyanit.Netvar.inbound" href="#kyanit.Netvar.inbound"><code>Netvar.inbound()</code></a> accesses the variable that is written from "outside", such as by
+<p><code><a title="kyanit.Netvar.inbound" href="#kyanit.Netvar.inbound">Netvar.inbound()</a></code> accesses the variable that is written from "outside", such as by
 Kyanit CTL or Kyanit API.</p>
-<p><a title="kyanit.Netvar.outbound" href="#kyanit.Netvar.outbound"><code>Netvar.outbound()</code></a> on the other hand is what Kyanit publishes, and is available for
+<p><code><a title="kyanit.Netvar.outbound" href="#kyanit.Netvar.outbound">Netvar.outbound()</a></code> on the other hand is what Kyanit publishes, and is available for
 reading by Kyanit CTL or Kyanit API.</p>
 <p>Both methods have the same usage. Having no parameters passed gets the actual value
 of the variables:</p>
@@ -643,7 +643,7 @@ cleanup.</p></section>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.3</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>
