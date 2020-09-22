@@ -853,7 +853,9 @@ def run():
                 [
                     path
                     for path in uos.listdir("/")
-                    if uos.stat(path)[0] == 32768 and path not in PROTECTED_FILES
+                    if "\x00" not in path  # ignore garbage files
+                    and uos.stat(path)[0] == 32768  # noqa
+                    and path not in PROTECTED_FILES  # noqa
                 ]
             ),
             httpsrv.CT_JSON,
