@@ -3,7 +3,7 @@
 # Use coroutines through kyanit.runner.create_task('name', coro) for continuous or
 # longer tasks. Any errors (including from coroutines) will be passed to cleanup.
 # The @kyanit.controls() decorator adds functionality to the LEDs and button. It can be
-# removed if this is not required, to save approximately 1k of RAM.
+# removed if this is not needed, to save approximately 1k of RAM.
 
 # To get started, head to https://kyanit.eu
 
