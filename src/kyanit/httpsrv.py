@@ -279,7 +279,7 @@ def error_view(exc):
     Return an HTTP 500 response with a JSON body of the error detail.
 
     This function may be monkey-patched to override the default error response. It must
-    return a dict assembled by `response`.
+    return a dict assembled by `send_response`.
     """
 
     exc_details = uio.StringIO()
