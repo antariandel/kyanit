@@ -1,4 +1,4 @@
-# freeze("$(MPY_DIR)/tools", ("upip.py", "upip_utarfile.py"))
+freeze("$(PORT_DIR)/boards/KYANIT/modules")  # noqa
 freeze("$(MPY_DIR)/drivers/dht", "dht.py")  # noqa
 freeze("$(MPY_DIR)/drivers/onewire")  # noqa
 
