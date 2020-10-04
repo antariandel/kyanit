@@ -917,6 +917,12 @@ def run():
             200,
             ujson.dumps(
                 {
+                    "unique_id": ubinascii.hexlify(
+                        machine.unique_id()
+                    ).decode().upper(),
+                    "micropython_version": uos.uname().version[
+                        1:uos.uname().version.index(" ")
+                    ],
                     "firmware_version": __version__,
                     "color_id": _color_id,
                     "free_memory": gc.mem_free(),
