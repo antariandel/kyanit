@@ -910,7 +910,7 @@ def run():
     def action_reboot(method, loc, params, headers, conn, addr):
         runner.stop(exc=RebootError)
         runner.get_event_loop().create_task(reboot())
-        return httpsrv.response(200, '"OK"', "application/json")
+        return httpsrv.response(200, '"OK"', httpsrv.CT_JSON)
 
     def action_state(method, loc, params, headers, conn, addr):
         return httpsrv.response(
@@ -945,24 +945,24 @@ def run():
                     else None,  # noqa
                 }
             ),
-            "application/json",
+            httpsrv.CT_JSON,
         )
 
     def action_runner_start(method, loc, params, headers, conn, addr):
         runner.start()
-        return httpsrv.response(200, '"OK"', "application/json")
+        return httpsrv.response(200, '"OK"', httpsrv.CT_JSON)
 
     def action_runner_stop(method, loc, params, headers, conn, addr):
         runner.stop(force=True if "force" in loc else False, exc=StoppedError)
-        return httpsrv.response(200, '"OK"', "application/json")
+        return httpsrv.response(200, '"OK"', httpsrv.CT_JSON)
 
     def action_netvar(method, loc, params, headers, conn, addr):
         if method == "POST":
             Netvar.inbound(ujson.loads(httpsrv.readall_from(conn).getvalue().decode()))
-            return httpsrv.response(200, '"OK"', "application/json")
+            return httpsrv.response(200, '"OK"', httpsrv.CT_JSON)
         if method == "GET":
             return httpsrv.response(
-                200, ujson.dumps(Netvar.outbound()), "application/json"
+                200, ujson.dumps(Netvar.outbound()), httpsrv.CT_JSON
             )
 
     # Start in fallback AP mode if the button is pressed
