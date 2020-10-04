@@ -94,9 +94,12 @@ def stop(force=False, exc=None):
                 if hasattr(code, "cleanup"):
                     # pass exc to cleanup
                     code.cleanup(exc)
-
+            
+            except ImportError:
+                pass  # ignore missing code.py and stop gracefully
+            
             except Exception as exc:
-                _handle_error(exc, False)
+                _handle_error(exc, cleanup=False)
 
 
 async def stopper_coro():
