@@ -900,7 +900,7 @@ def run():
             return httpsrv.response(200, '"OK"', httpsrv.CT_JSON)
 
     async def reboot():
-        await runner.sleep(1)
+        await runner.sleep(.1)
         print("KYANIT Hard Reset!")
         machine.reset()
 
