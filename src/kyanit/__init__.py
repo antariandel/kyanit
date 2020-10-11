@@ -819,18 +819,15 @@ def run():
             authmode=network.AUTH_WPA_WPA2_PSK,
         )
 
-    async def front_leds_blink(neop, color):
+    async def leds_ap_mode(neop):
         # when fallback AP is active
-        trigger = True
+        trigger = False
         while True:
-            for i in range(3):
-                if trigger:
-                    neop[i] = color
-                else:
-                    neop[i] = (0, 0, 0)
-            neop.write()
             trigger = not trigger
-            await runner.sleep_ms(500)
+            for idx in range(3):
+                neop[idx] = (0, 0, 64) if idx == 0 and trigger else (0, 0, 0)
+            neop.write()
+            await runner.sleep_ms(250)
 
     async def check_wlan_connection():
         global _color_id
@@ -994,11 +991,11 @@ def run():
         fallback_ap_mode = True
         setup_fallback_ap()
 
-    # Blink LEDS in blue if in fallback AP mode
+    # Show fallback AP mode on LEDs
     if fallback_ap_mode:
         neop = neopixel.NeoPixel(machine.Pin(LEDS_PIN), 3)
         loop = runner.get_event_loop()
-        loop.create_task(front_leds_blink(neop, (0, 0, 255)))
+        loop.create_task(leds_ap_mode(neop))
 
     # Set Color ID
     _color_id = colorid.from_number(
