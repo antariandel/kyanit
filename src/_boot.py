@@ -28,8 +28,8 @@ if bdev:
         uos.mount(bdev, "/")
 
     except Exception:
-        uos.VfsFat.mkfs(bdev)
-        vfs = uos.VfsFat(bdev)
+        uos.VfsLfs2.mkfs(bdev)
+        vfs = uos.VfsLfs2(bdev)
         uos.mount(vfs, "/")
 
 gc.collect()
