@@ -539,20 +539,11 @@ from . import colorid
 from . import httpsrv
 from . import interfaces
 
-if esp.flash_user_start() is not None:
-    hasher = uhashlib.sha256()
-    for i in range(esp.flash_user_start() / 1024):
-        hasher.update(esp.flash_read(i * 1024, 1024))
-    fw_digest = ubinascii.hexlify(hasher.digest()).decode()[:8]
-else:
-    fw_digest = "0"
 
 try:
     from ._version import __version__  # noqa
-
-    __version = "{}+{}".format(__version__, fw_digest)
 except ImportError:
-    __version__ = "build+{}".format(fw_digest)
+    __version__ = "UNKNOWN"
 
 
 LEDS_PIN = 4
